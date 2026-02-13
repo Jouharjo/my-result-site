@@ -7,18 +7,19 @@
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
     <style>
         :root {
-            --primary: #0f766e; /* Teal */
+            --primary: #0f766e;
             --primary-dark: #0d5f58;
             --accent: #ccfbf1;
             --text-main: #111827;
             --text-sub: #6b7280;
             --bg: #f3f4f6;
             --white: #ffffff;
-            --success: #059669; /* A slightly deeper green */
-            --danger: #dc2626;  /* A nice deep red */
+            --success: #059669;
+            --danger: #dc2626;
         }
 
         body {
@@ -32,7 +33,6 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* MAIN CONTAINER */
         .app-container {
             width: 100%;
             max-width: 420px;
@@ -42,7 +42,7 @@
             position: relative;
         }
 
-        /* HEADER DESIGN */
+        /* HEADER */
         .header-section {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             padding: 40px 20px 80px;
@@ -52,12 +52,13 @@
             border-bottom-right-radius: 30px;
             box-shadow: 0 4px 20px rgba(15, 118, 110, 0.2);
         }
-
-        .logo-icon { font-size: 48px; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .logo-icon { font-size: 48px; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        
         .school-name { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; margin: 0; text-transform: uppercase; }
         .exam-name { font-size: 13px; font-weight: 500; opacity: 0.9; margin-top: 5px; }
 
-        /* FLOATING CARD */
+        /* CARD */
         .main-card {
             background: var(--white);
             margin: -60px 20px 20px;
@@ -70,7 +71,7 @@
 
         /* INPUTS */
         .input-group { margin-bottom: 20px; text-align: left; }
-        .input-label { display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-label { display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase; }
         
         select, input {
             width: 100%;
@@ -86,14 +87,12 @@
             box-sizing: border-box;
             appearance: none;
         }
-
         select {
             background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
             background-repeat: no-repeat;
             background-position: right 15px top 50%;
             background-size: 12px auto;
         }
-
         input:focus, select:focus { border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 4px var(--accent); }
 
         /* BUTTONS */
@@ -124,67 +123,50 @@
             width: 100%;
         }
 
-        /* LOADING SPINNER */
-        .spinner {
-            display: inline-block; width: 20px; height: 20px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%; border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px; vertical-align: middle;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        /* RESULT ANIMATIONS */
+        #resultView { display: none; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* RESULT VIEW ANIMATION */
-        #resultView { display: none; animation: slideUp 0.4s ease-out; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* RESULT DETAILS */
         .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed #e5e7eb; }
         .student-name { font-size: 20px; font-weight: 800; color: var(--text-main); line-height: 1.2; }
         .student-meta { font-size: 13px; color: var(--text-sub); margin-top: 4px; font-weight: 500; }
         .student-roll { background: var(--bg); padding: 5px 10px; border-radius: 8px; font-weight: 700; font-size: 14px; color: var(--text-main); }
 
-        /* MARKS TABLE */
+        /* TABLE & ANIMATION */
         .marks-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 25px; }
         .marks-table th { text-align: left; font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; padding: 10px 5px; border-bottom: 2px solid #f3f4f6; }
         .marks-table td { padding: 12px 5px; font-size: 15px; font-weight: 600; color: var(--text-main); border-bottom: 1px solid #f3f4f6; }
-        .marks-table tr:last-child td { border-bottom: none; }
         .marks-table td.marks-col { text-align: right; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+        
+        /* Row Animation */
+        .marks-row { opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* SCORE CARDS (SWAPPED & UPDATED) */
+        /* SCORE CARDS */
         .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
         .score-card { background: #f9fafb; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #f3f4f6; }
         .score-label { font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; }
         .score-value { font-size: 22px; font-weight: 800; color: var(--primary); }
 
-        /* STATUS BADGE (LARGER WITH ICONS) */
+        /* STATUS BADGE */
         .status-container { text-align: center; margin-bottom: 30px; }
         .status-badge {
-            display: inline-flex; /* For icon alignment */
-            align-items: center;
-            justify-content: center;
-            gap: 10px; /* Space between icon and text */
-            padding: 12px 40px; /* Larger padding */
-            border-radius: 50px;
-            color: white;
-            font-weight: 800;
-            font-size: 18px; /* Larger font */
-            letter-spacing: 1px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            text-transform: uppercase;
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 12px 40px; border-radius: 50px; color: white; font-weight: 800; font-size: 18px; letter-spacing: 1px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15); text-transform: uppercase;
+            animation: pulse 2s infinite;
         }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
+        
         .status-pass { background: var(--success); box-shadow: 0 6px 15px rgba(5, 150, 105, 0.4); }
         .status-fail { background: var(--danger); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); }
-        .status-badge i { font-size: 20px; } /* Icon size */
-
-        /* FOOTER */
+        
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
     </style>
 </head>
 <body>
 
 <div class="app-container">
-    
     <div class="header-section">
         <div class="logo-icon">🎓</div>
         <h1 class="school-name">Misbahul Huda Madrasa</h1>
@@ -203,16 +185,12 @@
                 <option value="Class 5">Class 5</option>
             </select>
         </div>
-
         <div class="input-group">
             <label class="input-label">Roll Number</label>
             <input type="number" id="rollInput" placeholder="Ex: 101" inputmode="numeric">
         </div>
-
         <button class="btn-primary" onclick="findResult()" id="searchBtn">Check Result</button>
-        <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #999;">
-            Need help? Contact School Office
-        </div>
+        <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #999;">Need help? Contact School Office</div>
     </div>
 
     <div class="main-card" id="resultView">
@@ -225,41 +203,24 @@
         </div>
 
         <table class="marks-table">
-            <thead>
-                <tr>
-                    <th>Subject</th>
-                    <th style="text-align: right;">Marks</th>
-                </tr>
-            </thead>
-            <tbody id="marksBody">
-                </tbody>
+            <thead><tr><th>Subject</th><th style="text-align: right;">Marks</th></tr></thead>
+            <tbody id="marksBody"></tbody>
         </table>
 
         <div class="score-grid">
-            <div class="score-card">
-                <span class="score-label">Rank</span>
-                <div class="score-value" id="rRank">--</div>
-            </div>
-            <div class="score-card">
-                <span class="score-label">Total Marks</span>
-                <div class="score-value" id="rTotal">0</div>
-            </div>
+            <div class="score-card"><span class="score-label">Rank</span><div class="score-value" id="rRank">--</div></div>
+            <div class="score-card"><span class="score-label">Total Marks</span><div class="score-value" id="rTotal">0</div></div>
         </div>
 
         <div class="status-container">
-            <div id="rStatus" class="status-badge status-pass">
-                <i class="fas fa-check-circle"></i> PASS
-            </div>
+            <div id="rStatus" class="status-badge status-pass"><i class="fas fa-check-circle"></i> PASS</div>
         </div>
 
         <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
         <button class="btn-secondary" onclick="location.reload()">Check Another Result</button>
     </div>
 
-    <div class="footer">
-        Powered by <strong>Jouhar's Tech</strong>
-    </div>
-
+    <div class="footer">Powered by <strong>Jouhar's Tech</strong></div>
 </div>
 
 <script>
@@ -275,7 +236,7 @@
         if(!roll) return alert("Please enter Roll Number");
 
         const originalText = btn.innerText;
-        btn.innerHTML = '<span class="spinner"></span> Searching...';
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
         btn.style.opacity = "0.8";
 
         try {
@@ -290,33 +251,35 @@
                 document.getElementById('rRoll').innerText = "Roll: " + roll;
                 document.getElementById('rClass').innerText = cls;
                 
-                // --- NEW: Rank Icons Logic ---
+                // Rank Icons
                 const rankVal = data.rank;
-                let rankHtml = "#" + rankVal; // Default
+                let rankHtml = "#" + rankVal;
                 if(rankVal == 1) rankHtml = "🥇 1st";
                 if(rankVal == 2) rankHtml = "🥈 2nd";
                 if(rankVal == 3) rankHtml = "🥉 3rd";
-                document.getElementById('rRank').innerHTML = rankHtml; // Use innerHTML for icons
-
-                // Total Marks
+                document.getElementById('rRank').innerHTML = rankHtml;
                 document.getElementById('rTotal').innerText = data.total;
 
-                // --- NEW: Pass/Fail Icons Logic ---
+                // Status & Confetti Logic
                 const statusBadge = document.getElementById('rStatus');
                 if(data.finalStatus === "FAIL") {
                     statusBadge.className = "status-badge status-fail";
-                    // Add Cross Icon
                     statusBadge.innerHTML = '<i class="fas fa-times-circle"></i> FAIL';
                 } else {
                     statusBadge.className = "status-badge status-pass";
-                    // Add Tick Icon
                     statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> PASS';
+                    // TRIGGER CONFETTI
+                    fireConfetti();
                 }
 
-                // Fill Table
+                // Fill Table with Animation Delays
                 let rows = "";
-                data.subjectData.forEach(sub => {
-                    rows += `<tr><td>${sub.name}</td><td class="marks-col">${sub.mark}</td></tr>`;
+                data.subjectData.forEach((sub, index) => {
+                    // Add animation-delay based on index (0.1s, 0.2s, etc.)
+                    rows += `<tr class="marks-row" style="animation-delay: ${index * 0.1}s">
+                                <td>${sub.name}</td>
+                                <td class="marks-col">${sub.mark}</td>
+                             </tr>`;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
 
@@ -329,6 +292,23 @@
 
         btn.innerHTML = originalText;
         btn.style.opacity = "1";
+    }
+
+    function fireConfetti() {
+        var count = 200;
+        var defaults = { origin: { y: 0.7 } };
+
+        function fire(particleRatio, opts) {
+            confetti(Object.assign({}, defaults, opts, {
+                particleCount: Math.floor(count * particleRatio)
+            }));
+        }
+
+        fire(0.25, { spread: 26, startVelocity: 55 });
+        fire(0.2, { spread: 60 });
+        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
+        fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
+        fire(0.1, { spread: 120, startVelocity: 45 });
     }
 </script>
 
