@@ -2,151 +2,326 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exam Results 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Result Portal 2026</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --primary: #00897b; --fail: #e53935; --bg: #f4f7f6; }
-        body { font-family: 'Noto Sans', sans-serif; background: var(--bg); margin: 0; padding: 20px; display: flex; justify-content: center; min-height: 100vh; }
+        :root {
+            --primary: #0f766e; /* Professional Teal */
+            --primary-dark: #0d5f58;
+            --accent: #ccfbf1;
+            --text-main: #111827;
+            --text-sub: #6b7280;
+            --bg: #f3f4f6;
+            --white: #ffffff;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            color: var(--text-main);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* MAIN CONTAINER */
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* HEADER DESIGN */
+        .header-section {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            padding: 40px 20px 80px; /* Extra padding bottom for overlap */
+            text-align: center;
+            color: white;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 4px 20px rgba(15, 118, 110, 0.2);
+        }
+
+        .logo-icon { font-size: 48px; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
+        .school-name { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; margin: 0; text-transform: uppercase; }
+        .exam-name { font-size: 13px; font-weight: 500; opacity: 0.9; margin-top: 5px; }
+
+        /* FLOATING CARD */
+        .main-card {
+            background: var(--white);
+            margin: -60px 20px 20px; /* Negative margin to pull up */
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* INPUTS */
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-label { display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* CARD DESIGN */
-        .card { background: white; width: 100%; max-width: 400px; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); overflow: hidden; position: relative; }
-        
-        /* SEARCH PAGE */
-        #searchView { padding: 40px 30px; text-align: center; }
-        .logo { font-size: 50px; color: var(--primary); margin-bottom: 10px; }
-        h1 { color: #333; font-size: 22px; margin: 0; font-weight: 800; text-transform: uppercase; }
-        .subtitle { color: #888; font-size: 14px; margin-bottom: 30px; }
-        
-        input, select { width: 100%; padding: 14px; border: 2px solid #eee; border-radius: 10px; font-size: 16px; margin-bottom: 15px; outline: none; box-sizing: border-box; transition: 0.3s; }
-        input:focus, select:focus { border-color: var(--primary); }
-        
-        .btn { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .btn:hover { background: #00796b; }
+        select, input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            font-family: inherit;
+            color: var(--text-main);
+            background: #f9fafb;
+            outline: none;
+            transition: all 0.2s;
+            box-sizing: border-box;
+            appearance: none; /* Remove default arrow */
+        }
 
-        /* RESULT PAGE */
-        #resultView { display: none; }
-        .res-header { background: var(--primary); padding: 30px; text-align: center; color: white; }
-        .res-body { padding: 25px; }
+        select {
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px top 50%;
+            background-size: 12px auto;
+        }
 
-        .info-group { display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 15px; }
-        .label { font-size: 11px; color: #999; font-weight: 700; text-transform: uppercase; }
-        .value { font-size: 16px; font-weight: 700; color: #333; }
+        input:focus, select:focus { border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 4px var(--accent); }
 
-        /* MARKS TABLE */
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
-        th { background: #f8f9fa; text-align: left; padding: 12px; font-size: 12px; color: #666; }
-        td { padding: 12px; font-size: 14px; font-weight: 600; border-bottom: 1px solid #eee; color: #333; }
-        .right { text-align: right; }
+        /* BUTTONS */
+        .btn-primary {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s;
+            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+        }
+        .btn-primary:active { transform: scale(0.98); }
 
-        /* BADGES */
-        .status-badge { display: block; text-align: center; padding: 12px; border-radius: 50px; color: white; font-weight: 700; margin-top: 20px; }
-        .pass { background: #2ecc71; }
-        .fail { background: var(--fail); }
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-sub);
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+        }
 
-        .summary-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .summary-box { background: #f4f7f6; padding: 15px; text-align: center; border-radius: 10px; }
-        .summary-box small { display: block; font-size: 10px; color: #777; font-weight: 700; }
-        .summary-box strong { font-size: 20px; color: var(--primary); }
+        /* LOADING SPINNER */
+        .spinner {
+            display: inline-block; width: 20px; height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%; border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px; vertical-align: middle;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        .btn-outline { background: white; border: 2px solid var(--primary); color: var(--primary); margin-top: 10px; }
+        /* RESULT VIEW ANIMATION */
+        #resultView { display: none; animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* RESULT DETAILS */
+        .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed #e5e7eb; }
+        .student-name { font-size: 20px; font-weight: 800; color: var(--text-main); line-height: 1.2; }
+        .student-meta { font-size: 13px; color: var(--text-sub); margin-top: 4px; font-weight: 500; }
+        .student-roll { background: var(--bg); padding: 5px 10px; border-radius: 8px; font-weight: 700; font-size: 14px; color: var(--text-main); }
+
+        /* MARKS TABLE PRO */
+        .marks-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 25px; }
+        .marks-table th { text-align: left; font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; padding: 10px 5px; border-bottom: 2px solid #f3f4f6; }
+        .marks-table td { padding: 12px 5px; font-size: 15px; font-weight: 600; color: var(--text-main); border-bottom: 1px solid #f3f4f6; }
+        .marks-table tr:last-child td { border-bottom: none; }
+        .marks-table td.marks-col { text-align: right; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+
+        /* SCORE CARDS */
+        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
+        .score-card { background: #f9fafb; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #f3f4f6; }
+        .score-label { font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; }
+        .score-value { font-size: 22px; font-weight: 800; color: var(--primary); }
+
+        /* STATUS BADGE */
+        .status-container { text-align: center; margin-bottom: 25px; }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 30px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .status-pass { background: var(--success); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
+        .status-fail { background: var(--danger); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+
+        /* FOOTER */
+        .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
     </style>
 </head>
 <body>
 
-    <div class="card" id="searchView">
-        <div class="logo">🎓</div>
-        <h1>Madrasa Result</h1>
-        <div class="subtitle">Annual Examination 2026</div>
+<div class="app-container">
+    
+    <div class="header-section">
+        <div class="logo-icon">🎓</div>
+        <h1 class="school-name">Misbahul Huda Madrasa</h1>
+        <div class="exam-name">Annual Examination Results 2026</div>
+    </div>
 
-        <select id="classSelect">
-            <option value="Class 1">Class 1</option>
-            <option value="Class 2">Class 2</option>
-            <option value="Class 3">Class 3</option>
+    <div class="main-card" id="searchView">
+        <div class="input-group">
+            <label class="input-label">Select Class</label>
+            <select id="classSelect">
+                <option value="" disabled selected>Choose class...</option>
+                <option value="Class 1">Class 1</option>
+                <option value="Class 2">Class 2</option>
+                <option value="Class 3">Class 3</option>
+                <option value="Class 4">Class 4</option>
+                <option value="Class 5">Class 5</option>
             </select>
-
-        <input type="number" id="rollInput" placeholder="Enter Roll Number">
-        <button class="btn" onclick="findResult()">Check Result</button>
-    </div>
-
-    <div class="card" id="resultView">
-        <div class="res-header">
-            <div style="font-size: 40px; margin-bottom:5px">🎓</div>
-            <h2 style="margin:0; font-size: 18px;">RESULT CARD</h2>
-            <p style="margin:5px 0 0; font-size: 13px; opacity: 0.9;">Annual Examination 2026</p>
         </div>
 
-        <div class="res-body">
-            <div class="info-group">
-                <div><div class="label">Student Name</div><div class="value" id="rName">--</div></div>
-                <div style="text-align:right"><div class="label">Roll No</div><div class="value" id="rRoll">--</div></div>
-            </div>
-            <div class="info-group">
-                <div><div class="label">Class</div><div class="value" id="rClass">--</div></div>
-            </div>
+        <div class="input-group">
+            <label class="input-label">Roll Number</label>
+            <input type="number" id="rollInput" placeholder="Ex: 101" inputmode="numeric">
+        </div>
 
-            <table>
-                <thead><tr><th>Subject</th><th class="right">Marks</th></tr></thead>
-                <tbody id="marksBody"></tbody>
-            </table>
-
-            <div class="summary-row">
-                <div class="summary-box"><small>TOTAL</small><strong id="rTotal">0</strong></div>
-                <div class="summary-box"><small>RANK</small><strong id="rRank">#0</strong></div>
-            </div>
-
-            <div id="rStatus" class="status-badge pass">PASS</div>
-
-            <button class="btn btn-outline" onclick="location.reload()">Search Again</button>
-            <button class="btn" onclick="window.print()">Download PDF</button>
+        <button class="btn-primary" onclick="findResult()" id="searchBtn">Check Result</button>
+        <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #999;">
+            Need help? Contact School Office
         </div>
     </div>
 
-    <script>
-        // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL BELOW ▼▼▼
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUMvrE0fZwXSOTXgtv_kPAQi5DeG5eFSfqmaf1a1BLib4K4SR0CkijIHqOLNFa5GZpqw/exec"; 
+    <div class="main-card" id="resultView">
+        <div class="student-header">
+            <div>
+                <div class="student-name" id="rName">--</div>
+                <div class="student-meta" id="rClass">--</div>
+            </div>
+            <div class="student-roll" id="rRoll">--</div>
+        </div>
 
-        async function findResult() {
-            const roll = document.getElementById('rollInput').value;
-            const cls = document.getElementById('classSelect').value;
-            const btn = document.querySelector('.btn');
+        <table class="marks-table">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th style="text-align: right;">Marks</th>
+                </tr>
+            </thead>
+            <tbody id="marksBody">
+                </tbody>
+        </table>
 
-            if(!roll) return alert("Please enter Roll Number");
+        <div class="score-grid">
+            <div class="score-card">
+                <span class="score-label">Total Marks</span>
+                <div class="score-value" id="rTotal">0</div>
+            </div>
+            <div class="score-card">
+                <span class="score-label">Rank</span>
+                <div class="score-value" id="rRank">#0</div>
+            </div>
+        </div>
 
-            btn.innerText = "Searching...";
+        <div class="status-container">
+            <div id="rStatus" class="status-badge status-pass">PASS</div>
+        </div>
 
-            try {
-                const response = await fetch(`${SCRIPT_URL}?roll=${roll}&cls=${cls}`);
-                const data = await response.json();
+        <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
+        <button class="btn-secondary" onclick="location.reload()">Check Another Result</button>
+    </div>
 
-                if (data.status === "success") {
-                    document.getElementById('searchView').style.display = 'none';
-                    document.getElementById('resultView').style.display = 'block';
+    <div class="footer">
+        Powered by <strong>Jouhar's Tech</strong>
+    </div>
 
-                    document.getElementById('rName').innerText = data.name;
-                    document.getElementById('rRoll').innerText = roll;
-                    document.getElementById('rClass').innerText = cls;
-                    document.getElementById('rTotal').innerText = data.total;
-                    document.getElementById('rRank').innerText = "#" + data.rank;
+</div>
 
-                    const statusBadge = document.getElementById('rStatus');
-                    statusBadge.innerText = data.finalStatus;
-                    statusBadge.className = (data.finalStatus === "FAIL") ? "status-badge fail" : "status-badge pass";
+<script>
+    // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL HERE ▼▼▼
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUMvrE0fZwXSOTXgtv_kPAQi5DeG5eFSfqmaf1a1BLib4K4SR0CkijIHqOLNFa5GZpqw/exec"; 
 
-                    let rows = "";
-                    data.subjectData.forEach(sub => {
-                        rows += `<tr><td>${sub.name}</td><td class="right">${sub.mark}</td></tr>`;
-                    });
-                    document.getElementById('marksBody').innerHTML = rows;
+    async function findResult() {
+        const roll = document.getElementById('rollInput').value;
+        const cls = document.getElementById('classSelect').value;
+        const btn = document.getElementById('searchBtn');
+
+        if(!cls) return alert("Please select a Class");
+        if(!roll) return alert("Please enter Roll Number");
+
+        // Loading State
+        const originalText = btn.innerText;
+        btn.innerHTML = '<span class="spinner"></span> Searching...';
+        btn.style.opacity = "0.8";
+
+        try {
+            const response = await fetch(`${SCRIPT_URL}?roll=${roll}&cls=${cls}`);
+            const data = await response.json();
+
+            if (data.status === "success") {
+                // Switch Views
+                document.getElementById('searchView').style.display = 'none';
+                document.getElementById('resultView').style.display = 'block';
+
+                // Fill Info
+                document.getElementById('rName').innerText = data.name;
+                document.getElementById('rRoll').innerText = "Roll: " + roll;
+                document.getElementById('rClass').innerText = cls;
+                document.getElementById('rTotal').innerText = data.total;
+                document.getElementById('rRank').innerText = "#" + data.rank;
+
+                // Status Logic
+                const statusBadge = document.getElementById('rStatus');
+                statusBadge.innerText = data.finalStatus;
+                if(data.finalStatus === "FAIL") {
+                    statusBadge.className = "status-badge status-fail";
+                    // Optional: Change header color to red for Fail? 
+                    // Let's keep it simple for now.
                 } else {
-                    alert("Result not found. Check Roll No and Class.");
+                    statusBadge.className = "status-badge status-pass";
                 }
-            } catch (error) {
-                alert("Connection Error. Please try again.");
+
+                // Fill Table
+                let rows = "";
+                data.subjectData.forEach(sub => {
+                    rows += `
+                        <tr>
+                            <td>${sub.name}</td>
+                            <td class="marks-col">${sub.mark}</td>
+                        </tr>
+                    `;
+                });
+                document.getElementById('marksBody').innerHTML = rows;
+
+            } else {
+                alert("Result not found! Please check Class and Roll Number.");
             }
-            btn.innerText = "Check Result";
+        } catch (error) {
+            alert("Network Error. Please try again.");
         }
-    </script>
+
+        // Reset Button
+        btn.innerHTML = originalText;
+        btn.style.opacity = "1";
+    }
+</script>
+
 </body>
 </html>
-
