@@ -5,412 +5,201 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Result Portal 2026</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.4);
             --primary: #0f766e;
-            --primary-dark: #0d5f58;
-            --accent: #ccfbf1;
-            --text-main: #111827;
-            --text-sub: #6b7280;
-            --bg: #f3f4f6;
-            --white: #ffffff;
-            --success: #059669;
-            --danger: #dc2626;
+            --text: #1f2937;
+            --success: #10b981;
+            --fail: #ef4444;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
+            font-family: 'Outfit', sans-serif;
             margin: 0;
+            padding: 0;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
-            min-height: 100vh;
-            color: var(--text-main);
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 420px;
-            background: var(--bg);
-            display: flex;
-            flex-direction: column;
+            align-items: center;
+            color: var(--text);
+            background: #f0f2f5;
+            overflow-x: hidden;
             position: relative;
         }
+
+        /* --- LIQUID BACKGROUND ANIMATION --- */
+        .background-blobs {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: linear-gradient(120deg, #e0f2fe, #f0fdf4);
+            overflow: hidden;
+        }
+        .blob {
+            position: absolute;
+            background: linear-gradient(180deg, rgba(15, 118, 110, 0.3) 0%, rgba(45, 212, 191, 0.3) 100%);
+            filter: blur(80px);
+            border-radius: 50%;
+            animation: floatBlob 10s infinite alternate ease-in-out;
+        }
+        .blob-1 { width: 300px; height: 300px; top: -50px; left: -50px; }
+        .blob-2 { width: 400px; height: 400px; bottom: -100px; right: -100px; animation-delay: -5s; background: linear-gradient(180deg, rgba(99, 102, 241, 0.2) 0%, rgba(168, 85, 247, 0.2) 100%); }
+        
+        @keyframes floatBlob { 
+            0% { transform: translate(0, 0) scale(1); } 
+            100% { transform: translate(30px, 50px) scale(1.1); } 
+        }
+
+        /* --- GLASS CARD CONTAINER --- */
+        .glass-card {
+            width: 90%;
+            max-width: 420px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px); /* The "Frosted" Effect */
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes popIn { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
         /* HEADER */
-        .header-section {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            padding: 40px 20px 80px;
-            text-align: center;
-            color: white;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            box-shadow: 0 4px 20px rgba(15, 118, 110, 0.2);
-        }
-        .logo-icon { font-size: 48px; margin-bottom: 10px; display: inline-block; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-        
-        .school-name { font-size: 18px; font-weight: 800; letter-spacing: 0.5px; margin: 0; text-transform: uppercase; }
-        .exam-name { font-size: 13px; font-weight: 500; opacity: 0.9; margin-top: 5px; }
-
-        /* CARD */
-        .main-card {
-            background: var(--white);
-            margin: -60px 20px 20px;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            position: relative;
-            z-index: 10;
-        }
+        .logo { font-size: 50px; margin-bottom: 15px; display: inline-block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+        .school-title { font-size: 20px; font-weight: 800; color: #111827; letter-spacing: -0.5px; margin: 0; line-height: 1.2; }
+        .exam-sub { font-size: 13px; font-weight: 500; color: #6b7280; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
 
         /* INPUTS */
-        .input-group { margin-bottom: 20px; text-align: left; }
-        .input-label { display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase; }
+        .input-group { text-align: left; margin-top: 25px; }
+        label { font-size: 12px; font-weight: 700; color: #4b5563; margin-left: 5px; margin-bottom: 5px; display: block; }
         
-        select, input {
+        .glass-input {
             width: 100%;
             padding: 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
+            border-radius: 14px;
+            border: 2px solid rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.6);
             font-size: 16px;
             font-family: inherit;
-            color: var(--text-main);
-            background: #f9fafb;
             outline: none;
-            transition: all 0.2s;
+            transition: 0.3s;
             box-sizing: border-box;
-            appearance: none;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
         }
-        select {
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px top 50%;
-            background-size: 12px auto;
-        }
-        input:focus, select:focus { border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 4px var(--accent); }
+        .glass-input:focus { border-color: var(--primary); background: white; box-shadow: 0 4px 15px rgba(15, 118, 110, 0.15); }
 
         /* BUTTONS */
-        .btn-primary {
-            width: 100%;
-            padding: 18px;
-            background: var(--primary);
+        .btn-grad {
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
             color: white;
             border: none;
-            border-radius: 12px;
+            width: 100%;
+            padding: 18px;
+            border-radius: 14px;
             font-size: 16px;
             font-weight: 700;
+            margin-top: 25px;
             cursor: pointer;
-            transition: transform 0.1s;
-            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+            box-shadow: 0 10px 20px rgba(13, 148, 136, 0.25);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        .btn-primary:active { transform: scale(0.98); }
+        .btn-grad:active { transform: scale(0.98); }
+        .btn-grad:hover { box-shadow: 0 15px 25px rgba(13, 148, 136, 0.35); transform: translateY(-2px); }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-sub);
-            font-size: 14px;
-            font-weight: 600;
-            margin-top: 15px;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            width: 100%;
-        }
+        .btn-text { background: none; border: none; color: #6b7280; font-weight: 600; font-size: 14px; margin-top: 15px; cursor: pointer; }
 
-        /* RESULT ANIMATIONS */
-        #resultView { display: none; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed #e5e7eb; }
-        .student-name { font-size: 20px; font-weight: 800; color: var(--text-main); line-height: 1.2; }
-        .student-meta { font-size: 13px; color: var(--text-sub); margin-top: 4px; font-weight: 500; }
-        .student-roll { background: var(--bg); padding: 5px 10px; border-radius: 8px; font-weight: 700; font-size: 14px; color: var(--text-main); }
-
-        /* TABLE & ANIMATION */
-        .marks-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 25px; }
-        .marks-table th { text-align: left; font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; padding: 10px 5px; border-bottom: 2px solid #f3f4f6; }
-        .marks-table td { padding: 12px 5px; font-size: 15px; font-weight: 600; color: var(--text-main); border-bottom: 1px solid #f3f4f6; }
-        .marks-table td.marks-col { text-align: right; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+        /* --- RESULT LAYOUT --- */
+        #resultView { display: none; }
         
-        /* Row Animation */
-        .marks-row { opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        .student-badge {
+            background: white;
+            padding: 15px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+        .stu-info { text-align: left; }
+        .stu-name { font-size: 18px; font-weight: 800; color: #111827; }
+        .stu-meta { font-size: 13px; color: #6b7280; font-weight: 500; margin-top: 2px; }
+        .stu-roll { background: #f3f4f6; padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: 14px; color: #374151; }
 
-        /* SCORE CARDS */
-        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
-        .score-card { background: #f9fafb; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #f3f4f6; }
-        .score-label { font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; }
-        .score-value { font-size: 22px; font-weight: 800; color: var(--primary); }
+        /* FLOATING TABLE */
+        .marks-container { margin-bottom: 25px; }
+        .mark-row {
+            display: flex; justify-content: space-between;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: 0.2s;
+            opacity: 0; /* For Animation */
+            animation: slideIn 0.5s forwards;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
+        
+        .mark-row:hover { background: white; transform: scale(1.02); box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
+        .mark-score { font-weight: 800; color: var(--primary); }
+
+        /* STATS GRID */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
+        .stat-box {
+            background: white; padding: 15px; border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+        .stat-label { font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; display: block; margin-bottom: 5px; }
+        .stat-value { font-size: 24px; font-weight: 800; color: #111827; }
 
         /* STATUS BADGE */
-:root {
-    --primary: #0f766e;
-    --primary-light: #14b8a6;
-    --primary-dark: #064e3b;
-    --glass-bg: rgba(255, 255, 255, 0.15);
-    --glass-border: rgba(255, 255, 255, 0.25);
-    --text-main: #0f172a;
-    --text-sub: #64748b;
-    --bg1: #0f2027;
-    --bg2: #203a43;
-    --bg3: #2c5364;
-    --success: #16a34a;
-    --danger: #dc2626;
-}
+        .status-pill {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 30px; border-radius: 50px;
+            font-weight: 800; font-size: 16px; color: white;
+            text-transform: uppercase; letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            animation: pulse 2s infinite;
+        }
+        .pass { background: linear-gradient(135deg, #10b981, #059669); }
+        .fail { background: linear-gradient(135deg, #ef4444, #dc2626); }
+        
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
 
-/* Animated Premium Background */
-body {
-    font-family: 'Inter', sans-serif;
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    background: linear-gradient(-45deg, var(--bg1), var(--bg2), var(--bg3));
-    background-size: 400% 400%;
-    animation: gradientMove 12s ease infinite;
-    color: white;
-}
+        /* FOOTER */
+        .footer { font-size: 12px; color: #9ca3af; margin-top: 20px; }
 
-@keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-.app-container {
-    width: 100%;
-    max-width: 420px;
-    padding: 20px 0;
-}
-
-/* Header */
-.header-section {
-    text-align: center;
-    padding: 30px 20px 70px;
-}
-
-.logo-icon {
-    font-size: 52px;
-    animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
-}
-
-.school-name {
-    font-size: 20px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    margin-top: 10px;
-}
-
-.exam-name {
-    font-size: 13px;
-    opacity: 0.8;
-}
-
-/* Glass Card */
-.main-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 24px;
-    padding: 28px;
-    margin: -50px 20px 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
-    animation: fadeUp 0.6s ease;
-}
-
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* Inputs */
-.input-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #e2e8f0;
-    margin-bottom: 8px;
-    display: block;
-}
-
-select, input {
-    width: 100%;
-    padding: 15px;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: rgba(255,255,255,0.1);
-    color: white;
-    font-size: 15px;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-select:focus, input:focus {
-    border-color: var(--primary-light);
-    box-shadow: 0 0 0 3px rgba(20,184,166,0.3);
-    background: rgba(255,255,255,0.15);
-}
-
-/* Premium Button */
-.btn-primary {
-    width: 100%;
-    padding: 16px;
-    border-radius: 16px;
-    border: none;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    background: linear-gradient(135deg, var(--primary), var(--primary-light));
-    color: white;
-    box-shadow: 0 10px 25px rgba(20,184,166,0.4);
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(20,184,166,0.5);
-}
-
-.btn-primary:active {
-    transform: scale(0.97);
-}
-
-/* Result Section */
-.student-header {
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-}
-
-.student-name {
-    font-size: 20px;
-    font-weight: 800;
-}
-
-.student-meta {
-    font-size: 13px;
-    opacity: 0.8;
-}
-
-.marks-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 25px;
-}
-
-.marks-table th {
-    font-size: 11px;
-    text-transform: uppercase;
-    opacity: 0.7;
-    padding-bottom: 10px;
-}
-
-.marks-table td {
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    font-weight: 500;
-}
-
-.marks-row {
-    opacity: 0;
-    animation: fadeRow 0.5s ease forwards;
-}
-
-@keyframes fadeRow {
-    from { opacity: 0; transform: translateX(-10px); }
-    to { opacity: 1; transform: translateX(0); }
-}
-
-/* Score Cards */
-.score-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-bottom: 25px;
-}
-
-.score-card {
-    background: rgba(255,255,255,0.1);
-    padding: 18px;
-    border-radius: 16px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-}
-
-.score-label {
-    font-size: 11px;
-    opacity: 0.7;
-}
-
-.score-value {
-    font-size: 22px;
-    font-weight: 800;
-    margin-top: 5px;
-}
-
-/* Status Badge */
-.status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 45px;
-    border-radius: 50px;
-    font-weight: 800;
-    font-size: 16px;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    animation: glowPulse 2s infinite;
-}
-
-.status-pass {
-    background: linear-gradient(135deg, #16a34a, #22c55e);
-    box-shadow: 0 0 25px rgba(34,197,94,0.7);
-}
-
-.status-fail {
-    background: linear-gradient(135deg, #dc2626, #ef4444);
-    box-shadow: 0 0 25px rgba(239,68,68,0.7);
-}
-
-@keyframes glowPulse {
-    0% { box-shadow: 0 0 10px rgba(255,255,255,0.3); }
-    50% { box-shadow: 0 0 25px rgba(255,255,255,0.6); }
-    100% { box-shadow: 0 0 10px rgba(255,255,255,0.3); }
-}
-
-.footer {
-    text-align: center;
-    font-size: 12px;
-    opacity: 0.7;
-    margin-top: 10px;
-}
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="header-section">
-        <div class="logo-icon">🎓</div>
-        <h1 class="school-name">Misbahul Huda Madrasa</h1>
-        <div class="exam-name">Annual Examination Results 2026</div>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
     </div>
 
-    <div class="main-card" id="searchView">
+    <div class="glass-card" id="searchView">
+        <div class="logo">🎓</div>
+        <h1 class="school-title">Misbahul Huda Madrasa</h1>
+        <div class="exam-sub">Annual Examination 2026</div>
+
         <div class="input-group">
-            <label class="input-label">Select Class</label>
-            <select id="classSelect">
-                <option value="" disabled selected>Choose class...</option>
+            <label>Select Class</label>
+            <select id="classSelect" class="glass-input">
+                <option value="" disabled selected>Choose Class...</option>
                 <option value="Class 1">Class 1</option>
                 <option value="Class 2">Class 2</option>
                 <option value="Class 3">Class 3</option>
@@ -418,43 +207,50 @@ select:focus, input:focus {
                 <option value="Class 5">Class 5</option>
             </select>
         </div>
+
         <div class="input-group">
-            <label class="input-label">Roll Number</label>
-            <input type="number" id="rollInput" placeholder="Ex: 101" inputmode="numeric">
+            <label>Roll Number</label>
+            <input type="number" id="rollInput" class="glass-input" placeholder="Ex: 101" inputmode="numeric">
         </div>
-        <button class="btn-primary" onclick="findResult()" id="searchBtn">Check Result</button>
-        <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #999;">Need help? Contact School Office</div>
+
+        <button class="btn-grad" onclick="findResult()" id="searchBtn">
+            Check Result <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
+        </button>
+        <div class="footer">Need help? Contact School Office</div>
     </div>
 
-    <div class="main-card" id="resultView">
-        <div class="student-header">
-            <div>
-                <div class="student-name" id="rName">--</div>
-                <div class="student-meta" id="rClass">--</div>
+    <div class="glass-card" id="resultView">
+        <div class="student-badge">
+            <div class="stu-info">
+                <div class="stu-name" id="rName">--</div>
+                <div class="stu-meta" id="rClass">--</div>
             </div>
-            <div class="student-roll" id="rRoll">--</div>
+            <div class="stu-roll" id="rRoll">--</div>
         </div>
 
-        <table class="marks-table">
-            <thead><tr><th>Subject</th><th style="text-align: right;">Marks</th></tr></thead>
-            <tbody id="marksBody"></tbody>
-        </table>
+        <div class="marks-container" id="marksBody">
+            </div>
 
-        <div class="score-grid">
-            <div class="score-card"><span class="score-label">Rank</span><div class="score-value" id="rRank">--</div></div>
-            <div class="score-card"><span class="score-label">Total Marks</span><div class="score-value" id="rTotal">0</div></div>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span class="stat-label">Rank</span>
+                <div class="stat-value" id="rRank">--</div>
+            </div>
+            <div class="stat-box">
+                <span class="stat-label">Total Marks</span>
+                <div class="stat-value" id="rTotal">0</div>
+            </div>
         </div>
 
-        <div class="status-container">
-            <div id="rStatus" class="status-badge status-pass"><i class="fas fa-check-circle"></i> PASS</div>
+        <div style="margin-bottom: 25px;">
+            <div id="rStatus" class="status-pill pass">
+                <i class="fas fa-check-circle"></i> PASS
+            </div>
         </div>
 
-        <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
-        <button class="btn-secondary" onclick="location.reload()">Check Another Result</button>
+        <button class="btn-grad" onclick="window.print()">Download PDF</button>
+        <button class="btn-text" onclick="location.reload()">Check Another</button>
     </div>
-
-    <div class="footer">Powered by <strong>Jouhar's Tech</strong></div>
-</div>
 
 <script>
     // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL HERE ▼▼▼
@@ -468,9 +264,9 @@ select:focus, input:focus {
         if(!cls) return alert("Please select a Class");
         if(!roll) return alert("Please enter Roll Number");
 
-        const originalText = btn.innerText;
-        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
-        btn.style.opacity = "0.8";
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Searching...';
+        btn.style.opacity = "0.9";
 
         try {
             const response = await fetch(`${SCRIPT_URL}?roll=${roll}&cls=${cls}`);
@@ -480,47 +276,47 @@ select:focus, input:focus {
                 document.getElementById('searchView').style.display = 'none';
                 document.getElementById('resultView').style.display = 'block';
 
+                // Basic Info
                 document.getElementById('rName').innerText = data.name;
-                document.getElementById('rRoll').innerText = "Roll: " + roll;
+                document.getElementById('rRoll').innerText = "#" + roll;
                 document.getElementById('rClass').innerText = cls;
                 
-                // Rank Icons
-                const rankVal = data.rank;
-                let rankHtml = "#" + rankVal;
-                if(rankVal == 1) rankHtml = "🥇 1st";
-                if(rankVal == 2) rankHtml = "🥈 2nd";
-                if(rankVal == 3) rankHtml = "🥉 3rd";
+                // Rank Logic
+                let rankHtml = "#" + data.rank;
+                if(data.rank == 1) rankHtml = "🥇 1st";
+                if(data.rank == 2) rankHtml = "🥈 2nd";
+                if(data.rank == 3) rankHtml = "🥉 3rd";
                 document.getElementById('rRank').innerHTML = rankHtml;
                 document.getElementById('rTotal').innerText = data.total;
 
-                // Status & Confetti Logic
+                // Status & Confetti
                 const statusBadge = document.getElementById('rStatus');
                 if(data.finalStatus === "FAIL") {
-                    statusBadge.className = "status-badge status-fail";
+                    statusBadge.className = "status-pill fail";
                     statusBadge.innerHTML = '<i class="fas fa-times-circle"></i> FAIL';
                 } else {
-                    statusBadge.className = "status-badge status-pass";
+                    statusBadge.className = "status-pill pass";
                     statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> PASS';
-                    // TRIGGER CONFETTI
                     fireConfetti();
                 }
 
-                // Fill Table with Animation Delays
+                // Floating Table Animation
                 let rows = "";
                 data.subjectData.forEach((sub, index) => {
-                    // Add animation-delay based on index (0.1s, 0.2s, etc.)
-                    rows += `<tr class="marks-row" style="animation-delay: ${index * 0.1}s">
-                                <td>${sub.name}</td>
-                                <td class="marks-col">${sub.mark}</td>
-                             </tr>`;
+                    rows += `
+                        <div class="mark-row" style="animation-delay: ${index * 0.1}s">
+                            <span>${sub.name}</span>
+                            <span class="mark-score">${sub.mark}</span>
+                        </div>
+                    `;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
 
             } else {
-                alert("Result not found! Please check Class and Roll Number.");
+                alert("Not Found! Please check Roll No and Class.");
             }
         } catch (error) {
-            alert("Network Error. Please try again.");
+            alert("Network Error. Check internet connection.");
         }
 
         btn.innerHTML = originalText;
@@ -530,13 +326,11 @@ select:focus, input:focus {
     function fireConfetti() {
         var count = 200;
         var defaults = { origin: { y: 0.7 } };
-
         function fire(particleRatio, opts) {
             confetti(Object.assign({}, defaults, opts, {
                 particleCount: Math.floor(count * particleRatio)
             }));
         }
-
         fire(0.25, { spread: 26, startVelocity: 55 });
         fire(0.2, { spread: 60 });
         fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
@@ -547,3 +341,4 @@ select:focus, input:focus {
 
 </body>
 </html>
+
