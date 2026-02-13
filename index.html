@@ -6,18 +6,19 @@
     <title>Result Portal 2026</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #0f766e; /* Professional Teal */
+            --primary: #0f766e; /* Teal */
             --primary-dark: #0d5f58;
             --accent: #ccfbf1;
             --text-main: #111827;
             --text-sub: #6b7280;
             --bg: #f3f4f6;
             --white: #ffffff;
-            --success: #10b981;
-            --danger: #ef4444;
+            --success: #059669; /* A slightly deeper green */
+            --danger: #dc2626;  /* A nice deep red */
         }
 
         body {
@@ -44,7 +45,7 @@
         /* HEADER DESIGN */
         .header-section {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            padding: 40px 20px 80px; /* Extra padding bottom for overlap */
+            padding: 40px 20px 80px;
             text-align: center;
             color: white;
             border-bottom-left-radius: 30px;
@@ -59,7 +60,7 @@
         /* FLOATING CARD */
         .main-card {
             background: var(--white);
-            margin: -60px 20px 20px; /* Negative margin to pull up */
+            margin: -60px 20px 20px;
             border-radius: 20px;
             padding: 25px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
@@ -83,7 +84,7 @@
             outline: none;
             transition: all 0.2s;
             box-sizing: border-box;
-            appearance: none; /* Remove default arrow */
+            appearance: none;
         }
 
         select {
@@ -143,33 +144,38 @@
         .student-meta { font-size: 13px; color: var(--text-sub); margin-top: 4px; font-weight: 500; }
         .student-roll { background: var(--bg); padding: 5px 10px; border-radius: 8px; font-weight: 700; font-size: 14px; color: var(--text-main); }
 
-        /* MARKS TABLE PRO */
+        /* MARKS TABLE */
         .marks-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 25px; }
         .marks-table th { text-align: left; font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; padding: 10px 5px; border-bottom: 2px solid #f3f4f6; }
         .marks-table td { padding: 12px 5px; font-size: 15px; font-weight: 600; color: var(--text-main); border-bottom: 1px solid #f3f4f6; }
         .marks-table tr:last-child td { border-bottom: none; }
         .marks-table td.marks-col { text-align: right; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
 
-        /* SCORE CARDS */
-        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
+        /* SCORE CARDS (SWAPPED & UPDATED) */
+        .score-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 30px; }
         .score-card { background: #f9fafb; padding: 15px; border-radius: 12px; text-align: center; border: 1px solid #f3f4f6; }
         .score-label { font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; }
         .score-value { font-size: 22px; font-weight: 800; color: var(--primary); }
 
-        /* STATUS BADGE */
-        .status-container { text-align: center; margin-bottom: 25px; }
+        /* STATUS BADGE (LARGER WITH ICONS) */
+        .status-container { text-align: center; margin-bottom: 30px; }
         .status-badge {
-            display: inline-block;
-            padding: 8px 30px;
+            display: inline-flex; /* For icon alignment */
+            align-items: center;
+            justify-content: center;
+            gap: 10px; /* Space between icon and text */
+            padding: 12px 40px; /* Larger padding */
             border-radius: 50px;
             color: white;
-            font-weight: 700;
-            font-size: 14px;
+            font-weight: 800;
+            font-size: 18px; /* Larger font */
             letter-spacing: 1px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            text-transform: uppercase;
         }
-        .status-pass { background: var(--success); box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3); }
-        .status-fail { background: var(--danger); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
+        .status-pass { background: var(--success); box-shadow: 0 6px 15px rgba(5, 150, 105, 0.4); }
+        .status-fail { background: var(--danger); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); }
+        .status-badge i { font-size: 20px; } /* Icon size */
 
         /* FOOTER */
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
@@ -231,17 +237,19 @@
 
         <div class="score-grid">
             <div class="score-card">
-                <span class="score-label">Total Marks</span>
-                <div class="score-value" id="rTotal">0</div>
+                <span class="score-label">Rank</span>
+                <div class="score-value" id="rRank">--</div>
             </div>
             <div class="score-card">
-                <span class="score-label">Rank</span>
-                <div class="score-value" id="rRank">#0</div>
+                <span class="score-label">Total Marks</span>
+                <div class="score-value" id="rTotal">0</div>
             </div>
         </div>
 
         <div class="status-container">
-            <div id="rStatus" class="status-badge status-pass">PASS</div>
+            <div id="rStatus" class="status-badge status-pass">
+                <i class="fas fa-check-circle"></i> PASS
+            </div>
         </div>
 
         <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
@@ -266,7 +274,6 @@
         if(!cls) return alert("Please select a Class");
         if(!roll) return alert("Please enter Roll Number");
 
-        // Loading State
         const originalText = btn.innerText;
         btn.innerHTML = '<span class="spinner"></span> Searching...';
         btn.style.opacity = "0.8";
@@ -276,37 +283,40 @@
             const data = await response.json();
 
             if (data.status === "success") {
-                // Switch Views
                 document.getElementById('searchView').style.display = 'none';
                 document.getElementById('resultView').style.display = 'block';
 
-                // Fill Info
                 document.getElementById('rName').innerText = data.name;
                 document.getElementById('rRoll').innerText = "Roll: " + roll;
                 document.getElementById('rClass').innerText = cls;
-                document.getElementById('rTotal').innerText = data.total;
-                document.getElementById('rRank').innerText = "#" + data.rank;
+                
+                // --- NEW: Rank Icons Logic ---
+                const rankVal = data.rank;
+                let rankHtml = "#" + rankVal; // Default
+                if(rankVal == 1) rankHtml = "🥇 1st";
+                if(rankVal == 2) rankHtml = "🥈 2nd";
+                if(rankVal == 3) rankHtml = "🥉 3rd";
+                document.getElementById('rRank').innerHTML = rankHtml; // Use innerHTML for icons
 
-                // Status Logic
+                // Total Marks
+                document.getElementById('rTotal').innerText = data.total;
+
+                // --- NEW: Pass/Fail Icons Logic ---
                 const statusBadge = document.getElementById('rStatus');
-                statusBadge.innerText = data.finalStatus;
                 if(data.finalStatus === "FAIL") {
                     statusBadge.className = "status-badge status-fail";
-                    // Optional: Change header color to red for Fail? 
-                    // Let's keep it simple for now.
+                    // Add Cross Icon
+                    statusBadge.innerHTML = '<i class="fas fa-times-circle"></i> FAIL';
                 } else {
                     statusBadge.className = "status-badge status-pass";
+                    // Add Tick Icon
+                    statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> PASS';
                 }
 
                 // Fill Table
                 let rows = "";
                 data.subjectData.forEach(sub => {
-                    rows += `
-                        <tr>
-                            <td>${sub.name}</td>
-                            <td class="marks-col">${sub.mark}</td>
-                        </tr>
-                    `;
+                    rows += `<tr><td>${sub.name}</td><td class="marks-col">${sub.mark}</td></tr>`;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
 
@@ -317,7 +327,6 @@
             alert("Network Error. Please try again.");
         }
 
-        // Reset Button
         btn.innerHTML = originalText;
         btn.style.opacity = "1";
     }
