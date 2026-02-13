@@ -132,6 +132,23 @@
         .student-meta { font-size: 13px; color: var(--text-sub); margin-top: 4px; font-weight: 500; }
         .student-roll { background: var(--bg); padding: 5px 10px; border-radius: 8px; font-weight: 700; font-size: 14px; color: var(--text-main); }
 
+        /* SCORE GRID: Left(Rank) | Mid(%) | Right(Total) */
+        .score-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr; /* 3 Columns */
+            gap: 10px; 
+            margin-top: 25px; 
+            margin-bottom: 25px; 
+        }
+        .score-card { background: #f9fafb; padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #f3f4f6; }
+        .score-label { font-size: 10px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; }
+        
+        /* Standard Value (For Percentage) */
+        .score-value { font-size: 18px; font-weight: 700; color: #4b5563; }
+        
+        /* High Value (For Rank & Total) - Bold & Teal */
+        .score-value.high-val { font-size: 24px; font-weight: 800; color: var(--primary); }
+
         /* TABLE (Zebra Striped) */
         .marks-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 0px; border: 1px solid #f3f4f6; border-radius: 12px; overflow: hidden; }
         .marks-table th { background: #f9fafb; text-align: left; font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; }
@@ -142,18 +159,6 @@
         
         .marks-row { opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
-
-        /* SCORE CARDS (3 Columns: Total | % | Rank) */
-        .score-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr 1fr; /* 3 Equal Columns */
-            gap: 10px; 
-            margin-top: 25px; 
-            margin-bottom: 25px; 
-        }
-        .score-card { background: #f9fafb; padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #f3f4f6; }
-        .score-label { font-size: 10px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; }
-        .score-value { font-size: 18px; font-weight: 800; color: var(--primary); }
 
         /* STATUS BADGE */
         .status-container { text-align: center; margin-bottom: 30px; }
@@ -231,18 +236,22 @@
         </table>
 
         <div class="score-grid">
-            <div class="score-card">
-                <span class="score-label">Total</span>
-                <div class="score-value" id="rTotal">0</div>
-            </div>
-            <div class="score-card">
-                <span class="score-label">Percentage</span>
-                <div class="score-value" id="rPercent">0%</div>
-            </div>
+            
             <div class="score-card">
                 <span class="score-label">Rank</span>
-                <div class="score-value" id="rRank">--</div>
+                <div class="score-value high-val" id="rRank">--</div>
             </div>
+
+            <div class="score-card">
+                <span class="score-label">Percentage</span>
+                <div class="score-value" id="rPercent">--</div>
+            </div>
+
+            <div class="score-card">
+                <span class="score-label">Total Marks</span>
+                <div class="score-value high-val" id="rTotal">0</div>
+            </div>
+
         </div>
 
         <div class="status-container">
@@ -258,7 +267,7 @@
 
 <script>
     // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL HERE ▼▼▼
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUMvrE0fZwXSOTXgtv_kPAQi5DeG5eFSfqmaf1a1BLib4K4SR0CkijIHqOLNFa5GZpqw/exec"; 
+    const SCRIPT_URL = "PASTE_YOUR_SCRIPT_URL_HERE"; 
 
     async function findResult() {
         const roll = document.getElementById('rollInput').value;
@@ -292,9 +301,9 @@
                 if(rankVal == 3) rankHtml = "🥉 3rd";
                 document.getElementById('rRank').innerHTML = rankHtml;
                 
-                // Total & Percentage
+                // Total & Percentage (No added symbol for %)
                 document.getElementById('rTotal').innerText = data.total;
-                document.getElementById('rPercent').innerText = data.percentage + "%";
+                document.getElementById('rPercent').innerText = data.percentage; 
 
                 // Status & Confetti Logic
                 const statusBadge = document.getElementById('rStatus');
@@ -350,4 +359,3 @@
 
 </body>
 </html>
-
