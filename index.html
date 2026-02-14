@@ -83,28 +83,6 @@
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* --- STUDENT INFO HEADER (Top of Card) --- */
-        .student-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            padding-bottom: 5px;
-        }
-        .stu-left { display: flex; flex-direction: column; }
-        .stu-name { font-size: 24px; font-weight: 800; color: #111827; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 4px; }
-        .stu-class { font-size: 14px; color: #6b7280; font-weight: 500; }
-        
-        .stu-roll-pill {
-            background: #f3f4f6;
-            color: #1f2937;
-            padding: 6px 14px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
-
         /* --- SUMMARY BOX --- */
         .summary-box {
             border-radius: 20px;
@@ -125,7 +103,7 @@
             margin-bottom: 15px;
         }
 
-        /* LEFT: Check + Pass + % */
+        /* LEFT */
         .sb-left {
             display: flex;
             align-items: center;
@@ -143,7 +121,7 @@
         .sb-status-text { font-size: 20px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
         .sb-percent-text { font-size: 14px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
         
-        /* MIDDLE: Rank Badge */
+        /* MIDDLE */
         .sb-middle {
             display: flex;
             flex-direction: column;
@@ -158,7 +136,7 @@
         .rank-text { font-size: 13px; font-weight: 800; color: #374151; }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
-        /* RIGHT: Total & Attendance */
+        /* RIGHT */
         .sb-right {
             display: flex;
             flex-direction: column;
@@ -170,7 +148,10 @@
         .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 1px; }
         .sb-total-val { font-size: 18px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
         
-        /* Attendance */
+        /* DENOMINATOR STYLE (Thin/Light) */
+        .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
+
+        /* ATTENDANCE BOX */
         .sb-attn-box { 
             margin-top: 5px;
             background: rgba(255,255,255,0.6); 
@@ -198,6 +179,13 @@
         .marks-table td { padding: 12px 15px; font-size: 14px; font-weight: 600; color: #1f2937; border-bottom: 1px solid #f3f4f6; }
         .marks-table td.right { text-align: right; }
         .marks-table tr:nth-child(even) { background-color: #fcfcfc; }
+
+        /* Student Info Header */
+        .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 5px; }
+        .stu-left { display: flex; flex-direction: column; }
+        .stu-name { font-size: 24px; font-weight: 800; color: #111827; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 4px; }
+        .stu-class { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .stu-roll-pill { background: #f3f4f6; color: #1f2937; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
 
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
 
@@ -276,12 +264,13 @@
                         <div class="sb-total-val" id="sbTotalVal">0/300</div>
                     </div>
                     <div class="sb-attn-box">
-                        <span class="sb-attn-label">ATTN:</span>
+                        <span class="sb-attn-label">ATTND:</span>
                         <span class="sb-attn-val" id="sbAttnVal">--/250</span>
                     </div>
                 </div>
 
             </div>
+            
             <div class="progress-track">
                 <div class="progress-fill" id="sbProgress"></div>
             </div>
@@ -300,7 +289,7 @@
 </div>
 
 <script>
-    // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL HERE ▼▼▼
+    // ▼▼▼ PASTE YOUR NEW SCRIPT URL HERE ▼▼▼
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUMvrE0fZwXSOTXgtv_kPAQi5DeG5eFSfqmaf1a1BLib4K4SR0CkijIHqOLNFa5GZpqw/exec"; 
 
     async function findResult() {
@@ -331,24 +320,34 @@
                 const rank = data.rank;
 
                 document.getElementById('sbPercentVal').innerText = data.percentage + "%";
-                document.getElementById('sbTotalVal').innerText = data.total + "/300";
-                document.getElementById('sbAttnVal').innerText = (data.attendance || "--") + "/250";
                 
+                // --- THIN /300 ---
+                document.getElementById('sbTotalVal').innerHTML = data.total + '<span class="small-denom">/300</span>';
+                
+                // --- ATTENDANCE BADGE LOGIC ---
+                let attnHTML = (data.attendance || "--") + '<span class="small-denom">/250</span>';
+                if (data.attendanceRank == 1) attnHTML += ' 🥇';
+                else if (data.attendanceRank == 2) attnHTML += ' 🥈';
+                else if (data.attendanceRank == 3) attnHTML += ' 🥉';
+                
+                document.getElementById('sbAttnVal').innerHTML = attnHTML;
+                
+                // --- RANK BADGE LOGIC ---
                 let rankDisplay = rank;
                 let rankIconHTML = '';
 
                 if (rank == 1) { 
                     rankDisplay = "1st"; 
-                    rankIconHTML = '🥇'; // Gold Medal Emoji
+                    rankIconHTML = '🥇'; 
                 } else if (rank == 2) { 
                     rankDisplay = "2nd"; 
-                    rankIconHTML = '🥈'; // Silver Medal Emoji
+                    rankIconHTML = '🥈'; 
                 } else if (rank == 3) { 
                     rankDisplay = "3rd"; 
-                    rankIconHTML = '🥉'; // Bronze Medal Emoji
+                    rankIconHTML = '🥉'; 
                 } else { 
                     rankDisplay = "#" + rank; 
-                    rankIconHTML = '<i class="fas fa-medal" style="color: #6b7280; font-size: 20px;"></i>'; // Grey FontAwesome Icon
+                    rankIconHTML = '<i class="fas fa-medal" style="color: #6b7280; font-size: 20px;"></i>'; 
                 }
 
                 document.getElementById('rankText').innerText = rankDisplay;
