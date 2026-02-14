@@ -91,7 +91,7 @@
             overflow: hidden;
         }
 
-        /* Revert to 3 Columns, but give Right side more space */
+        /* Revert to 3 Columns for stability */
         .sb-grid {
             display: grid;
             grid-template-columns: 1.2fr 0.6fr 1.5fr; /* Right column is wider now */
@@ -133,28 +133,29 @@
         .rank-text { font-size: 13px; font-weight: 800; color: #374151; }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
-        /* RIGHT: Modified to be a Flex Container */
+        /* RIGHT: Flex Container for Attn Rank + Marks */
         .sb-right {
             display: flex;
-            flex-direction: row; /* Horizontal layout */
-            justify-content: flex-end; /* Push content to right */
+            flex-direction: row; 
+            justify-content: flex-end; 
             align-items: center;
-            gap: 10px; /* Space between Attn Rank and Marks */
+            gap: 12px; /* Space between Attn Rank and Marks */
             padding-right: 2px;
             text-align: right;
         }
         
-        /* NEW: Attendance Rank Badge (fits in the gap) */
+        /* Attendance Rank Badge */
         .sb-attn-rank-box {
             display: none; /* Hidden by default */
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-width: 40px;
+            margin-top: -3px; /* Moves entire block up slightly */
         }
-        .attn-top-txt { font-size: 8px; font-weight: 700; color: #6b7280; line-height: 1; margin-bottom: 1px;}
-        .attn-val-txt { font-size: 16px; font-weight: 900; color: #1f2937; line-height: 1; }
-        .attn-bot-txt { font-size: 7px; font-weight: 700; color: #9ca3af; line-height: 1; margin-top: 1px; white-space: nowrap; }
+        .attn-top-txt { font-size: 9px; font-weight: 700; color: #6b7280; line-height: 1; margin-bottom: 0px; }
+        .attn-val-txt { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; margin-bottom: 1px; }
+        .attn-bot-txt { font-size: 8px; font-weight: 700; color: #9ca3af; line-height: 1; white-space: nowrap; }
 
         /* The Total & Count Stack */
         .sb-marks-stack {
@@ -347,7 +348,7 @@
                 document.getElementById('sbTotalVal').innerHTML = data.total + '<span class="small-denom">/300</span>';
                 document.getElementById('sbAttnVal').innerHTML = (data.attendance || "--") + '<span class="small-denom">/250</span>';
                 
-                // --- ATTENDANCE RANK IN GAP ---
+                // --- ATTENDANCE RANK LOGIC ---
                 const attnBox = document.getElementById('sbAttnRankBox');
                 if (data.attendanceRank && data.attendanceRank <= 3 && data.attendanceRank > 0) {
                     attnBox.style.display = 'flex';
@@ -356,7 +357,7 @@
                     attnBox.style.display = 'none';
                 }
 
-                // --- ACADEMIC RANK BADGE ---
+                // --- ACADEMIC RANK LOGIC ---
                 let rankDisplay = rank;
                 let rankIconHTML = '';
 
