@@ -15,13 +15,12 @@
             --bg: #f3f4f6;
             --white: #ffffff;
             
-            /* Pass Theme */
+            /* Themes */
             --pass-bg: #ecfdf5;
             --pass-border: #d1fae5;
             --pass-text: #047857;
             --pass-icon-bg: #10b981;
             
-            /* Fail Theme */
             --fail-bg: #fef2f2;
             --fail-border: #fee2e2;
             --fail-text: #b91c1c;
@@ -90,7 +89,7 @@
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* --- SUMMARY BOX --- */
+        /* --- SUMMARY BOX (GRID SYSTEM) --- */
         .summary-box {
             border-radius: 20px;
             padding: 20px 15px;
@@ -101,30 +100,32 @@
             overflow: hidden;
         }
 
-        .sb-content {
-            display: flex;
-            justify-content: space-between;
+        /* 3-Column Grid: Left (1.2), Middle (0.8), Right (1.2) */
+        .sb-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.7fr 1.3fr;
+            gap: 5px;
             align-items: center;
             margin-bottom: 15px;
         }
 
-        /* LEFT: Status & Percent */
+        /* LEFT: Check + Pass + % */
         .sb-left {
             display: flex;
             align-items: center;
-            gap: 10px;
-            flex: 1.1;
+            gap: 8px;
         }
         .sb-icon-box {
-            width: 45px; height: 45px;
-            border-radius: 12px;
+            width: 40px; height: 40px;
+            flex-shrink: 0; /* Prevent squishing */
+            border-radius: 10px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 22px;
+            color: white; font-size: 20px;
             background: var(--pass-icon-bg);
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-        .sb-status-text { font-size: 16px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 2px; }
-        .sb-percent-text { font-size: 14px; font-weight: 800; color: var(--pass-text); opacity: 0.8; }
+        .sb-status-text { font-size: 15px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 2px; }
+        .sb-percent-text { font-size: 13px; font-weight: 800; color: var(--pass-text); opacity: 0.8; }
 
         /* MIDDLE: Rank Badge */
         .sb-middle {
@@ -132,45 +133,45 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            flex: 0.7;
             border-left: 1px dashed rgba(0,0,0,0.05);
             border-right: 1px dashed rgba(0,0,0,0.05);
-            padding: 0 5px;
+            padding: 0 2px;
         }
-        .rank-icon { font-size: 22px; margin-bottom: 2px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15)); }
+        .rank-icon { font-size: 20px; margin-bottom: 2px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15)); }
         .rank-text { font-size: 13px; font-weight: 800; color: #374151; }
-        .rank-label { font-size: 9px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
+        .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
         /* RIGHT: Total & Attendance */
         .sb-right {
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* Align to right */
+            align-items: flex-end; /* Align right */
             justify-content: center;
-            flex: 1.2;
             text-align: right;
+            padding-right: 2px;
         }
         
         /* Total Mark Section */
-        .sb-total-group { margin-bottom: 6px; }
-        .sb-label { font-size: 10px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; }
-        .sb-value-big { font-size: 20px; font-weight: 800; color: #1f2937; line-height: 1; }
+        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 2px; }
+        .sb-total-val { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
 
-        /* Attendance Section (Smaller) */
+        /* Attendance Section */
         .sb-attn-box { 
+            margin-top: 5px;
             background: rgba(255,255,255,0.6); 
-            padding: 4px 8px; 
-            border-radius: 6px; 
-            display: inline-block;
+            padding: 3px 6px; 
+            border-radius: 5px; 
+            display: inline-flex;
+            align-items: center;
         }
-        .sb-attn-label { font-size: 9px; font-weight: 700; color: #9ca3af; margin-right: 3px; }
+        .sb-attn-label { font-size: 9px; font-weight: 700; color: #9ca3af; margin-right: 4px; }
         .sb-attn-val { font-size: 11px; font-weight: 700; color: #6b7280; }
 
         /* Progress Bar */
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
-        /* Fail Mode */
+        /* Fail Mode Overrides */
         .summary-box.fail-mode { background-color: var(--fail-bg); border-color: var(--fail-border); }
         .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); }
         .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent-text { color: var(--fail-text); }
@@ -234,7 +235,7 @@
     <div class="main-card" id="resultView" style="display: none;">
         
         <div class="summary-box" id="summaryBox">
-            <div class="sb-content">
+            <div class="sb-grid">
                 
                 <div class="sb-left">
                     <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
@@ -251,9 +252,9 @@
                 </div>
 
                 <div class="sb-right">
-                    <div class="sb-total-group">
-                        <span class="sb-label">Total Mark:</span>
-                        <div class="sb-value-big" id="sbTotalVal">0/300</div>
+                    <div>
+                        <div class="sb-total-label">Total Mark</div>
+                        <div class="sb-total-val" id="sbTotalVal">0/300</div>
                     </div>
                     <div class="sb-attn-box">
                         <span class="sb-attn-label">ATTN:</span>
@@ -369,4 +370,3 @@
 
 </body>
 </html>
-
