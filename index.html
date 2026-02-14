@@ -14,13 +14,10 @@
             --primary: #0f766e;
             --bg: #f3f4f6;
             --white: #ffffff;
-            
-            /* Themes */
             --pass-bg: #ecfdf5;
             --pass-border: #d1fae5;
             --pass-text: #047857;
             --pass-icon-bg: #10b981;
-            
             --fail-bg: #fef2f2;
             --fail-border: #fee2e2;
             --fail-text: #b91c1c;
@@ -94,10 +91,10 @@
             overflow: hidden;
         }
 
-        /* 3-Column Grid */
+        /* Revert to 3 Columns, but give Right side more space */
         .sb-grid {
             display: grid;
-            grid-template-columns: 1.4fr 0.7fr 1.1fr;
+            grid-template-columns: 1.2fr 0.6fr 1.5fr; /* Right column is wider now */
             gap: 5px;
             align-items: center;
             margin-bottom: 15px;
@@ -121,7 +118,7 @@
         .sb-status-text { font-size: 20px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
         .sb-percent-text { font-size: 14px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
         
-        /* MIDDLE */
+        /* MIDDLE: Academic Rank */
         .sb-middle {
             display: flex;
             flex-direction: column;
@@ -136,29 +133,40 @@
         .rank-text { font-size: 13px; font-weight: 800; color: #374151; }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
-        /* RIGHT */
+        /* RIGHT: Modified to be a Flex Container */
         .sb-right {
+            display: flex;
+            flex-direction: row; /* Horizontal layout */
+            justify-content: flex-end; /* Push content to right */
+            align-items: center;
+            gap: 10px; /* Space between Attn Rank and Marks */
+            padding-right: 2px;
+            text-align: right;
+        }
+        
+        /* NEW: Attendance Rank Badge (fits in the gap) */
+        .sb-attn-rank-box {
+            display: none; /* Hidden by default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+        }
+        .attn-top-txt { font-size: 8px; font-weight: 700; color: #6b7280; line-height: 1; margin-bottom: 1px;}
+        .attn-val-txt { font-size: 16px; font-weight: 900; color: #1f2937; line-height: 1; }
+        .attn-bot-txt { font-size: 7px; font-weight: 700; color: #9ca3af; line-height: 1; margin-top: 1px; white-space: nowrap; }
+
+        /* The Total & Count Stack */
+        .sb-marks-stack {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            justify-content: center;
-            text-align: right;
-            padding-right: 2px;
-        }
-        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 1px; }
-        
-        /* VALUE STYLES */
-        .sb-total-val { font-size: 18px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
-        
-        /* New Class for /300 and /250 */
-        .small-denom {
-            font-size: 0.75em;
-            font-weight: 500;
-            color: #9ca3af; /* Light Grey */
-            margin-left: 1px;
         }
 
-        /* Attendance */
+        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 1px; }
+        .sb-total-val { font-size: 18px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
+        .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
+
         .sb-attn-box { 
             margin-top: 5px;
             background: rgba(255,255,255,0.6); 
@@ -170,7 +178,6 @@
         .sb-attn-label { font-size: 9px; font-weight: 700; color: #9ca3af; margin-right: 4px; }
         .sb-attn-val { font-size: 11px; font-weight: 700; color: #6b7280; }
 
-        /* Progress Bar */
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
@@ -266,14 +273,24 @@
                 </div>
 
                 <div class="sb-right">
-                    <div>
-                        <div class="sb-total-label">Total Mark</div>
-                        <div class="sb-total-val" id="sbTotalVal">0/300</div>
+                    
+                    <div class="sb-attn-rank-box" id="sbAttnRankBox">
+                        <div class="attn-top-txt">Top</div>
+                        <div class="attn-val-txt" id="sbAttnRankVal">#1</div>
+                        <div class="attn-bot-txt">in ATTND</div>
                     </div>
-                    <div class="sb-attn-box">
-                        <span class="sb-attn-label">ATTND:</span>
-                        <span class="sb-attn-val" id="sbAttnVal">--/250</span>
+
+                    <div class="sb-marks-stack">
+                        <div>
+                            <div class="sb-total-label">Total Mark</div>
+                            <div class="sb-total-val" id="sbTotalVal">0/300</div>
+                        </div>
+                        <div class="sb-attn-box">
+                            <span class="sb-attn-label">ATTND:</span>
+                            <span class="sb-attn-val" id="sbAttnVal">--/250</span>
+                        </div>
                     </div>
+
                 </div>
 
             </div>
@@ -327,27 +344,26 @@
                 const rank = data.rank;
 
                 document.getElementById('sbPercentVal').innerText = data.percentage + "%";
-                
-                // --- MODIFIED LINES FOR LIGHT DENOMINATOR ---
                 document.getElementById('sbTotalVal').innerHTML = data.total + '<span class="small-denom">/300</span>';
                 document.getElementById('sbAttnVal').innerHTML = (data.attendance || "--") + '<span class="small-denom">/250</span>';
                 
+                // --- ATTENDANCE RANK IN GAP ---
+                const attnBox = document.getElementById('sbAttnRankBox');
+                if (data.attendanceRank && data.attendanceRank <= 3 && data.attendanceRank > 0) {
+                    attnBox.style.display = 'flex';
+                    document.getElementById('sbAttnRankVal').innerText = "#" + data.attendanceRank;
+                } else {
+                    attnBox.style.display = 'none';
+                }
+
+                // --- ACADEMIC RANK BADGE ---
                 let rankDisplay = rank;
                 let rankIconHTML = '';
 
-                if (rank == 1) { 
-                    rankDisplay = "1st"; 
-                    rankIconHTML = '🥇'; 
-                } else if (rank == 2) { 
-                    rankDisplay = "2nd"; 
-                    rankIconHTML = '🥈'; 
-                } else if (rank == 3) { 
-                    rankDisplay = "3rd"; 
-                    rankIconHTML = '🥉'; 
-                } else { 
-                    rankDisplay = "#" + rank; 
-                    rankIconHTML = '<i class="fas fa-medal" style="color: #6b7280; font-size: 20px;"></i>'; 
-                }
+                if (rank == 1) { rankDisplay = "1st"; rankIconHTML = '🥇'; }
+                else if (rank == 2) { rankDisplay = "2nd"; rankIconHTML = '🥈'; }
+                else if (rank == 3) { rankDisplay = "3rd"; rankIconHTML = '🥉'; }
+                else { rankDisplay = "#" + rank; rankIconHTML = '<i class="fas fa-medal" style="color: #6b7280; font-size: 20px;"></i>'; }
 
                 document.getElementById('rankText').innerText = rankDisplay;
                 document.getElementById('rankIconContainer').innerHTML = rankIconHTML;
@@ -388,4 +404,3 @@
 
 </body>
 </html>
-
