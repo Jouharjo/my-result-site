@@ -14,11 +14,18 @@
             --primary: #0f766e;
             --bg: #f3f4f6;
             --white: #ffffff;
-            /* Premium Gradients */
-            --pass-grad: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
-            --pass-text: #065f46;
-            --fail-grad: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-            --fail-text: #991b1b;
+            
+            /* Exact Colors from Image */
+            --fail-bg: #fff0f0;
+            --fail-text: #ef4444;
+            --fail-icon-bg: #ef4444;
+            
+            --pass-bg: #ecfdf5;
+            --pass-text: #10b981;
+            --pass-icon-bg: #10b981;
+            
+            --bar-bg: #e5e7eb;
+            --bar-fill: #3b82f6; /* Blue bar like reference */
         }
 
         body {
@@ -46,8 +53,8 @@
             padding: 40px 20px 80px;
             text-align: center;
             color: white;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
             box-shadow: 0 4px 20px rgba(15, 118, 110, 0.2);
         }
         .school-logo { width: 80px; height: auto; margin-bottom: 8px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
@@ -77,65 +84,72 @@
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* --- PROFESSIONAL 3D SUMMARY BOX --- */
+        /* --- EXACT REFERENCE SUMMARY BOX --- */
         .summary-box {
-            border-radius: 20px;
-            padding: 25px;
+            border-radius: 24px;
+            padding: 24px;
             margin-bottom: 25px;
-            position: relative;
-            overflow: hidden;
-            /* Default Pass Style */
-            background: var(--pass-grad);
-            box-shadow: 0 10px 30px -5px rgba(16, 185, 129, 0.3); /* Green Glow */
-            border: 1px solid rgba(255,255,255,0.5);
+            background-color: var(--pass-bg); /* Default Pass */
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.03);
         }
 
-        .sb-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        /* Header Row: Icon | Text ....... Percent */
+        .sb-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .sb-left { display: flex; align-items: center; gap: 15px; }
         
-        .sb-status { display: flex; align-items: center; gap: 12px; }
         .sb-icon-box { 
-            width: 45px; height: 45px; border-radius: 12px; 
+            width: 48px; height: 48px; border-radius: 14px; 
             display: flex; align-items: center; justify-content: center;
-            font-size: 22px; color: white;
-            background: var(--pass-text);
+            font-size: 20px; color: white;
+            background: var(--pass-icon-bg);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
-        .sb-text-group { display: flex; flex-direction: column; }
-        .sb-status-text { font-size: 20px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; letter-spacing: 0.5px; }
-        
-        /* New "Total" Score Style */
-        .sb-score-text { 
-            font-size: 13px; font-weight: 700; color: var(--pass-text); opacity: 0.8; margin-top: 4px; 
-        }
 
-        .sb-percent { font-size: 32px; font-weight: 800; color: var(--pass-text); text-shadow: 0 2px 0 rgba(255,255,255,0.4); }
+        .sb-info { display: flex; flex-direction: column; }
+        .sb-status { font-size: 18px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.1; }
+        .sb-score { font-size: 13px; font-weight: 700; color: #9ca3af; margin-top: 4px; letter-spacing: 0.5px; }
+        .sb-score span { color: #4b5563; font-weight: 800; } /* Darker number */
 
-        .progress-track { width: 100%; height: 10px; background: rgba(255,255,255,0.5); border-radius: 20px; overflow: hidden; margin-bottom: 15px; border: 1px solid rgba(0,0,0,0.05); }
-        .progress-fill { height: 100%; background: var(--pass-text); width: 0%; transition: width 1s ease-out; border-radius: 20px; }
+        .sb-percent { font-size: 26px; font-weight: 800; color: var(--pass-text); display: flex; align-items: center; gap: 4px; }
+        .sb-bolt { font-size: 18px; }
 
-        /* Attendance Pill (Single Large Pill) */
-        .sb-footer { display: flex; justify-content: center; }
+        /* Progress Bar */
+        .progress-track { width: 100%; height: 8px; background: var(--bar-bg); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+        .progress-fill { height: 100%; background: var(--bar-fill); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
+
+        /* Bottom Row: Attendance & Rank */
+        .sb-footer { display: flex; gap: 10px; }
         .sb-pill { 
-            background: rgba(255,255,255,0.9); padding: 10px 20px; border-radius: 50px; 
-            font-size: 13px; font-weight: 700; color: #374151; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            display: flex; align-items: center; gap: 8px;
+            background: white; 
+            padding: 10px 16px; 
+            border-radius: 12px; 
+            font-size: 12px; 
+            font-weight: 700; 
+            color: #374151; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+            display: flex; align-items: center; gap: 8px; 
+            flex: 1; /* Equal width */
+            justify-content: center;
+            border: 1px solid rgba(0,0,0,0.04);
         }
-        .sb-pill i { color: var(--primary); }
+        .sb-pill i { color: var(--pass-text); font-size: 14px; }
 
-        /* FAIL STATE OVERRIDES */
-        .summary-box.fail-mode { 
-            background: var(--fail-grad);
-            box-shadow: 0 10px 30px -5px rgba(239, 68, 68, 0.3); /* Red Glow */
-        }
-        .summary-box.fail-mode .sb-icon-box { background: var(--fail-text); }
-        .summary-box.fail-mode .sb-status-text { color: var(--fail-text); }
-        .summary-box.fail-mode .sb-score-text { color: var(--fail-text); }
+        /* FAIL MODE OVERRIDES */
+        .summary-box.fail-mode { background-color: var(--fail-bg); }
+        .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); }
+        .summary-box.fail-mode .sb-status { color: var(--fail-text); }
         .summary-box.fail-mode .sb-percent { color: var(--fail-text); }
-        .summary-box.fail-mode .progress-fill { background: var(--fail-text); }
+        .summary-box.fail-mode .sb-pill i { color: var(--fail-text); }
 
 
-        /* --- STUDENT INFO & TABLE --- */
+        /* TABLE */
         .student-header { display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #e5e7eb; }
         .s-label { font-size: 11px; color: #9ca3af; font-weight: 700; text-transform: uppercase; }
         .s-val { font-size: 16px; font-weight: 700; color: #1f2937; }
@@ -144,12 +158,10 @@
         .marks-table th { background: #f9fafb; text-align: left; font-size: 11px; color: #6b7280; font-weight: 700; text-transform: uppercase; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; }
         .marks-table td { padding: 12px 15px; font-size: 14px; font-weight: 600; color: #1f2937; border-bottom: 1px solid #f3f4f6; }
         .marks-table td.right { text-align: right; }
-        .marks-table tr:last-child td { border-bottom: none; }
         .marks-table tr:nth-child(even) { background-color: #fcfcfc; }
 
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
         
-        /* Print Hide */
         @media print {
             body { background: white; }
             .header-section { color: black; background: none; border-bottom: 2px solid #000; padding: 10px; border-radius: 0; box-shadow: none; }
@@ -196,14 +208,16 @@
         
         <div class="summary-box" id="summaryBox">
             <div class="sb-header">
-                <div class="sb-status">
+                <div class="sb-left">
                     <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
-                    <div class="sb-text-group">
-                        <div class="sb-status-text" id="sbStatusText">PASSED</div>
-                        <div class="sb-score-text" id="sbScore">TOTAL: 0/300</div>
+                    <div class="sb-info">
+                        <div class="sb-status" id="sbStatusText">PASSED</div>
+                        <div class="sb-score">SCORE: <span id="sbScoreVal">0/300</span></div>
                     </div>
                 </div>
-                <div class="sb-percent" id="sbPercent">0%</div>
+                <div class="sb-percent">
+                    <i class="fas fa-bolt sb-bolt"></i> <span id="sbPercentVal">0%</span>
+                </div>
             </div>
             
             <div class="progress-track">
@@ -213,7 +227,11 @@
             <div class="sb-footer">
                 <div class="sb-pill">
                     <i class="fas fa-user-clock"></i> 
-                    <span id="sbAttn">Attendance: --/250</span>
+                    <span id="sbAttn">ATTN: --/250</span>
+                </div>
+                <div class="sb-pill">
+                    <i class="fas fa-trophy"></i> 
+                    <span id="sbRank">RANK: #--</span>
                 </div>
             </div>
         </div>
@@ -228,10 +246,6 @@
             <tbody id="marksBody"></tbody>
         </table>
 
-        <div style="text-align: center; margin-bottom: 20px; font-weight: 700; color: #6b7280;">
-            CLASS RANK: <span id="rRank" style="color: var(--primary); font-size: 18px;">#</span>
-        </div>
-
         <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
         <button class="btn-primary" style="background: white; color: #6b7280; border: 2px solid #e5e7eb;" onclick="location.reload()">Check Another</button>
     </div>
@@ -240,7 +254,7 @@
 </div>
 
 <script>
-    // ▼▼▼ PASTE YOUR NEW SCRIPT URL HERE ▼▼▼
+    // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL HERE ▼▼▼
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUMvrE0fZwXSOTXgtv_kPAQi5DeG5eFSfqmaf1a1BLib4K4SR0CkijIHqOLNFa5GZpqw/exec"; 
 
     async function findResult() {
@@ -264,24 +278,21 @@
 
                 document.getElementById('rName').innerText = data.name;
                 document.getElementById('rRoll').innerText = roll;
-                document.getElementById('rRank').innerText = "#" + data.rank;
                 
                 // --- BOX LOGIC ---
                 const box = document.getElementById('summaryBox');
                 const percentVal = parseFloat(data.percentage);
                 
-                document.getElementById('sbPercent').innerText = data.percentage + "%";
+                // Values
+                document.getElementById('sbPercentVal').innerText = data.percentage + "%";
+                document.getElementById('sbScoreVal').innerText = data.total + "/300";
+                document.getElementById('sbAttn').innerText = "ATTN: " + (data.attendance || "--") + "/250";
+                document.getElementById('sbRank').innerText = "RANK: #" + data.rank;
                 
-                // FIXED TOTAL: /300
-                document.getElementById('sbScore').innerText = "TOTAL: " + data.total + "/300";
-                
-                // FIXED ATTENDANCE: /250
-                // Reads attendance from Sheet (e.g., "222") and adds "/250"
-                const attnVal = data.attendance || "--";
-                document.getElementById('sbAttn').innerText = "Attendance: " + attnVal + "/250";
-                
+                // Progress Bar Animation
                 setTimeout(() => { document.getElementById('sbProgress').style.width = percentVal + "%"; }, 300);
 
+                // Pass/Fail Styling
                 if(data.finalStatus === "FAIL") {
                     box.classList.add("fail-mode");
                     document.getElementById('sbStatusText').innerText = "FAILED";
@@ -293,6 +304,7 @@
                     fireConfetti();
                 }
 
+                // Table
                 let rows = "";
                 data.subjectData.forEach(sub => {
                     rows += `<tr><td>${sub.name}</td><td class="right">${sub.mark}</td></tr>`;
