@@ -86,20 +86,20 @@
         /* --- SUMMARY BOX --- */
         .summary-box {
             border-radius: 20px;
-            padding: 13px 10px;
-            margin-bottom: 17px;
+            padding: 15px 12px; /* Adjusted padding for better fit */
+            margin-bottom: 20px;
             background-color: var(--pass-bg);
             border: 2px solid var(--pass-border);
             position: relative;
             overflow: hidden;
         }
 
-        /* 3-Column Grid */
+        /* 3-Column Grid - Refined */
         .sb-grid {
             display: grid;
-            grid-template-columns: 1.4fr 0.7fr 1.1fr; /* Left gets more space for big box */
+            grid-template-columns: 1.4fr 0.7fr 1.1fr; /* Ratios kept */
             gap: 5px;
-            align-items: center;
+            align-items: center; /* Crucial for vertical alignment */
             margin-bottom: 15px;
         }
 
@@ -107,23 +107,21 @@
         .sb-left {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px; /* Slightly increased gap */
         }
         
-        /* UPDATED: Bigger Box */
         .sb-icon-box {
-            width: 51px; height: 51px; /* Increased size */
+            width: 50px; height: 50px; /* Kept large */
             flex-shrink: 0;
             border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 28px; /* Bigger Icon */
+            color: white; font-size: 26px;
             background: var(--pass-icon-bg);
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         
-        /* UPDATED: Bigger Text */
-        .sb-status-text { font-size: 21px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
-        .sb-percent-text { font-size: 15px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
+        .sb-status-text { font-size: 20px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
+        .sb-percent-text { font-size: 14px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
         
         /* MIDDLE: Rank Badge */
         .sb-middle {
@@ -134,8 +132,9 @@
             border-left: 1px dashed rgba(0,0,0,0.05);
             border-right: 1px dashed rgba(0,0,0,0.05);
             padding: 0 2px;
+            min-height: 50px; /* Ensures height consistency */
         }
-        .rank-icon-container { font-size: 24px; margin-bottom: 0px; line-height: 1; }
+        .rank-icon-container { font-size: 24px; margin-bottom: 0px; line-height: 1; min-height: 24px; /* Placeholder height */ display: flex; align-items: center; }
         .rank-text { font-size: 13px; font-weight: 800; color: #374151; }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
@@ -149,7 +148,7 @@
             padding-right: 2px;
         }
         .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 1px; }
-        .sb-total-val { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
+        .sb-total-val { font-size: 18px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
 
         /* Attendance */
         .sb-attn-box { 
@@ -312,7 +311,7 @@
                 const percentVal = parseFloat(data.percentage);
                 const rank = data.rank;
 
-                document.getElementById('sbPercentVal').innerText = data.percentage ;
+                document.getElementById('sbPercentVal').innerText = data.percentage + "%";
                 document.getElementById('sbTotalVal').innerText = data.total + "/300";
                 document.getElementById('sbAttnVal').innerText = (data.attendance || "--") + "/250";
                 
