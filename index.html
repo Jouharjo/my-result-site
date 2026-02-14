@@ -142,9 +142,16 @@
             flex-direction: row; 
             justify-content: flex-end; 
             align-items: center;
-            gap: 12px; 
-            padding-right: 15px; /* <--- CHANGED: Increased spacing from right edge */
+            
+            /* Reduced gap to fit content */
+            gap: 8px; 
+            
+            padding-right: 12px;
             text-align: right;
+            
+            /* Crucial: Prevents it from growing too wide */
+            min-width: 0; 
+            flex: 1.6; /* Ensure it takes available space */
         }
 
         .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 1px; }
@@ -154,14 +161,18 @@
         .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
 
         /* ATTENDANCE BOX */
-        .sb-attn-box { 
-            margin-top: 5px;
+                .sb-attn-box { 
+            margin-top: 4px;
             background: rgba(255,255,255,0.6); 
             padding: 3px 6px; 
             border-radius: 5px; 
             display: inline-flex;
             align-items: center;
+            
+            /* Ensure it fits */
+            max-width: 100%;
         }
+
         .sb-attn-label { font-size: 9px; font-weight: 700; color: #9ca3af; margin-right: 4px; }
          .sb-attn-val { 
             font-size: 11px; 
