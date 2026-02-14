@@ -140,19 +140,27 @@
             justify-content: flex-end; 
             align-items: center;
             gap: 2px; /* Space between Attn Rank and Marks */
-            padding-right: 8px;
+            padding-right: 2px;
             text-align: right;
         }
-        
-        /* Attendance Rank Badge */
+                .sb-attn-rank-box {
+            /* ... existing styles ... */
+            margin-right: -5px; /* Pulls the Total Mark closer */
+        }
+
+                /* Attendance Rank Badge */
         .sb-attn-rank-box {
             display: none; /* Hidden by default */
             flex-direction: column;
             align-items: center;
             justify-content: center;
             min-width: 40px;
-            margin-top: -1px; /* Moves entire block up slightly */
+            
+            /* --- MOVEMENT CONTROLS --- */
+            position: relative; 
+            top: -8px;    /* Negative moves it UP */
         }
+
         .attn-top-txt { font-size: 9px; font-weight: 700; color: #6b7280; line-height: 1; margin-bottom: 0px; }
         .attn-val-txt { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; margin-bottom: 1px; }
         .attn-bot-txt { font-size: 8px; font-weight: 700; color: #9ca3af; line-height: 1; white-space: nowrap; }
