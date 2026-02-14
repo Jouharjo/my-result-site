@@ -12,14 +12,12 @@
     <style>
         :root {
             --primary: #0f766e;
-            --primary-dark: #0d5f58;
-            --accent: #ccfbf1;
-            --text-main: #111827;
-            --text-sub: #6b7280;
             --bg: #f3f4f6;
             --white: #ffffff;
-            --success: #059669;
-            --danger: #dc2626;
+            --pass-bg: #ecfdf5;
+            --pass-text: #047857;
+            --fail-bg: #fef2f2;
+            --fail-text: #b91c1c;
         }
 
         body {
@@ -29,8 +27,7 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            color: var(--text-main);
-            -webkit-tap-highlight-color: transparent;
+            color: #1f2937;
         }
 
         .app-container {
@@ -42,187 +39,116 @@
             position: relative;
         }
 
-        /* HEADER SECTION */
+        /* HEADER */
         .header-section {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, #0f766e, #0d5f58);
             padding: 40px 20px 80px;
             text-align: center;
             color: white;
-            
-            /* Rectangle with slight curve */
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
-            
             box-shadow: 0 4px 20px rgba(15, 118, 110, 0.2);
         }
-        
-        .school-logo {
-            width: 80px; 
-            height: auto;
-            margin-bottom: 8px; 
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
-        
-        /* UPDATED FONT SIZES */
-        .school-name { 
-            font-size: 22px; /* Increased */
-            font-weight: 800; 
-            letter-spacing: 0.5px; 
-            margin: 0; 
-            text-transform: uppercase; 
-            line-height: 1.3; 
-        }
-        
-        .reg-no { 
-            font-size: 13px; /* Increased */
-            font-weight: 600; 
-            opacity: 0.9; 
-            margin-top: 4px; 
-            letter-spacing: 1px; 
-        }
-        
-        .exam-name { 
-            font-size: 16px; /* Increased */
-            font-weight: 600; 
-            opacity: 0.95; 
-            margin-top: 12px; 
-            padding-top: 12px; 
-            border-top: 1px dashed rgba(255,255,255,0.3); 
-            display: inline-block; 
-        }
+        .school-logo { width: 80px; height: auto; margin-bottom: 8px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2)); }
+        .school-name { font-size: 22px; font-weight: 800; text-transform: uppercase; margin: 0; line-height: 1.3; }
+        .reg-no { font-size: 13px; font-weight: 600; opacity: 0.9; margin-top: 4px; }
+        .exam-name { font-size: 16px; font-weight: 600; opacity: 0.95; margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.3); display: inline-block; }
 
-        /* CARD */
+        /* MAIN CARD */
         .main-card {
             background: var(--white);
             margin: -60px 20px 20px;
             border-radius: 20px;
-            padding: 25px;
+            padding: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             position: relative;
             z-index: 10;
         }
 
         /* INPUTS */
-        .input-group { margin-bottom: 20px; text-align: left; }
-        .input-label { display: block; font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; text-transform: uppercase; }
-        
-        select, input {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid #e5e7eb;
-            border-radius: 12px;
-            font-size: 16px;
-            font-family: inherit;
-            color: var(--text-main);
-            background: #f9fafb;
-            outline: none;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            appearance: none;
-        }
-        select {
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%236b7280%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px top 50%;
-            background-size: 12px auto;
-        }
-        input:focus, select:focus { border-color: var(--primary); background: var(--white); box-shadow: 0 0 0 4px var(--accent); }
+        .input-group { margin-bottom: 15px; }
+        .input-label { display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 5px; text-transform: uppercase; }
+        select, input { width: 100%; padding: 14px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 16px; outline: none; box-sizing: border-box; background: #f9fafb; font-family: inherit; }
+        input:focus, select:focus { border-color: var(--primary); background: white; }
 
-        /* BUTTONS */
         .btn-primary {
-            width: 100%;
-            padding: 18px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50px; 
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.1s;
-            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 10px;
-        }
-        .btn-primary:active { transform: scale(0.98); }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-sub);
-            font-size: 14px;
-            font-weight: 600;
-            margin-top: 15px;
-            border: none;
-            cursor: pointer;
-            padding: 10px;
-            width: 100%;
+            width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 50px;
+            font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* RESULT ANIMATIONS */
-        #resultView { display: none; animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-
-        .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px dashed #e5e7eb; }
-        .student-name { font-size: 20px; font-weight: 800; color: var(--text-main); line-height: 1.2; }
-        .student-meta { font-size: 13px; color: var(--text-sub); margin-top: 4px; font-weight: 500; }
-        .student-roll { background: var(--bg); padding: 5px 10px; border-radius: 8px; font-weight: 700; font-size: 14px; color: var(--text-main); }
-
-        /* SCORE GRID */
-        .score-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr 1fr; 
-            gap: 10px; 
-            margin-top: 25px; 
-            margin-bottom: 25px; 
+        /* --- NEW SUMMARY BOX STYLE --- */
+        .summary-box {
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+            /* Default to Pass Style, JS will change if Fail */
+            background-color: var(--pass-bg);
+            border: 1px solid rgba(4, 120, 87, 0.1);
         }
-        .score-card { background: #f9fafb; padding: 12px 5px; border-radius: 12px; text-align: center; border: 1px solid #f3f4f6; }
-        .score-label { font-size: 10px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; display: block; margin-bottom: 4px; }
-        .score-value { font-size: 18px; font-weight: 800; color: var(--primary); }
 
-        /* TABLE */
-        .marks-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 0px; border: 1px solid #f3f4f6; border-radius: 12px; overflow: hidden; }
-        .marks-table th { background: #f9fafb; text-align: left; font-size: 11px; color: var(--text-sub); font-weight: 700; text-transform: uppercase; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; }
-        .marks-table td { padding: 12px 15px; font-size: 15px; font-weight: 600; color: var(--text-main); border-bottom: 1px solid #f3f4f6; }
-        .marks-table td.marks-col { text-align: right; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
+        .sb-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 15px; }
+        
+        /* Status Icon & Text */
+        .sb-status { display: flex; align-items: center; gap: 10px; }
+        .sb-icon-box { 
+            width: 40px; height: 40px; border-radius: 10px; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: white;
+            background: var(--pass-text); /* Default Green */
+        }
+        .sb-text-group { display: flex; flex-direction: column; }
+        .sb-status-text { font-size: 18px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; }
+        .sb-score-text { font-size: 13px; font-weight: 600; color: #6b7280; margin-top: 4px; }
+
+        /* Percentage Big */
+        .sb-percent { font-size: 28px; font-weight: 800; color: var(--pass-text); }
+
+        /* Progress Bar */
+        .progress-track { width: 100%; height: 8px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; margin-bottom: 15px; }
+        .progress-fill { height: 100%; background: var(--pass-text); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
+
+        /* Footer Pills */
+        .sb-footer { display: flex; gap: 10px; justify-content: space-between; }
+        .sb-pill { 
+            background: white; padding: 8px 12px; border-radius: 8px; 
+            font-size: 11px; font-weight: 700; color: #374151; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex; align-items: center; gap: 6px; flex: 1; justify-content: center;
+        }
+        .sb-pill i { color: var(--primary); }
+
+        /* FAIL STATE OVERRIDES */
+        .summary-box.fail-mode { background-color: var(--fail-bg); border-color: rgba(185, 28, 28, 0.1); }
+        .summary-box.fail-mode .sb-icon-box { background: var(--fail-text); }
+        .summary-box.fail-mode .sb-status-text { color: var(--fail-text); }
+        .summary-box.fail-mode .sb-percent { color: var(--fail-text); }
+        .summary-box.fail-mode .progress-fill { background: var(--fail-text); }
+
+        /* --- STUDENT INFO & TABLE --- */
+        .student-header { display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #e5e7eb; }
+        .s-label { font-size: 11px; color: #9ca3af; font-weight: 700; text-transform: uppercase; }
+        .s-val { font-size: 16px; font-weight: 700; color: #1f2937; }
+
+        .marks-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid #f3f4f6; border-radius: 12px; overflow: hidden; margin-bottom: 20px; }
+        .marks-table th { background: #f9fafb; text-align: left; font-size: 11px; color: #6b7280; font-weight: 700; text-transform: uppercase; padding: 12px 15px; border-bottom: 1px solid #e5e7eb; }
+        .marks-table td { padding: 12px 15px; font-size: 14px; font-weight: 600; color: #1f2937; border-bottom: 1px solid #f3f4f6; }
+        .marks-table td.right { text-align: right; }
+        .marks-table tr:last-child td { border-bottom: none; }
         .marks-table tr:nth-child(even) { background-color: #fcfcfc; }
-        .marks-table tr:hover { background-color: #f0fdfa; transition: background-color 0.2s; }
-        
-        .marks-row { opacity: 0; animation: fadeIn 0.5s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: translateX(0); } }
 
-        /* STATUS BADGE */
-        .status-container { text-align: center; margin-bottom: 30px; }
-        .status-badge {
-            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
-            padding: 12px 40px; border-radius: 50px; color: white; font-weight: 800; font-size: 18px; letter-spacing: 1px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15); text-transform: uppercase;
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
-        
-        .status-pass { background: var(--success); box-shadow: 0 6px 15px rgba(5, 150, 105, 0.4); }
-        .status-fail { background: var(--danger); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.4); }
-        
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
-
-        /* PRINT */
+        
+        /* Print Hide */
         @media print {
             body { background: white; }
-            .app-container { max-width: 100%; width: 100%; box-shadow: none; }
-            .header-section { background: white !important; color: black; padding: 20px 0; border-bottom: 2px solid #0f766e; border-radius: 0; box-shadow: none; }
-            .logo-icon { color: #0f766e; animation: none; filter: none; }
-            .school-name { font-size: 24px; color: #0f766e; }
-            .main-card { box-shadow: none; margin: 0; padding: 0; border: none; }
-            .btn-primary, .btn-secondary, .footer, #searchView { display: none !important; }
-            .status-badge { border: 2px solid #000; color: #000; background: none !important; box-shadow: none; animation: none; }
-            .score-card { border: 1px solid #ddd; background: white; }
-            .marks-table { border: 1px solid #ddd; }
-            .marks-table th { background: #eee; color: black; border-bottom: 1px solid #000; }
-            .marks-table td { border-bottom: 1px solid #ddd; color: black; }
+            .header-section { color: black; background: none; border-bottom: 2px solid #000; padding: 10px; border-radius: 0; box-shadow: none; }
+            .logo-icon { display: none; }
+            .school-logo { width: 60px; filter: none; }
+            .main-card { box-shadow: none; margin: 0; padding: 0; }
+            .btn-primary, .btn-secondary, #searchView { display: none !important; }
+            .summary-box { border: 1px solid #000; background: none !important; }
         }
     </style>
 </head>
@@ -252,73 +178,70 @@
             <label class="input-label">Roll Number</label>
             <input type="number" id="rollInput" placeholder="Ex: 101" inputmode="numeric">
         </div>
-        
         <button class="btn-primary" onclick="findResult()" id="searchBtn">
             <i class="fas fa-search"></i> Check Result
         </button>
-        
-        <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #999;">Need help? Contact School Office</div>
     </div>
 
-    <div class="main-card" id="resultView">
-        <div class="student-header">
-            <div>
-                <div class="student-name" id="rName">--</div>
-                <div class="student-meta" id="rClass">--</div>
+    <div class="main-card" id="resultView" style="display: none;">
+        
+        <div class="summary-box" id="summaryBox">
+            <div class="sb-header">
+                <div class="sb-status">
+                    <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
+                    <div class="sb-text-group">
+                        <div class="sb-status-text" id="sbStatusText">PASSED</div>
+                        <div class="sb-score-text" id="sbScore">Score: 0/0</div>
+                    </div>
+                </div>
+                <div class="sb-percent" id="sbPercent">0%</div>
             </div>
-            <div class="student-roll" id="rRoll">--</div>
+            
+            <div class="progress-track">
+                <div class="progress-fill" id="sbProgress"></div>
+            </div>
+
+            <div class="sb-footer">
+                <div class="sb-pill"><i class="fas fa-user-clock"></i> <span id="sbAttn">--</span></div>
+                <div class="sb-pill"><i class="fas fa-graduation-cap"></i> <span id="sbPromo">--</span></div>
+            </div>
+        </div>
+
+        <div class="student-header">
+            <div><div class="s-label">Name</div><div class="s-val" id="rName">--</div></div>
+            <div style="text-align: right;"><div class="s-label">Roll No</div><div class="s-val" id="rRoll">--</div></div>
         </div>
 
         <table class="marks-table">
-            <thead><tr><th>Subject</th><th style="text-align: right;">Marks</th></tr></thead>
+            <thead><tr><th>Subject</th><th class="right">Marks</th></tr></thead>
             <tbody id="marksBody"></tbody>
         </table>
 
-        <div class="score-grid">
-            
-            <div class="score-card">
-                <span class="score-label">Percentage</span>
-                <div class="score-value" id="rPercent">--</div>
-            </div>
-
-            <div class="score-card">
-                <span class="score-label">Rank</span>
-                <div class="score-value" id="rRank">--</div>
-            </div>
-
-            <div class="score-card">
-                <span class="score-label">Total Marks</span>
-                <div class="score-value" id="rTotal">0</div>
-            </div>
-
-        </div>
-
-        <div class="status-container">
-            <div id="rStatus" class="status-badge status-pass"><i class="fas fa-check-circle"></i> PASS</div>
+        <div style="text-align: center; margin-bottom: 20px; font-weight: 700; color: #6b7280;">
+            CLASS RANK: <span id="rRank" style="color: var(--primary); font-size: 18px;">#</span>
         </div>
 
         <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
-        <button class="btn-secondary" onclick="location.reload()">Check Another Result</button>
+        <button class="btn-primary" style="background: white; color: #6b7280; border: 2px solid #e5e7eb;" onclick="location.reload()">Check Another</button>
     </div>
 
     <div class="footer">Powered by <strong>Jouhar's Tech</strong></div>
 </div>
 
 <script>
-    // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL HERE ▼▼▼
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUMvrE0fZwXSOTXgtv_kPAQi5DeG5eFSfqmaf1a1BLib4K4SR0CkijIHqOLNFa5GZpqw/exec"; 
+    // ▼▼▼ PASTE YOUR NEW SCRIPT URL HERE ▼▼▼
+    const SCRIPT_URL = "PASTE_YOUR_NEW_SCRIPT_URL_HERE"; 
 
     async function findResult() {
         const roll = document.getElementById('rollInput').value;
         const cls = document.getElementById('classSelect').value;
         const btn = document.getElementById('searchBtn');
 
-        if(!cls) return alert("Please select a Class");
-        if(!roll) return alert("Please enter Roll Number");
+        if(!cls || !roll) return alert("Please fill all fields");
 
-        const originalText = btn.innerText;
+        const originalText = btn.innerHTML;
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
-        btn.style.opacity = "0.8";
+        btn.style.opacity = "0.7";
 
         try {
             const response = await fetch(`${SCRIPT_URL}?roll=${roll}&cls=${cls}`);
@@ -328,71 +251,60 @@
                 document.getElementById('searchView').style.display = 'none';
                 document.getElementById('resultView').style.display = 'block';
 
+                // Basic Info
                 document.getElementById('rName').innerText = data.name;
-                document.getElementById('rRoll').innerText = "Roll: " + roll;
-                document.getElementById('rClass').innerText = cls;
+                document.getElementById('rRoll').innerText = roll;
+                document.getElementById('rRank').innerText = "#" + data.rank;
                 
-                // Rank Icons
-                const rankVal = data.rank;
-                let rankHtml = "#" + rankVal;
-                if(rankVal == 1) rankHtml = "🥇 1st";
-                if(rankVal == 2) rankHtml = "🥈 2nd";
-                if(rankVal == 3) rankHtml = "🥉 3rd";
-                document.getElementById('rRank').innerHTML = rankHtml;
+                // --- SUMMARY BOX LOGIC ---
+                const box = document.getElementById('summaryBox');
+                const percentVal = parseFloat(data.percentage); // e.g., 59.00
                 
-                // Total & Percentage
-                document.getElementById('rTotal').innerText = data.total;
-                document.getElementById('rPercent').innerText = data.percentage; 
+                document.getElementById('sbPercent').innerText = data.percentage + "%";
+                document.getElementById('sbScore').innerText = "Score: " + data.total;
+                document.getElementById('sbAttn').innerText = "Attn: " + (data.attendance || "N/A"); // Attendance from Sheet
+                
+                // Progress Bar
+                setTimeout(() => { document.getElementById('sbProgress').style.width = percentVal + "%"; }, 300);
 
-                // Status & Confetti Logic
-                const statusBadge = document.getElementById('rStatus');
+                // Pass/Fail Styling & Promotion Logic
                 if(data.finalStatus === "FAIL") {
-                    statusBadge.className = "status-badge status-fail";
-                    statusBadge.innerHTML = '<i class="fas fa-times-circle"></i> FAIL';
+                    box.classList.add("fail-mode");
+                    document.getElementById('sbStatusText').innerText = "FAILED";
+                    document.getElementById('sbIcon').innerHTML = '<i class="fas fa-exclamation"></i>';
+                    document.getElementById('sbPromo').innerText = "Detained"; // Or "Contact Office"
                 } else {
-                    statusBadge.className = "status-badge status-pass";
-                    statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> PASS';
-                    // TRIGGER CONFETTI
+                    box.classList.remove("fail-mode");
+                    document.getElementById('sbStatusText').innerText = "PASSED";
+                    document.getElementById('sbIcon').innerHTML = '<i class="fas fa-check"></i>';
+                    
+                    // Auto-Calculate Next Class
+                    const currentClassNum = cls.replace(/\D/g, ''); // Extract "1" from "Class 1"
+                    const nextClass = parseInt(currentClassNum) + 1;
+                    document.getElementById('sbPromo').innerText = "Promoted to Class " + nextClass;
+                    
                     fireConfetti();
                 }
 
-                // Fill Table with Animation Delays
+                // Table
                 let rows = "";
-                data.subjectData.forEach((sub, index) => {
-                    // Add animation-delay based on index (0.1s, 0.2s, etc.)
-                    rows += `<tr class="marks-row" style="animation-delay: ${index * 0.1}s">
-                                <td>${sub.name}</td>
-                                <td class="marks-col">${sub.mark}</td>
-                             </tr>`;
+                data.subjectData.forEach(sub => {
+                    rows += `<tr><td>${sub.name}</td><td class="right">${sub.mark}</td></tr>`;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
 
             } else {
-                alert("Result not found! Please check Class and Roll Number.");
+                alert("Result not found!");
             }
         } catch (error) {
-            alert("Network Error. Please try again.");
+            alert("Connection Error!");
         }
-
         btn.innerHTML = originalText;
         btn.style.opacity = "1";
     }
 
     function fireConfetti() {
-        var count = 200;
-        var defaults = { origin: { y: 0.7 } };
-
-        function fire(particleRatio, opts) {
-            confetti(Object.assign({}, defaults, opts, {
-                particleCount: Math.floor(count * particleRatio)
-            }));
-        }
-
-        fire(0.25, { spread: 26, startVelocity: 55 });
-        fire(0.2, { spread: 60 });
-        fire(0.35, { spread: 100, decay: 0.91, scalar: 0.8 });
-        fire(0.1, { spread: 120, startVelocity: 25, decay: 0.92, scalar: 1.2 });
-        fire(0.1, { spread: 120, startVelocity: 45 });
+        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
     }
 </script>
 
