@@ -25,12 +25,6 @@
             --fail-border: #fee2e2;
             --fail-text: #b91c1c;
             --fail-icon-bg: #ef4444;
-            
-            /* Rank Colors */
-            --gold: #f59e0b;
-            --silver: #64748b;
-            --bronze: #b45309;
-            --rank-def: #6b7280;
         }
 
         body {
@@ -89,7 +83,7 @@
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* --- SUMMARY BOX (GRID SYSTEM) --- */
+        /* --- SUMMARY BOX --- */
         .summary-box {
             border-radius: 20px;
             padding: 20px 15px;
@@ -100,10 +94,10 @@
             overflow: hidden;
         }
 
-        /* 3-Column Grid: Left (1.2), Middle (0.8), Right (1.2) */
+        /* 3-Column Grid */
         .sb-grid {
             display: grid;
-            grid-template-columns: 1.2fr 0.7fr 1.3fr;
+            grid-template-columns: 1.4fr 0.7fr 1.1fr; /* Left gets more space for big box */
             gap: 5px;
             align-items: center;
             margin-bottom: 15px;
@@ -113,20 +107,24 @@
         .sb-left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
+        
+        /* UPDATED: Bigger Box */
         .sb-icon-box {
-            width: 40px; height: 40px;
-            flex-shrink: 0; /* Prevent squishing */
-            border-radius: 10px;
+            width: 54px; height: 54px; /* Increased size */
+            flex-shrink: 0;
+            border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 20px;
+            color: white; font-size: 28px; /* Bigger Icon */
             background: var(--pass-icon-bg);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .sb-status-text { font-size: 15px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 2px; }
-        .sb-percent-text { font-size: 13px; font-weight: 800; color: var(--pass-text); opacity: 0.8; }
-
+        
+        /* UPDATED: Bigger Text */
+        .sb-status-text { font-size: 21px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
+        .sb-percent-text { font-size: 13px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
+        
         /* MIDDLE: Rank Badge */
         .sb-middle {
             display: flex;
@@ -137,7 +135,7 @@
             border-right: 1px dashed rgba(0,0,0,0.05);
             padding: 0 2px;
         }
-        .rank-icon { font-size: 20px; margin-bottom: 2px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15)); }
+        .rank-icon-container { font-size: 24px; margin-bottom: 0px; line-height: 1; }
         .rank-text { font-size: 13px; font-weight: 800; color: #374151; }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
@@ -145,17 +143,15 @@
         .sb-right {
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* Align right */
+            align-items: flex-end;
             justify-content: center;
             text-align: right;
             padding-right: 2px;
         }
-        
-        /* Total Mark Section */
         .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 2px; }
         .sb-total-val { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
 
-        /* Attendance Section */
+        /* Attendance */
         .sb-attn-box { 
             margin-top: 5px;
             background: rgba(255,255,255,0.6); 
@@ -241,12 +237,12 @@
                     <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
                     <div>
                         <div class="sb-status-text" id="sbStatusText">PASSED</div>
-                        <div class="sb-percent-text" id="sbPercentVal">0%</div>
+                        <div class="sb-percent-text"><i class="fas fa-bolt" style="color:#f59e0b;"></i> <span id="sbPercentVal">0%</span></div>
                     </div>
                 </div>
 
                 <div class="sb-middle">
-                    <i class="fas fa-medal rank-icon" id="rankIcon" style="color: var(--rank-def);"></i>
+                    <div class="rank-icon-container" id="rankIconContainer"></div>
                     <div class="rank-text" id="rankText">--</div>
                     <div class="rank-label">RANK</div>
                 </div>
@@ -316,23 +312,30 @@
                 const percentVal = parseFloat(data.percentage);
                 const rank = data.rank;
 
-                document.getElementById('sbPercentVal').innerText = data.percentage + "%";
+                document.getElementById('sbPercentVal').innerText = data.percentage ;
                 document.getElementById('sbTotalVal').innerText = data.total + "/300";
                 document.getElementById('sbAttnVal').innerText = (data.attendance || "--") + "/250";
                 
+                // --- RANK MEDAL LOGIC ---
                 let rankDisplay = rank;
-                let rankColor = "var(--rank-def)";
-                let rankIconClass = "fa-medal";
+                let rankIconHTML = '';
 
-                if (rank == 1) { rankDisplay = "1st"; rankColor = "var(--gold)"; rankIconClass = "fa-trophy"; }
-                else if (rank == 2) { rankDisplay = "2nd"; rankColor = "var(--silver)"; }
-                else if (rank == 3) { rankDisplay = "3rd"; rankColor = "var(--bronze)"; }
-                else { rankDisplay = "#" + rank; }
+                if (rank == 1) { 
+                    rankDisplay = "1st"; 
+                    rankIconHTML = '🥇'; // Gold Medal Emoji
+                } else if (rank == 2) { 
+                    rankDisplay = "2nd"; 
+                    rankIconHTML = '🥈'; // Silver Medal Emoji
+                } else if (rank == 3) { 
+                    rankDisplay = "3rd"; 
+                    rankIconHTML = '🥉'; // Bronze Medal Emoji
+                } else { 
+                    rankDisplay = "#" + rank; 
+                    rankIconHTML = '<i class="fas fa-medal" style="color: #6b7280; font-size: 20px;"></i>'; // Grey FontAwesome Icon
+                }
 
                 document.getElementById('rankText').innerText = rankDisplay;
-                const rIcon = document.getElementById('rankIcon');
-                rIcon.className = `fas ${rankIconClass} rank-icon`;
-                rIcon.style.color = rankColor;
+                document.getElementById('rankIconContainer').innerHTML = rankIconHTML;
 
                 setTimeout(() => { document.getElementById('sbProgress').style.width = percentVal + "%"; }, 300);
 
