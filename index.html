@@ -15,17 +15,23 @@
             --bg: #f3f4f6;
             --white: #ffffff;
             
-            /* Exact Colors from Image */
-            --fail-bg: #fff0f0;
-            --fail-text: #ef4444;
-            --fail-icon-bg: #ef4444;
-            
+            /* Pass Theme */
             --pass-bg: #ecfdf5;
-            --pass-text: #10b981;
+            --pass-border: #d1fae5;
+            --pass-text: #047857;
             --pass-icon-bg: #10b981;
             
-            --bar-bg: #e5e7eb;
-            --bar-fill: #3b82f6; /* Blue bar like reference */
+            /* Fail Theme */
+            --fail-bg: #fef2f2;
+            --fail-border: #fee2e2;
+            --fail-text: #b91c1c;
+            --fail-icon-bg: #ef4444;
+            
+            /* Rank Colors */
+            --gold: #f59e0b;
+            --silver: #64748b;
+            --bronze: #b45309;
+            --rank-def: #6b7280;
         }
 
         body {
@@ -62,7 +68,7 @@
         .reg-no { font-size: 13px; font-weight: 600; opacity: 0.9; margin-top: 4px; }
         .exam-name { font-size: 16px; font-weight: 600; opacity: 0.95; margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.3); display: inline-block; }
 
-        /* MAIN CARD */
+        /* CARD */
         .main-card {
             background: var(--white);
             margin: -60px 20px 20px;
@@ -84,72 +90,85 @@
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* --- EXACT REFERENCE SUMMARY BOX --- */
+        /* --- SKETCH STYLE SUMMARY BOX --- */
         .summary-box {
-            border-radius: 24px;
-            padding: 24px;
+            border-radius: 20px;
+            padding: 20px;
             margin-bottom: 25px;
-            background-color: var(--pass-bg); /* Default Pass */
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
-            border: 1px solid rgba(0,0,0,0.03);
+            background-color: var(--pass-bg);
+            border: 2px solid var(--pass-border);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Header Row: Icon | Text ....... Percent */
-        .sb-header {
+        /* Flex Container for Left, Middle, Right */
+        .sb-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        /* LEFT: Status & Total */
+        .sb-left {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
+            gap: 12px;
+            flex: 1;
         }
-
-        .sb-left { display: flex; align-items: center; gap: 15px; }
-        
-        .sb-icon-box { 
-            width: 48px; height: 48px; border-radius: 14px; 
+        .sb-icon-box {
+            width: 42px; height: 42px;
+            border-radius: 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 20px; color: white;
+            color: white; font-size: 18px;
             background: var(--pass-icon-bg);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
+        .sb-status-text { font-size: 16px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1.1; }
+        .sb-total-text { font-size: 11px; font-weight: 700; color: #6b7280; margin-top: 2px; }
+        .sb-total-text span { color: #1f2937; font-weight: 800; }
 
-        .sb-info { display: flex; flex-direction: column; }
-        .sb-status { font-size: 18px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.1; }
-        .sb-score { font-size: 13px; font-weight: 700; color: #9ca3af; margin-top: 4px; letter-spacing: 0.5px; }
-        .sb-score span { color: #4b5563; font-weight: 800; } /* Darker number */
+        /* MIDDLE: Rank Badge */
+        .sb-middle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 0.8; /* Takes slightly less space */
+            border-left: 1px dashed rgba(0,0,0,0.05);
+            border-right: 1px dashed rgba(0,0,0,0.05);
+            padding: 0 10px;
+        }
+        .rank-icon { font-size: 24px; margin-bottom: 2px; filter: drop-shadow(0 2px 3px rgba(0,0,0,0.15)); }
+        .rank-text { font-size: 14px; font-weight: 800; color: #374151; }
+        .rank-label { font-size: 9px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
-        .sb-percent { font-size: 26px; font-weight: 800; color: var(--pass-text); display: flex; align-items: center; gap: 4px; }
-        .sb-bolt { font-size: 18px; }
+        /* RIGHT: Percent & Attendance */
+        .sb-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            flex: 1;
+        }
+        .sb-percent { font-size: 26px; font-weight: 800; color: var(--pass-text); line-height: 1; }
+        .sb-attn-pill { 
+            margin-top: 6px; 
+            font-size: 11px; font-weight: 700; color: #6b7280;
+            background: rgba(255,255,255,0.6); padding: 4px 8px; border-radius: 6px;
+        }
 
         /* Progress Bar */
-        .progress-track { width: 100%; height: 8px; background: var(--bar-bg); border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
-        .progress-fill { height: 100%; background: var(--bar-fill); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
+        .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
-        /* Bottom Row: Attendance & Rank */
-        .sb-footer { display: flex; gap: 10px; }
-        .sb-pill { 
-            background: white; 
-            padding: 10px 16px; 
-            border-radius: 12px; 
-            font-size: 12px; 
-            font-weight: 700; 
-            color: #374151; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-            display: flex; align-items: center; gap: 8px; 
-            flex: 1; /* Equal width */
-            justify-content: center;
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-        .sb-pill i { color: var(--pass-text); font-size: 14px; }
-
-        /* FAIL MODE OVERRIDES */
-        .summary-box.fail-mode { background-color: var(--fail-bg); }
+        /* Fail Mode Overrides */
+        .summary-box.fail-mode { background-color: var(--fail-bg); border-color: var(--fail-border); }
         .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); }
-        .summary-box.fail-mode .sb-status { color: var(--fail-text); }
-        .summary-box.fail-mode .sb-percent { color: var(--fail-text); }
-        .summary-box.fail-mode .sb-pill i { color: var(--fail-text); }
+        .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent { color: var(--fail-text); }
+        .summary-box.fail-mode .progress-fill { background: var(--fail-icon-bg); }
 
-
-        /* TABLE */
+        /* Table */
         .student-header { display: flex; justify-content: space-between; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px dashed #e5e7eb; }
         .s-label { font-size: 11px; color: #9ca3af; font-weight: 700; text-transform: uppercase; }
         .s-val { font-size: 16px; font-weight: 700; color: #1f2937; }
@@ -161,7 +180,7 @@
         .marks-table tr:nth-child(even) { background-color: #fcfcfc; }
 
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
-        
+
         @media print {
             body { background: white; }
             .header-section { color: black; background: none; border-bottom: 2px solid #000; padding: 10px; border-radius: 0; box-shadow: none; }
@@ -207,32 +226,33 @@
     <div class="main-card" id="resultView" style="display: none;">
         
         <div class="summary-box" id="summaryBox">
-            <div class="sb-header">
+            <div class="sb-content">
+                
                 <div class="sb-left">
                     <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
-                    <div class="sb-info">
-                        <div class="sb-status" id="sbStatusText">PASSED</div>
-                        <div class="sb-score">SCORE: <span id="sbScoreVal">0/300</span></div>
+                    <div>
+                        <div class="sb-status-text" id="sbStatusText">PASS</div>
+                        <div class="sb-total-text">Total: <span id="sbTotalVal">0/300</span></div>
                     </div>
                 </div>
-                <div class="sb-percent">
-                    <i class="fas fa-bolt sb-bolt"></i> <span id="sbPercentVal">0%</span>
+
+                <div class="sb-middle">
+                    <i class="fas fa-medal rank-icon" id="rankIcon" style="color: var(--rank-def);"></i>
+                    <div class="rank-text" id="rankText">--</div>
+                    <div class="rank-label">RANK</div>
                 </div>
+
+                <div class="sb-right">
+                    <div class="sb-percent" id="sbPercentVal">0%</div>
+                    <div class="sb-attn-pill">
+                        ATTN: <span id="sbAttnVal">--/250</span>
+                    </div>
+                </div>
+
             </div>
             
             <div class="progress-track">
                 <div class="progress-fill" id="sbProgress"></div>
-            </div>
-
-            <div class="sb-footer">
-                <div class="sb-pill">
-                    <i class="fas fa-user-clock"></i> 
-                    <span id="sbAttn">ATTN: --/250</span>
-                </div>
-                <div class="sb-pill">
-                    <i class="fas fa-trophy"></i> 
-                    <span id="sbRank">RANK: #--</span>
-                </div>
             </div>
         </div>
 
@@ -282,21 +302,36 @@
                 // --- BOX LOGIC ---
                 const box = document.getElementById('summaryBox');
                 const percentVal = parseFloat(data.percentage);
-                
-                // Values
+                const rank = data.rank;
+
+                // 1. Set Values
                 document.getElementById('sbPercentVal').innerText = data.percentage + "%";
-                document.getElementById('sbScoreVal').innerText = data.total + "/300";
-                document.getElementById('sbAttn').innerText = "ATTN: " + (data.attendance || "--") + "/250";
-                document.getElementById('sbRank').innerText = "RANK: #" + data.rank;
+                document.getElementById('sbTotalVal').innerText = data.total + "/300";
+                document.getElementById('sbAttnVal').innerText = (data.attendance || "--") + "/250";
                 
-                // Progress Bar Animation
+                // 2. Rank Logic (1st, 2nd, 3rd)
+                let rankDisplay = rank;
+                let rankColor = "var(--rank-def)";
+                let rankIconClass = "fa-medal";
+
+                if (rank == 1) { rankDisplay = "1st"; rankColor = "var(--gold)"; rankIconClass = "fa-trophy"; }
+                else if (rank == 2) { rankDisplay = "2nd"; rankColor = "var(--silver)"; }
+                else if (rank == 3) { rankDisplay = "3rd"; rankColor = "var(--bronze)"; }
+                else { rankDisplay = "#" + rank; }
+
+                document.getElementById('rankText').innerText = rankDisplay;
+                const rIcon = document.getElementById('rankIcon');
+                rIcon.className = `fas ${rankIconClass} rank-icon`;
+                rIcon.style.color = rankColor;
+
+                // 3. Progress Bar Animation
                 setTimeout(() => { document.getElementById('sbProgress').style.width = percentVal + "%"; }, 300);
 
-                // Pass/Fail Styling
+                // 4. Pass/Fail Styling
                 if(data.finalStatus === "FAIL") {
                     box.classList.add("fail-mode");
                     document.getElementById('sbStatusText').innerText = "FAILED";
-                    document.getElementById('sbIcon').innerHTML = '<i class="fas fa-exclamation"></i>';
+                    document.getElementById('sbIcon').innerHTML = '<i class="fas fa-times"></i>';
                 } else {
                     box.classList.remove("fail-mode");
                     document.getElementById('sbStatusText').innerText = "PASSED";
