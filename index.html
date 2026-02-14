@@ -109,7 +109,7 @@
             margin-bottom: 15px;
         }
 
-        /* LEFT: Status & Total */
+        /* LEFT: Status & Percent */
         .sb-left {
             display: flex;
             align-items: center;
@@ -125,8 +125,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .sb-status-text { font-size: 16px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1.1; }
-        .sb-total-text { font-size: 11px; font-weight: 700; color: #6b7280; margin-top: 2px; }
-        .sb-total-text span { color: #1f2937; font-weight: 800; }
+        .sb-percent-text { font-size: 16px; font-weight: 800; color: var(--pass-text); margin-top: 2px; }
 
         /* MIDDLE: Rank Badge */
         .sb-middle {
@@ -143,20 +142,19 @@
         .rank-text { font-size: 14px; font-weight: 800; color: #374151; }
         .rank-label { font-size: 9px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
-        /* RIGHT: Percent & Attendance */
+        /* RIGHT: Total & Attendance */
         .sb-right {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: flex-start;
             justify-content: center;
             flex: 1;
+            background-color: rgba(255, 255, 255, 0.5);
+            padding: 10px;
+            border-radius: 10px;
         }
-        .sb-percent { font-size: 26px; font-weight: 800; color: var(--pass-text); line-height: 1; }
-        .sb-attn-pill { 
-            margin-top: 6px; 
-            font-size: 11px; font-weight: 700; color: #6b7280;
-            background: rgba(255,255,255,0.6); padding: 4px 8px; border-radius: 6px;
-        }
+        .sb-label { font-size: 11px; font-weight: 700; color: #6b7280; }
+        .sb-value { font-size: 14px; font-weight: 800; color: #1f2937; margin-bottom: 5px; }
 
         /* Progress Bar */
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
@@ -165,7 +163,7 @@
         /* Fail Mode Overrides */
         .summary-box.fail-mode { background-color: var(--fail-bg); border-color: var(--fail-border); }
         .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); }
-        .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent { color: var(--fail-text); }
+        .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent-text { color: var(--fail-text); }
         .summary-box.fail-mode .progress-fill { background: var(--fail-icon-bg); }
 
         /* Table */
@@ -231,8 +229,8 @@
                 <div class="sb-left">
                     <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
                     <div>
-                        <div class="sb-status-text" id="sbStatusText">PASS</div>
-                        <div class="sb-total-text">Total: <span id="sbTotalVal">0/300</span></div>
+                        <div class="sb-status-text" id="sbStatusText">PASSED</div>
+                        <div class="sb-percent-text"><span id="sbPercentVal">0%</span></div>
                     </div>
                 </div>
 
@@ -243,10 +241,10 @@
                 </div>
 
                 <div class="sb-right">
-                    <div class="sb-percent" id="sbPercentVal">0%</div>
-                    <div class="sb-attn-pill">
-                        ATTN: <span id="sbAttnVal">--/250</span>
-                    </div>
+                    <div class="sb-label">Total Mark:</div>
+                    <div class="sb-value" id="sbTotalVal">0/300</div>
+                    <div class="sb-label">ATTN:</div>
+                    <div class="sb-value" id="sbAttnVal">--/250</div>
                 </div>
 
             </div>
