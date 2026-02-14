@@ -146,12 +146,19 @@
             padding-right: 2px;
         }
         .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 1px; }
+        
+        /* VALUE STYLES */
         .sb-total-val { font-size: 18px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
         
-        /* DENOMINATOR STYLE (Thin/Light) */
-        .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
+        /* New Class for /300 and /250 */
+        .small-denom {
+            font-size: 0.75em;
+            font-weight: 500;
+            color: #9ca3af; /* Light Grey */
+            margin-left: 1px;
+        }
 
-        /* ATTENDANCE BOX */
+        /* Attendance */
         .sb-attn-box { 
             margin-top: 5px;
             background: rgba(255,255,255,0.6); 
@@ -264,7 +271,7 @@
                         <div class="sb-total-val" id="sbTotalVal">0/300</div>
                     </div>
                     <div class="sb-attn-box">
-                        <span class="sb-attn-label">ATTN:</span>
+                        <span class="sb-attn-label">ATTND:</span>
                         <span class="sb-attn-val" id="sbAttnVal">--/250</span>
                     </div>
                 </div>
@@ -289,7 +296,7 @@
 </div>
 
 <script>
-    // ▼▼▼ PASTE YOUR NEW SCRIPT URL HERE ▼▼▼
+    // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL HERE ▼▼▼
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUMvrE0fZwXSOTXgtv_kPAQi5DeG5eFSfqmaf1a1BLib4K4SR0CkijIHqOLNFa5GZpqw/exec"; 
 
     async function findResult() {
@@ -321,18 +328,10 @@
 
                 document.getElementById('sbPercentVal').innerText = data.percentage + "%";
                 
-                // --- THIN /300 ---
+                // --- MODIFIED LINES FOR LIGHT DENOMINATOR ---
                 document.getElementById('sbTotalVal').innerHTML = data.total + '<span class="small-denom">/300</span>';
+                document.getElementById('sbAttnVal').innerHTML = (data.attendance || "--") + '<span class="small-denom">/250</span>';
                 
-                // --- ATTENDANCE BADGE LOGIC ---
-                let attnHTML = (data.attendance || "--") + '<span class="small-denom">/250</span>';
-                if (data.attendanceRank == 1) attnHTML += ' 🥇';
-                else if (data.attendanceRank == 2) attnHTML += ' 🥈';
-                else if (data.attendanceRank == 3) attnHTML += ' 🥉';
-                
-                document.getElementById('sbAttnVal').innerHTML = attnHTML;
-                
-                // --- RANK BADGE LOGIC ---
                 let rankDisplay = rank;
                 let rankIconHTML = '';
 
@@ -389,3 +388,4 @@
 
 </body>
 </html>
+
