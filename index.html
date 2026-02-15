@@ -383,8 +383,18 @@
                 const totalPossible = validSubjects.length * marksPerSubject;
 
                 // --- 3. UPDATE PERCENTAGE & TOTAL ---
-                const cleanPercent = String(data.percentage).replace('%', '');
-                document.getElementById('sbPercentVal').innerText = cleanPercent + "%";
+                // Remove any existing % sign, convert to number
+                let rawVal = parseFloat(String(data.percentage).replace('%', ''));
+
+                // If the number is tiny (like 0.745), it means it's a decimal from Google Sheets.
+                // We must multiply by 100 to get the real percentage (74.5).
+                if (rawVal < 1) { 
+                rawVal = rawVal * 100;
+}
+
+                 // Fix to 1 decimal place (e.g., 74.5) and add %
+               document.getElementById('sbPercentVal').innerText = rawVal.toFixed(1) + "%";
+
                 
                 // This line now uses the dynamic 'totalPossible' instead of fixed 300
                 document.getElementById('sbTotalVal').innerHTML = data.total + `<span class="small-denom">/${totalPossible}</span>`;
