@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +14,10 @@
             --primary: #0f766e;
             --bg: #f3f4f6;
             --white: #ffffff;
-            
-            /* Themes */
             --pass-bg: #ecfdf5;
             --pass-border: #d1fae5;
             --pass-text: #047857;
             --pass-icon-bg: #10b981;
-            
             --fail-bg: #fef2f2;
             --fail-border: #fee2e2;
             --fail-text: #b91c1c;
@@ -95,16 +91,16 @@
             overflow: hidden;
         }
 
-        /* 3-Column Grid */
+        /* GRID (Left | Middle | Right) */
         .sb-grid {
             display: grid;
-            grid-template-columns: 1.4fr 0.7fr 1.1fr;
+            grid-template-columns: 1.1fr 0.6fr 1.6fr; 
             gap: 5px;
             align-items: center;
             margin-bottom: 15px;
         }
 
-        /* LEFT */
+        /* LEFT: Status */
         .sb-left {
             display: flex;
             align-items: center;
@@ -122,7 +118,7 @@
         .sb-status-text { font-size: 20px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
         .sb-percent-text { font-size: 14px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
         
-        /* MIDDLE */
+        /* MIDDLE: Academic Rank */
         .sb-middle {
             display: flex;
             flex-direction: column;
@@ -137,38 +133,69 @@
         .rank-text { font-size: 13px; font-weight: 800; color: #374151; }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
-        /* RIGHT */
+        /* RIGHT: Container */
         .sb-right {
+            display: flex;
+            flex-direction: row; 
+            justify-content: flex-end; 
+            align-items: center;
+            gap: 12px; 
+            padding-right: 15px;
+            text-align: right;
+        }
+        
+        /* Attendance Rank Badge */
+        .sb-attn-rank-box {
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 40px;
+            margin-top: -3px; 
+        }
+        .attn-top-txt { font-size: 9px; font-weight: 700; color: #6b7280; line-height: 1; margin-bottom: 0px; }
+        .attn-val-txt { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; margin-bottom: 1px; }
+        .attn-bot-txt { font-size: 8px; font-weight: 700; color: #9ca3af; line-height: 1; white-space: nowrap; }
+
+        /* RIGHT COLUMN STACK (Total & Attn) */
+        .sb-marks-stack {
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            justify-content: center;
-            text-align: right;
-            padding-right: 2px;
         }
-        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 1px; }
+
+        /* Total Mark Styles */
+        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 2px; }
         .sb-total-val { font-size: 18px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
         
-        /* DENOMINATOR STYLE (Thin/Light) */
-        .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
-
-        /* ATTENDANCE BOX */
+        /* UPDATED: Attendance Styles (Stacked & Clean) */
         .sb-attn-box { 
-            margin-top: 5px;
-            background: rgba(255,255,255,0.6); 
-            padding: 3px 6px; 
-            border-radius: 5px; 
-            display: inline-flex;
-            align-items: center;
+            margin-top: 8px; /* Spacing from Total Mark */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
         }
-        .sb-attn-label { font-size: 9px; font-weight: 700; color: #9ca3af; margin-right: 4px; }
-        .sb-attn-val { font-size: 11px; font-weight: 700; color: #6b7280; }
+        .sb-attn-label { 
+            font-size: 9px; 
+            font-weight: 700; 
+            color: #9ca3af; 
+            text-transform: uppercase; 
+            margin-bottom: 1px; 
+        }
+        .sb-attn-val { 
+            font-size: 14px; 
+            font-weight: 800; 
+            color: #4b5563; 
+            white-space: nowrap; 
+            line-height: 1;
+        }
 
-        /* Progress Bar */
+        /* Common Elements */
+        .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
-        /* Fail Mode Overrides */
+        /* Fail Mode */
         .summary-box.fail-mode { background-color: var(--fail-bg); border-color: var(--fail-border); }
         .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); }
         .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent-text { color: var(--fail-text); }
@@ -260,14 +287,24 @@
                 </div>
 
                 <div class="sb-right">
-                    <div>
-                        <div class="sb-total-label">Total Mark</div>
-                        <div class="sb-total-val" id="sbTotalVal">0/300</div>
+                    
+                    <div class="sb-attn-rank-box" id="sbAttnRankBox">
+                        <div class="attn-top-txt">Top</div>
+                        <div class="attn-val-txt" id="sbAttnRankVal">#1</div>
+                        <div class="attn-bot-txt">in ATTND</div>
                     </div>
-                    <div class="sb-attn-box">
-                        <span class="sb-attn-label">ATTND:</span>
-                        <span class="sb-attn-val" id="sbAttnVal">--/250</span>
+
+                    <div class="sb-marks-stack">
+                        <div>
+                            <div class="sb-total-label">Total Mark</div>
+                            <div class="sb-total-val" id="sbTotalVal">0/300</div>
+                        </div>
+                        <div class="sb-attn-box">
+                            <div class="sb-attn-label">ATTND</div>
+                            <div class="sb-attn-val" id="sbAttnVal">--/250</div>
+                        </div>
                     </div>
+
                 </div>
 
             </div>
@@ -290,7 +327,7 @@
 </div>
 
 <script>
-    // ▼▼▼ PASTE YOUR NEW SCRIPT URL HERE ▼▼▼
+    // ▼▼▼ PASTE YOUR GOOGLE SCRIPT URL HERE ▼▼▼
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxUMvrE0fZwXSOTXgtv_kPAQi5DeG5eFSfqmaf1a1BLib4K4SR0CkijIHqOLNFa5GZpqw/exec"; 
 
     async function findResult() {
@@ -321,11 +358,9 @@
                 const rank = data.rank;
 
                 document.getElementById('sbPercentVal').innerText = data.percentage + "%";
-                
-                // --- THIN /300 ---
                 document.getElementById('sbTotalVal').innerHTML = data.total + '<span class="small-denom">/300</span>';
                 
-                // --- ATTENDANCE BADGE LOGIC ---
+                // --- ATTENDANCE: Stacked & Medal Support ---
                 let attnHTML = (data.attendance || "--") + '<span class="small-denom">/250</span>';
                 if (data.attendanceRank == 1) attnHTML += ' 🥇';
                 else if (data.attendanceRank == 2) attnHTML += ' 🥈';
@@ -333,23 +368,23 @@
                 
                 document.getElementById('sbAttnVal').innerHTML = attnHTML;
                 
-                // --- RANK BADGE LOGIC ---
+                // --- ATTENDANCE RANK IN GAP ---
+                const attnBox = document.getElementById('sbAttnRankBox');
+                if (data.attendanceRank && data.attendanceRank <= 3 && data.attendanceRank > 0) {
+                    attnBox.style.display = 'flex';
+                    document.getElementById('sbAttnRankVal').innerText = "#" + data.attendanceRank;
+                } else {
+                    attnBox.style.display = 'none';
+                }
+
+                // --- ACADEMIC RANK ---
                 let rankDisplay = rank;
                 let rankIconHTML = '';
 
-                if (rank == 1) { 
-                    rankDisplay = "1st"; 
-                    rankIconHTML = '🥇'; 
-                } else if (rank == 2) { 
-                    rankDisplay = "2nd"; 
-                    rankIconHTML = '🥈'; 
-                } else if (rank == 3) { 
-                    rankDisplay = "3rd"; 
-                    rankIconHTML = '🥉'; 
-                } else { 
-                    rankDisplay = "#" + rank; 
-                    rankIconHTML = '<i class="fas fa-medal" style="color: #6b7280; font-size: 20px;"></i>'; 
-                }
+                if (rank == 1) { rankDisplay = "1st"; rankIconHTML = '🥇'; }
+                else if (rank == 2) { rankDisplay = "2nd"; rankIconHTML = '🥈'; }
+                else if (rank == 3) { rankDisplay = "3rd"; rankIconHTML = '🥉'; }
+                else { rankDisplay = "#" + rank; rankIconHTML = '<i class="fas fa-medal" style="color: #6b7280; font-size: 20px;"></i>'; }
 
                 document.getElementById('rankText').innerText = rankDisplay;
                 document.getElementById('rankIconContainer').innerHTML = rankIconHTML;
@@ -390,4 +425,3 @@
 
 </body>
 </html>
-
