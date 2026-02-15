@@ -80,16 +80,25 @@
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* --- SUMMARY BOX --- */
+                /* --- SUMMARY BOX (PREMIUM GLASS LOOK) --- */
         .summary-box {
-            border-radius: 20px;
+            border-radius: 24px; /* Softer, rounder corners */
             padding: 15px 12px;
             margin-bottom: 25px;
-            background-color: var(--pass-bg);
-            border: 2px solid var(--pass-border);
             position: relative;
             overflow: hidden;
+            
+            /* GLASS EFFECT: Gradient + Blur + White Border */
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                0 4px 6px -1px rgba(16, 185, 129, 0.1), 
+                0 2px 4px -1px rgba(16, 185, 129, 0.06),
+                inset 0 0 20px rgba(255, 255, 255, 0.5); /* Inner Glow */
+            
+            backdrop-filter: blur(10px); /* Frosted effect */
         }
+
 
         /* GRID (Left | Middle | Right) */
         .sb-grid {
@@ -124,17 +133,21 @@
             opacity: 0.9;      /* Makes it look slightly softer */
         }
 
-        /* MIDDLE: Academic Rank */
+                /* MIDDLE: Academic Rank (Etched Glass Dividers) */
         .sb-middle {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-left: 1px dashed rgba(0,0,0,0.15);
-            border-right: 1px dashed rgba(0,0,0,0.15);
+            
+            /* Etched Glass Dividers */
+            border-left: 1px solid rgba(0,0,0,0.06);
+            border-right: 1px solid rgba(0,0,0,0.06);
+            
             padding: 0px;
             min-height: 50px;
         }
+
         .rank-icon-container { font-size: 20px; margin-top: 4px; margin-bottom: 0px; line-height: 1; min-height: 20px; display: flex; align-items: center; }
         .rank-text { font-size: 17px; font-weight: 800; color: #374151; margin-bottom: -1px;  }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
@@ -189,9 +202,16 @@
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
-        /* Fail Mode */
-        .summary-box.fail-mode { background-color: var(--fail-bg); border-color: var(--fail-border); }
-        .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); }
+                /* Fail Mode Overrides (Red Glass) */
+        .summary-box.fail-mode { 
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                0 4px 6px -1px rgba(239, 68, 68, 0.1), 
+                0 2px 4px -1px rgba(239, 68, 68, 0.06),
+                inset 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
         .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent-text { color: var(--fail-text); }
         .summary-box.fail-mode .progress-fill { background: var(--fail-icon-bg); }
 
