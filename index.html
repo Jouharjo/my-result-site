@@ -413,23 +413,28 @@
                     fireConfetti();
                 }
 
-                                let rows = "";
+                                                let rows = "";
                 
                 // ▼▼▼ CHANGE THIS NUMBER TO YOUR PASSING MARK ▼▼▼
                 const PASS_MARK = 18; 
 
                 data.subjectData.forEach(sub => {
-                    let rowStyle = "";
+                    let cellStyle = "";
                     let val = parseFloat(sub.mark);
 
-                    // Logic: Apply Red Color if mark is less than PASS_MARK or "AB" (Absent)
+                    // Logic: Check if mark is less than 18 or "AB"
                     if ((!isNaN(val) && val < PASS_MARK) || String(sub.mark).toUpperCase() === "AB") {
-                        rowStyle = 'style="color: #dc2626;"'; // Just Red Color (No Bold)
+                        cellStyle = 'style="color: #dc2626;"'; // Apply Red directly to the cell
                     }
 
-                    rows += `<tr ${rowStyle}><td>${sub.name}</td><td class="right">${sub.mark}</td></tr>`;
+                    // UPDATED: Added ${cellStyle} to BOTH <td> tags
+                    rows += `<tr>
+                        <td ${cellStyle}>${sub.name}</td>
+                        <td class="right" ${cellStyle}>${sub.mark}</td>
+                    </tr>`;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
+
 
 
             } else {
