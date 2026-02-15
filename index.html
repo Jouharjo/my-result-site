@@ -117,7 +117,14 @@
         }
         .sb-status-text { font-size: 21px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
         .sb-percent-text { font-size:15px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
-        
+                /* NEW RULE: Make the bolt icon smaller */
+        .sb-percent-text i {
+            font-size: 0.85em; /* Makes icon 15% smaller than the text */
+            margin-right: 2px; /* Adds a tiny gap */
+            opacity: 0.9;      /* Makes it look slightly softer */
+            transform: translateY(-1px); /* Perfect vertical alignment */
+        }
+
         /* MIDDLE: Academic Rank */
         .sb-middle {
             display: flex;
@@ -264,7 +271,7 @@
                     <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
                     <div>
                         <div class="sb-status-text" id="sbStatusText">PASSED</div>
-                        <div class="sb-percent-text"><i class="fas fa-bolt" style="color:#f59e0b;"></i> <span id="sbPercentVal">0%</span></div>
+                        <div class="sb-percent-text"><i class="fas fa-bolt"></i> <span id="sbPercentVal">0%</span></div>
                     </div>
                 </div>
 
