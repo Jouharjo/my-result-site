@@ -383,20 +383,18 @@
                 const totalPossible = validSubjects.length * marksPerSubject;
 
                 // --- 3. UPDATE PERCENTAGE & TOTAL ---
-                // Remove any existing % sign, convert to number
+                                // --- 3. UPDATE PERCENTAGE & TOTAL ---
                 let rawVal = parseFloat(String(data.percentage).replace('%', ''));
 
-                // If the number is tiny (like 0.745), it means it's a decimal from Google Sheets.
-                // We must multiply by 100 to get the real percentage (74.5).
-                if (rawVal < 1) { 
-                rawVal = rawVal * 100;
-}
+                // FIX: If value is decimal (like 0.745), convert to 74.5
+                if (!isNaN(rawVal) && rawVal <= 1) { 
+                    rawVal = rawVal * 100;
+                }
 
-                 // Fix to 1 decimal place (e.g., 74.5) and add %
-               document.getElementById('sbPercentVal').innerText = rawVal.toFixed(1) + "%";
-
+                // Update Text (e.g. "74.5%")
+                document.getElementById('sbPercentVal').innerText = rawVal.toFixed(1) + "%";
                 
-                // This line now uses the dynamic 'totalPossible' instead of fixed 300
+                // Update Total Display
                 document.getElementById('sbTotalVal').innerHTML = data.total + `<span class="small-denom">/${totalPossible}</span>`;
                 
                 // --- ATTENDANCE ---
@@ -417,7 +415,9 @@
                 document.getElementById('rankText').innerText = rankDisplay;
                 document.getElementById('rankIconContainer').innerHTML = rankIconHTML;
 
-                setTimeout(() => { document.getElementById('sbProgress').style.width = percentVal + "%"; }, 300);
+                // FIX: Use 'rawVal' for width so it fills 74.5% instead of 0.7%
+                setTimeout(() => { document.getElementById('sbProgress').style.width = rawVal + "%"; }, 300);
+
 
                 // --- PASS/FAIL STATUS ---
                 if(data.finalStatus === "FAIL") {
