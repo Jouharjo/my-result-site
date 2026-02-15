@@ -333,7 +333,9 @@
         btn.style.opacity = "0.7";
 
         try {
-            const response = await fetch(`${SCRIPT_URL}?roll=${roll}&cls=${cls}`);
+            /* ADDED encodeURIComponent() to fix the "+" symbol issue */
+            const response = await fetch(`${SCRIPT_URL}?roll=${roll}&cls=${encodeURIComponent(cls)}`);
+
             const data = await response.json();
 
             if (data.status === "success") {
