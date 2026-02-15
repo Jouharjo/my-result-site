@@ -80,25 +80,25 @@
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* --- 1. PREMIUM LIQUID GLASS CARD --- */
+                /* --- SUMMARY BOX (PREMIUM GLASS LOOK) --- */
         .summary-box {
-            border-radius: 24px;
-            padding: 16px 14px;
+            border-radius: 24px; /* Softer, rounder corners */
+            padding: 15px 12px;
             margin-bottom: 25px;
             position: relative;
             overflow: hidden;
             
-            /* GLASS BASE: White to Green Gradient */
-            background: linear-gradient(145deg, #ffffff 0%, #ecfdf5 100%);
-            
-            /* LIQUID EDGES: White border + Depth Shadow */
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            /* GLASS EFFECT: Gradient + Blur + White Border */
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 
-                0 10px 30px -10px rgba(16, 185, 129, 0.2), /* Green Glow */
-                inset 0 0 20px rgba(255, 255, 255, 0.8);   /* Inner shine */
+                0 4px 6px -1px rgba(16, 185, 129, 0.1), 
+                0 2px 4px -1px rgba(16, 185, 129, 0.06),
+                inset 0 0 20px rgba(255, 255, 255, 0.5); /* Inner Glow */
             
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px); /* Frosted effect */
         }
+
 
         /* GRID (Left | Middle | Right) */
         .sb-grid {
@@ -115,54 +115,37 @@
             align-items: center;
             gap: 8px;
         }
-        
-        /* --- 2. 3D ICON BUTTON --- */
         .sb-icon-box {
-            width: 52px; height: 52px;
+            width: 51px; height: 51px;
             flex-shrink: 0;
-            border-radius: 16px; /* Soft Squircle */
+            border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 24px;
-            
-            /* 3D Gradient Button */
-            background: linear-gradient(135deg, #34d399 0%, #059669 100%);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+            color: white; font-size: 26px;
+            background: var(--pass-icon-bg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-
         .sb-status-text { font-size: 21px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
         .sb-percent-text { font-size:15px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
-        
-        /* Make the bolt icon smaller */
+                /* NEW RULE: Make the bolt icon smaller */
         .sb-percent-text i {
-            font-size: 0.75em;
-            margin-right: 1px;
-            opacity: 0.9;
+            font-size: 0.75em; /* Makes icon 15% smaller than the text */
+            margin-right: 1px; /* Adds a tiny gap */
+            opacity: 0.9;      /* Makes it look slightly softer */
         }
 
-        /* --- 4. SOFT DIVIDERS --- */
+                /* MIDDLE: Academic Rank (Etched Glass Dividers) */
         .sb-middle {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             
-            /* Gradient Dividers (fades out at top/bottom) */
-            background-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.08), transparent);
-            background-size: 1px 100%;
-            background-repeat: no-repeat;
-            background-position: left center;
+            /* Etched Glass Dividers */
+            border-left: 1px solid rgba(0,0,0,0.06);
+            border-right: 1px solid rgba(0,0,0,0.06);
             
-            /* Right Divider using same trick */
-            position: relative;
             padding: 0px;
             min-height: 50px;
-        }
-        /* Right Border */
-        .sb-middle::after {
-            content: "";
-            position: absolute;
-            right: 0; top: 10%; bottom: 10%; width: 1px;
-            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.08), transparent);
         }
 
         .rank-icon-container { font-size: 20px; margin-top: 4px; margin-bottom: 0px; line-height: 1; min-height: 20px; display: flex; align-items: center; }
@@ -187,28 +170,16 @@
             align-items: flex-end;
         }
 
-        /* --- 3. FROSTED GLASS TILES (Inner Boxes) --- */
-        .sb-total-box, .sb-attn-box {
-            background: rgba(255,255,255, 0.5); /* Semi-transparent */
-            padding: 5px 10px;
-            border-radius: 12px;
-            border: 1px solid rgba(255,255,255,0.8); /* White Rim */
+        /* Total Mark Styles */
+        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 0px;margin-top: 2px; }
+        .sb-total-val { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
+        
+        /* Attendance Styles (Stacked & Clean) */
+        .sb-attn-box { 
+            margin-top: 3px; /* Spacing from Total Mark */
             display: flex;
             flex-direction: column;
             align-items: flex-end;
-            margin-bottom: 5px;
-            
-            /* Soft Shadow to lift them up */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03); 
-        }
-
-        /* Total Mark Styles */
-        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 0px;margin-top: 1px; }
-        .sb-total-val { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
-        
-        /* Attendance Styles */
-        .sb-attn-box { 
-            margin-top: 2px;
         }
         .sb-attn-label { 
             font-size: 6px; 
@@ -225,26 +196,22 @@
             line-height: 1;
         }
 
+
         /* Common Elements */
         .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
-        /* FAIL MODE (Red Liquid Glass) */
+                /* Fail Mode Overrides (Red Glass) */
         .summary-box.fail-mode { 
-            background: linear-gradient(145deg, #ffffff 0%, #fef2f2 100%);
-            border-color: rgba(255, 255, 255, 0.6);
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-color: rgba(255, 255, 255, 0.8);
             box-shadow: 
-                0 10px 30px -10px rgba(239, 68, 68, 0.2), /* Red Glow */
-                inset 0 0 20px rgba(255, 255, 255, 0.8);
+                0 4px 6px -1px rgba(239, 68, 68, 0.1), 
+                0 2px 4px -1px rgba(239, 68, 68, 0.06),
+                inset 0 0 20px rgba(255, 255, 255, 0.5);
         }
-        
-        /* Fail Icon Gradient */
-        .summary-box.fail-mode .sb-icon-box { 
-            background: linear-gradient(135deg, #f87171 0%, #dc2626 100%);
-            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
-        }
-        
+        .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
         .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent-text { color: var(--fail-text); }
         .summary-box.fail-mode .progress-fill { background: var(--fail-icon-bg); }
 
@@ -339,12 +306,10 @@
                 <div class="sb-right">
                     
                     <div class="sb-marks-stack">
-                        
-                        <div class="sb-total-box">
+                        <div>
                             <div class="sb-total-label">Total Mark</div>
                             <div class="sb-total-val" id="sbTotalVal">0/300</div>
                         </div>
-                        
                         <div class="sb-attn-box">
                             <div class="sb-attn-label">ATTENDANCE</div>
                             <div class="sb-attn-val" id="sbAttnVal">--/250</div>
