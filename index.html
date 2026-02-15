@@ -413,11 +413,24 @@
                     fireConfetti();
                 }
 
-                let rows = "";
+                                let rows = "";
+                
+                // ▼▼▼ CHANGE THIS NUMBER TO YOUR PASSING MARK ▼▼▼
+                const PASS_MARK = 18; 
+
                 data.subjectData.forEach(sub => {
-                    rows += `<tr><td>${sub.name}</td><td class="right">${sub.mark}</td></tr>`;
+                    let rowStyle = "";
+                    let val = parseFloat(sub.mark);
+
+                    // Logic: Apply Red Color if mark is less than PASS_MARK or "AB" (Absent)
+                    if ((!isNaN(val) && val < PASS_MARK) || String(sub.mark).toUpperCase() === "AB") {
+                        rowStyle = 'style="color: #dc2626;"'; // Just Red Color (No Bold)
+                    }
+
+                    rows += `<tr ${rowStyle}><td>${sub.name}</td><td class="right">${sub.mark}</td></tr>`;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
+
 
             } else {
                 alert("Result not found!");
