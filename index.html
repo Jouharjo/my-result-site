@@ -374,34 +374,42 @@
                 const percentVal = parseFloat(data.percentage);
                 const rank = data.rank;
 
-                // --- FIX: Clean existing % from data, then add one ---
+                                // --- 1. GET VALID SUBJECTS (Removes empty rows) ---
+                // This creates a list of ONLY the subjects that have names/marks
+                const validSubjects = data.subjectData.filter(sub => sub.name && sub.mark && sub.name !== "NaN");
+                
+                // --- 2. CALCULATE DYNAMIC TOTAL (e.g., 4 * 50 = 200) ---
+                const marksPerSubject = 50; 
+                const totalPossible = validSubjects.length * marksPerSubject;
+
+                // --- 3. UPDATE PERCENTAGE & TOTAL ---
                 const cleanPercent = String(data.percentage).replace('%', '');
                 document.getElementById('sbPercentVal').innerText = cleanPercent + "%";
                 
-                document.getElementById('sbTotalVal').innerHTML = data.total + '<span class="small-denom">/300</span>';
+                // This line now uses the dynamic 'totalPossible' instead of fixed 300
+                document.getElementById('sbTotalVal').innerHTML = data.total + `<span class="small-denom">/${totalPossible}</span>`;
                 
-                // --- ATTENDANCE: Stacked & Medal Support ---
+                // --- ATTENDANCE ---
                 let attnHTML = (data.attendance || "--") + '<span class="small-denom">/250</span>';
                 if (data.attendanceRank == 1) attnHTML += ' 🥇';
                 else if (data.attendanceRank == 2) attnHTML += ' 🥈';
                 else if (data.attendanceRank == 3) attnHTML += ' 🥉';
-                
                 document.getElementById('sbAttnVal').innerHTML = attnHTML;
 
-                // --- ACADEMIC RANK ---
+                // --- RANK ---
                 let rankDisplay = rank;
                 let rankIconHTML = '';
-
                 if (rank == 1) { rankDisplay = "1st"; rankIconHTML = '🥇'; }
                 else if (rank == 2) { rankDisplay = "2nd"; rankIconHTML = '🥈'; }
                 else if (rank == 3) { rankDisplay = "3rd"; rankIconHTML = '🥉'; }
                 else { rankDisplay = "#" + rank; rankIconHTML = '<i class="fas fa-medal" style="color: #6b7280; font-size: 20px;"></i>'; }
-
+                
                 document.getElementById('rankText').innerText = rankDisplay;
                 document.getElementById('rankIconContainer').innerHTML = rankIconHTML;
 
                 setTimeout(() => { document.getElementById('sbProgress').style.width = percentVal + "%"; }, 300);
 
+                // --- PASS/FAIL STATUS ---
                 if(data.finalStatus === "FAIL") {
                     box.classList.add("fail-mode");
                     document.getElementById('sbStatusText').innerText = "FAILED";
@@ -413,27 +421,27 @@
                     fireConfetti();
                 }
 
-                                                let rows = "";
-                
-                // ▼▼▼ CHANGE THIS NUMBER TO YOUR PASSING MARK ▼▼▼
+                // --- GENERATE TABLE ROWS (Using validSubjects) ---
+                let rows = "";
                 const PASS_MARK = 18; 
 
-                data.subjectData.forEach(sub => {
+                // We loop through 'validSubjects' (not data.subjectData) to hide empty rows
+                validSubjects.forEach(sub => {
                     let cellStyle = "";
                     let val = parseFloat(sub.mark);
 
-                    // Logic: Check if mark is less than 18 or "AB"
+                    // Red Color Logic for Fail
                     if ((!isNaN(val) && val < PASS_MARK) || String(sub.mark).toUpperCase() === "AB") {
-                        cellStyle = 'style="color: #dc2626;"'; // Apply Red directly to the cell
+                        cellStyle = 'style="color: #dc2626;"'; 
                     }
 
-                    // UPDATED: Added ${cellStyle} to BOTH <td> tags
                     rows += `<tr>
                         <td ${cellStyle}>${sub.name}</td>
                         <td class="right" ${cellStyle}>${sub.mark}</td>
                     </tr>`;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
+
 
 
 
