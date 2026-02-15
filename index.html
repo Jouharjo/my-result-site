@@ -94,7 +94,7 @@
         /* GRID (Left | Middle | Right) */
         .sb-grid {
             display: grid;
-            grid-template-columns: 1.7fr 0.6fr 1.0fr; 
+            grid-template-columns: 1.1fr 0.6fr 1.6fr; 
             gap: 5px;
             align-items: center;
             margin-bottom: 15px;
@@ -107,7 +107,7 @@
             gap: 8px;
         }
         .sb-icon-box {
-            width: 51px; height: 51px;
+            width: 50px; height: 50px;
             flex-shrink: 0;
             border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
@@ -115,8 +115,8 @@
             background: var(--pass-icon-bg);
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
-        .sb-status-text { font-size: 21px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
-        .sb-percent-text { font-size:15px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
+        .sb-status-text { font-size: 20px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
+        .sb-percent-text { font-size: 14px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
         
         /* MIDDLE: Academic Rank */
         .sb-middle {
@@ -140,7 +140,7 @@
             justify-content: flex-end; 
             align-items: center;
             gap: 12px; 
-            padding-right: 5px;
+            padding-right: 15px;
             text-align: right;
         }
 
@@ -152,25 +152,25 @@
         }
 
         /* Total Mark Styles */
-        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 1px; }
-        .sb-total-val { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
+        .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 2px; }
+        .sb-total-val { font-size: 18px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
         
         /* Attendance Styles (Stacked & Clean) */
         .sb-attn-box { 
-            margin-top: 1px; /* Spacing from Total Mark */
+            margin-top: 8px; 
             display: flex;
             flex-direction: column;
             align-items: flex-end;
         }
         .sb-attn-label { 
-            font-size: 7px; 
+            font-size: 9px; 
             font-weight: 700; 
             color: #9ca3af; 
             text-transform: uppercase; 
             margin-bottom: 1px; 
         }
         .sb-attn-val { 
-            font-size: 11px; 
+            font-size: 14px; 
             font-weight: 800; 
             color: #4b5563; 
             white-space: nowrap; 
@@ -263,7 +263,7 @@
                     <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
                     <div>
                         <div class="sb-status-text" id="sbStatusText">PASSED</div>
-                        <div class="sb-percent-text"><i class="fas fa-bolt" style="color:#f59e0b;"></i> <span id="sbPercentVal">0</span></div>
+                        <div class="sb-percent-text"><i class="fas fa-bolt" style="color:#f59e0b;"></i> <span id="sbPercentVal">0%</span></div>
                     </div>
                 </div>
 
@@ -338,7 +338,10 @@
                 const percentVal = parseFloat(data.percentage);
                 const rank = data.rank;
 
-                document.getElementById('sbPercentVal').innerText = data.percentage + "%";
+                // --- FIX: Clean existing % from data, then add one ---
+                const cleanPercent = String(data.percentage).replace('%', '');
+                document.getElementById('sbPercentVal').innerText = cleanPercent + "%";
+                
                 document.getElementById('sbTotalVal').innerHTML = data.total + '<span class="small-denom">/300</span>';
                 
                 // --- ATTENDANCE: Stacked & Medal Support ---
