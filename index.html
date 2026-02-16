@@ -388,19 +388,34 @@
                 document.getElementById('marksBody').innerHTML = rows;
 
 
-                // ▼▼▼ 7. DYNAMIC TOPPER LIST (JavaScript Injection) ▼▼▼
+                                // ▼▼▼ 7. DYNAMIC TOPPER LIST (With Tie Handling) ▼▼▼
                 const medalEmojis = ["🥇", "🥈", "🥉"];
                 let topperHTML = '<div class="section-title"><i class="fas fa-trophy"></i> Top Rank Holders</div>';
                 
                 if (data.topRankers && data.topRankers.length > 0) {
+                    
+                    let trueRank = 0; // Tracks the actual rank (1st, 2nd, 3rd)
+                    
                     data.topRankers.forEach((student, index) => {
                         let tPerc = parseFloat(String(student.percent).replace('%', ''));
                         if (!isNaN(tPerc) && tPerc <= 1) tPerc = tPerc * 100;
-                        
+
+                        // TIE CHECK LOGIC:
+                        // If it's the first student, Rank is 1 (index 0).
+                        // If this student has the SAME total as the previous one, keep the same rank.
+                        // If different, increase the rank.
+                        if (index === 0 || student.total < data.topRankers[index - 1].total) {
+                            trueRank = trueRank + 1;
+                        }
+                        // Note: If marks are equal, 'trueRank' does not increase, so they get the same medal.
+
+                        // Only show if rank is 1, 2, or 3 (Safety check)
+                        let displayMedal = (trueRank <= 3) ? medalEmojis[trueRank - 1] : ("#" + trueRank);
+
                         topperHTML += `
                         <div class="topper-item">
                             <div style="display:flex; align-items:center;">
-                                <div class="rank-circle">${medalEmojis[index] || (index+1)}</div>
+                                <div class="rank-circle">${displayMedal}</div>
                                 <div class="t-info">
                                     <span class="t-name">${student.name}</span>
                                     <span class="t-perc">${tPerc.toFixed(1)}%</span>
@@ -413,6 +428,7 @@
                     topperHTML += '<div style="padding:10px; text-align:center; color:#999; font-size:12px;">No data available</div>';
                 }
                 document.getElementById('topperListContainer').innerHTML = topperHTML;
+
 
 
                 // ▼▼▼ 8. DYNAMIC ATTENDANCE LIST (Percentage from Sheet) ▼▼▼
