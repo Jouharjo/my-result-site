@@ -390,15 +390,34 @@
 
                 setTimeout(() => { document.getElementById('sbProgress').style.width = rawVal + "%"; }, 300);
 
-                // --- 5. PASS/FAIL STATUS ---
+                                // --- 5. PASS/FAIL STATUS ---
+                // Select the Rank Box to hide/show it
+                const rankBox = document.querySelector('.sb-middle');
+
                 if(data.finalStatus === "FAIL") {
                     box.classList.add("fail-mode");
-                    document.getElementById('sbStatusText').innerText = "FAILED";
-                    document.getElementById('sbIcon').innerHTML = '<i class="fas fa-times"></i>';
+                    
+                    // 1. Change Text to NOT QUALIFIED
+                    document.getElementById('sbStatusText').innerText = "NOT QUALIFIED";
+                    document.getElementById('sbStatusText').style.fontSize = "18px"; // Adjust font size to fit longer text
+                    
+                    // 2. Change Icon to !
+                    document.getElementById('sbIcon').innerHTML = '<i class="fas fa-exclamation" style="font-size: 24px;"></i>';
+                    
+                    // 3. Hide Rank Section
+                    if(rankBox) rankBox.style.visibility = "hidden";
+
                 } else {
                     box.classList.remove("fail-mode");
+                    
+                    // Reset Text & Icon for Passed Students
                     document.getElementById('sbStatusText').innerText = "PASSED";
+                    document.getElementById('sbStatusText').style.fontSize = "21px"; 
                     document.getElementById('sbIcon').innerHTML = '<i class="fas fa-check"></i>';
+                    
+                    // Show Rank Section
+                    if(rankBox) rankBox.style.visibility = "visible";
+                    
                     fireConfetti();
                 }
 
