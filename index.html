@@ -390,29 +390,33 @@
 
                 setTimeout(() => { document.getElementById('sbProgress').style.width = rawVal + "%"; }, 300);
 
-                                // --- 5. PASS/FAIL STATUS ---
-                // Select the Rank Box to hide/show it
-                const rankBox = document.querySelector('.sb-middle');
+                                                // --- 5. PASS/FAIL STATUS ---
+                const rankBox = document.querySelector('.sb-middle'); // Select Rank Box
 
                 if(data.finalStatus === "FAIL") {
                     box.classList.add("fail-mode");
                     
-                    // 1. Change Text to NOT QUALIFIED
-                    document.getElementById('sbStatusText').innerText = "NOT QUALIFIED";
-                    document.getElementById('sbStatusText').style.fontSize = "18px"; sText.style.whiteSpace = "nowrap";  // Adjust font size to fit longer text
+                    // 1. Change Text to NOT QUALIFIED (One Line Fix)
+                    const sText = document.getElementById('sbStatusText');
+                    sText.innerText = "NOT QUALIFIED";
+                    sText.style.fontSize = "18px";      /* Make it smaller to fit */
+                    sText.style.whiteSpace = "nowrap";  /* Force it to stay on one line */
                     
                     // 2. Change Icon to !
                     document.getElementById('sbIcon').innerHTML = '<i class="fas fa-exclamation" style="font-size: 24px;"></i>';
                     
-                    // 3. Hide Rank Section
+                    // 3. Hide Rank Section (Keep layout structure)
                     if(rankBox) rankBox.style.visibility = "hidden";
 
                 } else {
                     box.classList.remove("fail-mode");
                     
-                    // Reset Text & Icon for Passed Students
-                    document.getElementById('sbStatusText').innerText = "PASSED";
-                    document.getElementById('sbStatusText').style.fontSize = "21px"; 
+                    // Reset Text for Passed Students
+                    const sText = document.getElementById('sbStatusText');
+                    sText.innerText = "PASSED";
+                    sText.style.fontSize = "21px";      /* Return to normal big size */
+                    sText.style.whiteSpace = "normal";
+                    
                     document.getElementById('sbIcon').innerHTML = '<i class="fas fa-check"></i>';
                     
                     // Show Rank Section
@@ -420,6 +424,7 @@
                     
                     fireConfetti();
                 }
+
 
                 // --- 6. MARKS TABLE ---
                 let rows = "";
