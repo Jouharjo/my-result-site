@@ -289,42 +289,11 @@
                 <i class="fas fa-arrow-left"></i> Check Another
             </button>
         </div> 
-        <div class="extras-container">
-            <div class="section-title"><i class="fas fa-trophy"></i> Top Rank Holders</div>
-            
-            <div class="topper-item">
-                <div style="display:flex; align-items:center;">
-                    <div class="rank-circle">🥇</div>
-                    <div class="t-info"><span class="t-name">Fathima Riza</span><span class="t-perc">98.5%</span></div>
-                </div>
-                <div class="t-total">295</div>
+        <div class="extras-container" id="topperListContainer">
             </div>
 
-            <div class="topper-item">
-                <div style="display:flex; align-items:center;">
-                    <div class="rank-circle">🥈</div>
-                    <div class="t-info"><span class="t-name">Muhammed Sinan</span><span class="t-perc">96.0%</span></div>
-                </div>
-                <div class="t-total">288</div>
+        <div class="extras-container" id="attnListContainer">
             </div>
-
-            <div class="topper-item">
-                <div style="display:flex; align-items:center;">
-                    <div class="rank-circle">🥉</div>
-                    <div class="t-info"><span class="t-name">Aysha Nida</span><span class="t-perc">94.5%</span></div>
-                </div>
-                <div class="t-total">282</div>
-            </div>
-        </div>
-
-        <div class="extras-container">
-            <div class="section-title"><i class="fas fa-calendar-check"></i> Best Attendance</div>
-            <div class="attn-row">
-                <div class="attn-pill"><b>1.</b> Shifa (100%)</div>
-                <div class="attn-pill"><b>2.</b> Adil (99%)</div>
-                <div class="attn-pill"><b>3.</b> Riya (98%)</div>
-            </div>
-        </div>
 
     </div> 
     <div class="footer">Powered by <strong>Jouhar's Tech</strong></div>
@@ -363,26 +332,24 @@
 
                 // --- 1. VALID SUBJECTS ---
                 const validSubjects = data.subjectData.filter(sub => sub.name && sub.mark && sub.name !== "NaN");
-                
-                // --- 2. DYNAMIC TOTAL ---
                 const marksPerSubject = 50; 
                 const totalPossible = validSubjects.length * marksPerSubject;
 
-                // --- 3. PERCENTAGE FIX ---
+                // --- 2. PERCENTAGE FIX ---
                 let rawVal = parseFloat(String(data.percentage).replace('%', ''));
                 if (!isNaN(rawVal) && rawVal <= 1) { rawVal = rawVal * 100; }
 
                 document.getElementById('sbPercentVal').innerText = rawVal.toFixed(1) + "%";
                 document.getElementById('sbTotalVal').innerHTML = data.total + `<span class="small-denom">/${totalPossible}</span>`;
                 
-                // --- ATTENDANCE ---
+                // --- 3. ATTENDANCE ---
                 let attnHTML = (data.attendance || "--") + '<span class="small-denom">/250</span>';
                 if (data.attendanceRank == 1) attnHTML += ' 🥇';
                 else if (data.attendanceRank == 2) attnHTML += ' 🥈';
                 else if (data.attendanceRank == 3) attnHTML += ' 🥉';
                 document.getElementById('sbAttnVal').innerHTML = attnHTML;
 
-                // --- RANK ---
+                // --- 4. ACADEMIC RANK ---
                 let rankDisplay = rank;
                 let rankIconHTML = '';
                 if (rank == 1) { rankDisplay = "1st"; rankIconHTML = '🥇'; }
@@ -395,7 +362,7 @@
 
                 setTimeout(() => { document.getElementById('sbProgress').style.width = rawVal + "%"; }, 300);
 
-                // --- PASS/FAIL ---
+                // --- 5. PASS/FAIL STATUS ---
                 if(data.finalStatus === "FAIL") {
                     box.classList.add("fail-mode");
                     document.getElementById('sbStatusText').innerText = "FAILED";
@@ -407,7 +374,7 @@
                     fireConfetti();
                 }
 
-                // --- TABLE ---
+                // --- 6. MARKS TABLE ---
                 let rows = "";
                 const PASS_MARK = 18; 
                 validSubjects.forEach(sub => {
@@ -420,11 +387,60 @@
                 });
                 document.getElementById('marksBody').innerHTML = rows;
 
+
+                // ▼▼▼ 7. DYNAMIC TOPPER LIST (JavaScript Injection) ▼▼▼
+                const medalEmojis = ["🥇", "🥈", "🥉"];
+                let topperHTML = '<div class="section-title"><i class="fas fa-trophy"></i> Top Rank Holders</div>';
+                
+                if (data.topRankers && data.topRankers.length > 0) {
+                    data.topRankers.forEach((student, index) => {
+                        let tPerc = parseFloat(String(student.percent).replace('%', ''));
+                        if (!isNaN(tPerc) && tPerc <= 1) tPerc = tPerc * 100;
+                        
+                        topperHTML += `
+                        <div class="topper-item">
+                            <div style="display:flex; align-items:center;">
+                                <div class="rank-circle">${medalEmojis[index] || (index+1)}</div>
+                                <div class="t-info">
+                                    <span class="t-name">${student.name}</span>
+                                    <span class="t-perc">${tPerc.toFixed(1)}%</span>
+                                </div>
+                            </div>
+                            <div class="t-total">${student.total}</div>
+                        </div>`;
+                    });
+                } else {
+                    topperHTML += '<div style="padding:10px; text-align:center; color:#999; font-size:12px;">No data available</div>';
+                }
+                document.getElementById('topperListContainer').innerHTML = topperHTML;
+
+
+                // ▼▼▼ 8. DYNAMIC ATTENDANCE LIST (Percentage from Sheet) ▼▼▼
+                let attnListHTML = '<div class="section-title"><i class="fas fa-calendar-check"></i> Best Attendance</div><div class="attn-row">';
+                
+                if (data.topAttendance && data.topAttendance.length > 0) {
+                    data.topAttendance.forEach((student, index) => {
+                        let aPerc = parseFloat(String(student.percent).replace('%', ''));
+                        if (!isNaN(aPerc) && aPerc <= 1) aPerc = aPerc * 100;
+                        
+                        attnListHTML += `
+                        <div class="attn-pill">
+                            <b>${index + 1}.</b> ${student.name} (${aPerc.toFixed(0)}%)
+                        </div>`;
+                    });
+                } else {
+                    attnListHTML += '<span style="color:#999; font-size:12px;">No data available</span>';
+                }
+                attnListHTML += '</div>';
+                
+                document.getElementById('attnListContainer').innerHTML = attnListHTML;
+
             } else {
                 alert("Result not found!");
             }
         } catch (error) {
-            alert("Connection Error!");
+            console.error(error);
+            alert("Connection Error! Please check console.");
         }
         btn.innerHTML = originalText;
         btn.style.opacity = "1";
