@@ -58,15 +58,26 @@
         .reg-no { font-size: 13px; font-weight: 600; opacity: 0.9; margin-top: 4px; }
         .exam-name { font-size: 16px; font-weight: 600; opacity: 0.95; margin-top: 12px; padding-top: 12px; border-top: 1px dashed rgba(255,255,255,0.3); display: inline-block; }
 
-        /* CARD */
+        /* CARD STYLES */
         .main-card {
             background: var(--white);
-            margin: -60px 20px 20px;
+            margin: -60px 20px 20px; /* Pulls card up over header */
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             position: relative;
             z-index: 10;
+        }
+
+        /* EXTRAS CARD (Toppers & Attendance) */
+        .extras-container {
+            margin: 0px 20px 20px 20px; /* Separate from main card */
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 9;
         }
 
         /* --- PREMIUM SEARCH CARD (Glass Look) --- */
@@ -80,89 +91,48 @@
             border-radius: 24px;
         }
 
-        /* INPUTS (Modern Pill Style) */
+        /* INPUTS */
         .input-group { margin-bottom: 15px; }
         .input-label { display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 5px; text-transform: uppercase; }
         
         select, input { 
-            width: 100%; 
-            padding: 16px 20px; 
-            border: none; 
-            border-radius: 16px; 
-            font-size: 16px; 
-            font-weight: 600;
-            color: #1f2937;
-            background: #f0fdf4; 
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); 
-            transition: all 0.3s ease;
-            outline: none;
-            box-sizing: border-box; 
-            font-family: inherit; 
+            width: 100%; padding: 16px 20px; border: none; border-radius: 16px; 
+            font-size: 16px; font-weight: 600; color: #1f2937;
+            background: #f0fdf4; box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); 
+            transition: all 0.3s ease; outline: none; box-sizing: border-box; font-family: inherit; 
         }
 
-        input:focus, select:focus { 
-            background: #ffffff;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); 
-            outline: 2px solid #34d399; 
-        }
+        input:focus, select:focus { background: #ffffff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); outline: 2px solid #34d399; }
 
         .btn-primary {
             width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 50px;
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-        /* --- 3D GRADIENT SEARCH BUTTON --- */
         #searchBtn {
             background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
             box-shadow: 0 8px 20px -5px rgba(13, 148, 136, 0.4); 
-            border-radius: 50px;
-            font-size: 17px;
-            letter-spacing: 0.5px;
-            transition: transform 0.2s;
+            border-radius: 50px; font-size: 17px; letter-spacing: 0.5px; transition: transform 0.2s;
         }
-
         #searchBtn:active { transform: scale(0.96); }
 
-        /* --- SUMMARY BOX (PREMIUM GLASS LOOK) --- */
+        /* --- SUMMARY BOX --- */
         .summary-box {
-            border-radius: 24px; 
-            padding: 15px 12px;
-            margin-bottom: 25px;
-            position: relative;
-            overflow: hidden;
+            border-radius: 24px; padding: 15px 12px; margin-bottom: 25px; position: relative; overflow: hidden;
             background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
             border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 
-                0 4px 6px -1px rgba(16, 185, 129, 0.1), 
-                0 2px 4px -1px rgba(16, 185, 129, 0.06),
-                inset 0 0 20px rgba(255, 255, 255, 0.5); 
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.5); 
             backdrop-filter: blur(10px); 
         }
 
-        .sb-grid {
-            display: grid;
-            grid-template-columns: 1.8fr 0.6fr 1.0fr; 
-            gap: 5px;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
+        .sb-grid { display: grid; grid-template-columns: 1.8fr 0.6fr 1.0fr; gap: 5px; align-items: center; margin-bottom: 15px; }
         .sb-left { display: flex; align-items: center; gap: 8px; }
-        .sb-icon-box {
-            width: 51px; height: 51px; flex-shrink: 0; border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 26px; background: var(--pass-icon-bg);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
+        .sb-icon-box { width: 51px; height: 51px; flex-shrink: 0; border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 26px; background: var(--pass-icon-bg); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
         .sb-status-text { font-size: 21px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
         .sb-percent-text { font-size:15px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
         .sb-percent-text i { font-size: 0.75em; margin-right: 1px; opacity: 0.9; }
 
-        .sb-middle {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border-left: 1px solid rgba(0,0,0,0.06); border-right: 1px solid rgba(0,0,0,0.06);
-            padding: 0px; min-height: 50px;
-        }
+        .sb-middle { display: flex; flex-direction: column; align-items: center; justify-content: center; border-left: 1px solid rgba(0,0,0,0.06); border-right: 1px solid rgba(0,0,0,0.06); padding: 0px; min-height: 50px; }
         .rank-icon-container { font-size: 20px; margin-top: 4px; margin-bottom: 0px; line-height: 1; min-height: 20px; display: flex; align-items: center; }
         .rank-text { font-size: 17px; font-weight: 800; color: #374151; margin-bottom: -1px;  }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
@@ -180,11 +150,7 @@
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
-        .summary-box.fail-mode { 
-            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-            border-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.5);
-        }
+        .summary-box.fail-mode { background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-color: rgba(255, 255, 255, 0.8); box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.5); }
         .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
         .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent-text { color: var(--fail-text); }
         .summary-box.fail-mode .progress-fill { background: var(--fail-icon-bg); }
@@ -196,29 +162,20 @@
         .marks-table td.right { text-align: right; }
         .marks-table tr:nth-child(even) { background-color: #fcfcfc; }
 
-        /* NEW EXTRAS (Toppers & Attendance) */
-        .extras-container {
-            margin-top: 15px;
-            margin-bottom: 20px;
-            background: white;
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            border: 1px solid #f3f4f6;
-        }
+        /* Student Info Header */
+        .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 5px; }
+        .stu-left { display: flex; flex-direction: column; }
+        .stu-name { font-size: 24px; font-weight: 800; color: #111827; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 4px; }
+        .stu-class { font-size: 14px; color: #6b7280; font-weight: 500; }
+        .stu-roll-pill { background: #f3f4f6; color: #1f2937; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
 
-        .section-title {
-            font-size: 12px; font-weight: 800; color: #0f766e; text-transform: uppercase; letter-spacing: 0.5px;
-            margin-bottom: 15px; display: flex; align-items: center; gap: 8px;
-        }
-
+        /* TOPPER & ATTENDANCE STYLES */
+        .section-title { font-size: 12px; font-weight: 800; color: #0f766e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+        
         .topper-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #e5e7eb; }
         .topper-item:last-child { border-bottom: none; }
 
-        .rank-circle {
-            width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 14px; font-weight: 700; margin-right: 12px; flex-shrink: 0;
-        }
+        .rank-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; margin-right: 12px; flex-shrink: 0; }
         .r-gold { background: #fcd34d; color: #78350f; }
         .r-silver { background: #e5e7eb; color: #374151; }
         .r-bronze { background: #fdba74; color: #78350f; }
@@ -229,19 +186,8 @@
         .t-total { font-size: 14px; font-weight: 800; color: #0f766e; }
 
         .attn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
-        .attn-pill {
-            background: white; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 8px;
-            font-size: 13px; font-weight: 600; color: #374151; display: flex; align-items: center; gap: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-        }
+        .attn-pill { background: white; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #374151; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
         .attn-pill i { color: #f59e0b; }
-
-        /* Student Info Header */
-        .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 5px; }
-        .stu-left { display: flex; flex-direction: column; }
-        .stu-name { font-size: 24px; font-weight: 800; color: #111827; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 4px; }
-        .stu-class { font-size: 14px; color: #6b7280; font-weight: 500; }
-        .stu-roll-pill { background: #f3f4f6; color: #1f2937; padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; }
 
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
 
@@ -290,70 +236,69 @@
         </button>
     </div>
 
-    <div class="main-card" id="resultView" style="display: none;">
+    <div id="resultView" style="display: none;">
         
-        <div class="student-header">
-            <div class="stu-left">
-                <div class="stu-name" id="rName">--</div>
-                <div class="stu-class" id="rClass">--</div>
+        <div class="main-card">
+            <div class="student-header">
+                <div class="stu-left">
+                    <div class="stu-name" id="rName">--</div>
+                    <div class="stu-class" id="rClass">--</div>
+                </div>
+                <div class="stu-roll-pill" id="rRoll">Roll: --</div>
             </div>
-            <div class="stu-roll-pill" id="rRoll">Roll: --</div>
-        </div>
 
-        <div class="summary-box" id="summaryBox">
-            <div class="sb-grid">
-                
-                <div class="sb-left">
-                    <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
-                    <div>
-                        <div class="sb-status-text" id="sbStatusText">PASSED</div>
-                        <div class="sb-percent-text"><i class="fas fa-bolt"></i> <span id="sbPercentVal">0%</span></div>
-                    </div>
-                </div>
-
-                <div class="sb-middle">
-                    <div class="rank-icon-container" id="rankIconContainer"></div>
-                    <div class="rank-text" id="rankText">--</div>
-                    <div class="rank-label">RANK</div>
-                </div>
-
-                <div class="sb-right">
-                    
-                    <div class="sb-marks-stack">
+            <div class="summary-box" id="summaryBox">
+                <div class="sb-grid">
+                    <div class="sb-left">
+                        <div class="sb-icon-box" id="sbIcon"><i class="fas fa-check"></i></div>
                         <div>
-                            <div class="sb-total-label">Total Mark</div>
-                            <div class="sb-total-val" id="sbTotalVal">0/300</div>
-                        </div>
-                        <div class="sb-attn-box">
-                            <div class="sb-attn-label">ATTENDANCE</div>
-                            <div class="sb-attn-val" id="sbAttnVal">--/250</div>
+                            <div class="sb-status-text" id="sbStatusText">PASSED</div>
+                            <div class="sb-percent-text"><i class="fas fa-bolt"></i> <span id="sbPercentVal">0%</span></div>
                         </div>
                     </div>
 
+                    <div class="sb-middle">
+                        <div class="rank-icon-container" id="rankIconContainer"></div>
+                        <div class="rank-text" id="rankText">--</div>
+                        <div class="rank-label">RANK</div>
+                    </div>
+
+                    <div class="sb-right">
+                        <div class="sb-marks-stack">
+                            <div>
+                                <div class="sb-total-label">Total Mark</div>
+                                <div class="sb-total-val" id="sbTotalVal">0/300</div>
+                            </div>
+                            <div class="sb-attn-box">
+                                <div class="sb-attn-label">ATTENDANCE</div>
+                                <div class="sb-attn-val" id="sbAttnVal">--/250</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
+                <div class="progress-track">
+                    <div class="progress-fill" id="sbProgress"></div>
+                </div>
             </div>
+
+            <table class="marks-table">
+                <thead><tr><th>Subject</th><th class="right">Marks</th></tr></thead>
+                <tbody id="marksBody"></tbody>
+            </table>
+
+            <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
             
-            <div class="progress-track">
-                <div class="progress-fill" id="sbProgress"></div>
-            </div>
-        </div>
-
-        <table class="marks-table">
-            <thead><tr><th>Subject</th><th class="right">Marks</th></tr></thead>
-            <tbody id="marksBody"></tbody>
-        </table>
-
+            <button class="btn-primary" style="background: white; color: #6b7280; border: 2px solid #e5e7eb;" onclick="location.reload()">
+                <i class="fas fa-arrow-left"></i> Check Another
+            </button>
+        </div> 
         <div class="extras-container">
             <div class="section-title"><i class="fas fa-trophy"></i> Top Rank Holders</div>
-
+            
             <div class="topper-item">
                 <div style="display:flex; align-items:center;">
                     <div class="rank-circle r-gold">1</div>
-                    <div class="t-info">
-                        <span class="t-name">Fathima Riza</span>
-                        <span class="t-perc">98.5%</span>
-                    </div>
+                    <div class="t-info"><span class="t-name">Fathima Riza</span><span class="t-perc">98.5%</span></div>
                 </div>
                 <div class="t-total">295</div>
             </div>
@@ -361,10 +306,7 @@
             <div class="topper-item">
                 <div style="display:flex; align-items:center;">
                     <div class="rank-circle r-silver">2</div>
-                    <div class="t-info">
-                        <span class="t-name">Muhammed Sinan</span>
-                        <span class="t-perc">96.0%</span>
-                    </div>
+                    <div class="t-info"><span class="t-name">Muhammed Sinan</span><span class="t-perc">96.0%</span></div>
                 </div>
                 <div class="t-total">288</div>
             </div>
@@ -372,16 +314,13 @@
             <div class="topper-item">
                 <div style="display:flex; align-items:center;">
                     <div class="rank-circle r-bronze">3</div>
-                    <div class="t-info">
-                        <span class="t-name">Aysha Nida</span>
-                        <span class="t-perc">94.5%</span>
-                    </div>
+                    <div class="t-info"><span class="t-name">Aysha Nida</span><span class="t-perc">94.5%</span></div>
                 </div>
                 <div class="t-total">282</div>
             </div>
         </div>
 
-        <div class="extras-container" style="margin-top: 15px;">
+        <div class="extras-container">
             <div class="section-title"><i class="fas fa-calendar-check"></i> Best Attendance</div>
             <div class="attn-row">
                 <div class="attn-pill"><i class="fas fa-star"></i> Shifa (100%)</div>
@@ -389,14 +328,8 @@
                 <div class="attn-pill"><i class="fas fa-star"></i> Riya (98%)</div>
             </div>
         </div>
-        <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
-        
-        <button class="btn-primary" style="background: white; color: #6b7280; border: 2px solid #e5e7eb;" onclick="location.reload()">
-            <i class="fas fa-arrow-left"></i> Check Another
-        </button>
 
-    </div>
-
+    </div> 
     <div class="footer">Powered by <strong>Jouhar's Tech</strong></div>
 </div>
 
