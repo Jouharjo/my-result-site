@@ -69,20 +69,66 @@
             z-index: 10;
         }
 
-        /* INPUTS */
+        /* --- PREMIUM SEARCH CARD (Glass Look) --- */
+        #searchView {
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 20px 40px -5px rgba(15, 118, 110, 0.15), 
+                inset 0 0 20px rgba(255, 255, 255, 0.8);
+            border-radius: 24px;
+        }
+
+        /* INPUTS (Modern Pill Style) */
         .input-group { margin-bottom: 15px; }
         .input-label { display: block; font-size: 12px; font-weight: 700; color: #6b7280; margin-bottom: 5px; text-transform: uppercase; }
-        select, input { width: 100%; padding: 14px; border: 2px solid #e5e7eb; border-radius: 12px; font-size: 16px; outline: none; box-sizing: border-box; background: #f9fafb; font-family: inherit; }
-        input:focus, select:focus { border-color: var(--primary); background: white; }
+        
+        select, input { 
+            width: 100%; 
+            padding: 16px 20px; /* Bigger padding */
+            border: none; /* Remove old gray border */
+            border-radius: 16px; /* Rounder corners */
+            font-size: 16px; 
+            font-weight: 600;
+            color: #1f2937;
+            background: #f0fdf4; /* Very light green tint */
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); /* Inner shadow for depth */
+            transition: all 0.3s ease;
+            outline: none;
+            box-sizing: border-box; 
+            font-family: inherit; 
+        }
+
+        /* Input Focus State (When typing) */
+        input:focus, select:focus { 
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); /* Soft Green Glow */
+            outline: 2px solid #34d399; /* Green ring */
+        }
 
         .btn-primary {
             width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 50px;
             font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px;
         }
 
-                /* --- SUMMARY BOX (PREMIUM GLASS LOOK) --- */
+        /* --- 3D GRADIENT SEARCH BUTTON --- */
+        #searchBtn {
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+            box-shadow: 0 8px 20px -5px rgba(13, 148, 136, 0.4); /* Colored Shadow */
+            border-radius: 50px;
+            font-size: 17px;
+            letter-spacing: 0.5px;
+            transition: transform 0.2s;
+        }
+
+        #searchBtn:active {
+            transform: scale(0.96); /* Click press effect */
+        }
+
+        /* --- SUMMARY BOX (PREMIUM GLASS LOOK) --- */
         .summary-box {
-            border-radius: 24px; /* Softer, rounder corners */
+            border-radius: 24px; 
             padding: 15px 12px;
             margin-bottom: 25px;
             position: relative;
@@ -96,9 +142,8 @@
                 0 2px 4px -1px rgba(16, 185, 129, 0.06),
                 inset 0 0 20px rgba(255, 255, 255, 0.5); /* Inner Glow */
             
-            backdrop-filter: blur(10px); /* Frosted effect */
+            backdrop-filter: blur(10px); 
         }
-
 
         /* GRID (Left | Middle | Right) */
         .sb-grid {
@@ -126,24 +171,22 @@
         }
         .sb-status-text { font-size: 21px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
         .sb-percent-text { font-size:15px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
-                /* NEW RULE: Make the bolt icon smaller */
+        
+        /* Make the bolt icon smaller */
         .sb-percent-text i {
-            font-size: 0.75em; /* Makes icon 15% smaller than the text */
-            margin-right: 1px; /* Adds a tiny gap */
-            opacity: 0.9;      /* Makes it look slightly softer */
+            font-size: 0.75em;
+            margin-right: 1px;
+            opacity: 0.9;
         }
 
-                /* MIDDLE: Academic Rank (Etched Glass Dividers) */
+        /* MIDDLE: Academic Rank (Etched Glass Dividers) */
         .sb-middle {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            
-            /* Etched Glass Dividers */
             border-left: 1px solid rgba(0,0,0,0.06);
             border-right: 1px solid rgba(0,0,0,0.06);
-            
             padding: 0px;
             min-height: 50px;
         }
@@ -176,7 +219,7 @@
         
         /* Attendance Styles (Stacked & Clean) */
         .sb-attn-box { 
-            margin-top: 3px; /* Spacing from Total Mark */
+            margin-top: 3px; 
             display: flex;
             flex-direction: column;
             align-items: flex-end;
@@ -196,13 +239,12 @@
             line-height: 1;
         }
 
-
         /* Common Elements */
         .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
-                /* Fail Mode Overrides (Red Glass) */
+        /* Fail Mode Overrides (Red Glass) */
         .summary-box.fail-mode { 
             background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
             border-color: rgba(255, 255, 255, 0.8);
@@ -330,7 +372,7 @@
             <tbody id="marksBody"></tbody>
         </table>
 
-                <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
+        <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
         
         <button class="btn-primary" style="background: white; color: #6b7280; border: 2px solid #e5e7eb;" onclick="location.reload()">
             <i class="fas fa-arrow-left"></i> Check Another
@@ -374,7 +416,7 @@
                 const percentVal = parseFloat(data.percentage);
                 const rank = data.rank;
 
-                                // --- 1. GET VALID SUBJECTS (Removes empty rows) ---
+                // --- 1. GET VALID SUBJECTS (Removes empty rows) ---
                 // This creates a list of ONLY the subjects that have names/marks
                 const validSubjects = data.subjectData.filter(sub => sub.name && sub.mark && sub.name !== "NaN");
                 
@@ -383,7 +425,6 @@
                 const totalPossible = validSubjects.length * marksPerSubject;
 
                 // --- 3. UPDATE PERCENTAGE & TOTAL ---
-                                // --- 3. UPDATE PERCENTAGE & TOTAL ---
                 let rawVal = parseFloat(String(data.percentage).replace('%', ''));
 
                 // FIX: If value is decimal (like 0.745), convert to 74.5
@@ -451,9 +492,6 @@
                     </tr>`;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
-
-
-
 
             } else {
                 alert("Result not found!");
