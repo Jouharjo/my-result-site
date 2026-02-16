@@ -285,15 +285,52 @@
 
 
         
+                /* --- PRINT / PDF SETTINGS --- */
         @media print {
-            body { background: white; }
-            .header-section { color: black; background: none; border-bottom: 2px solid #000; padding: 10px; border-radius: 0; box-shadow: none; }
-            .logo-icon { display: none; }
+            body { 
+                background: white; 
+                -webkit-print-color-adjust: exact; 
+            }
+
+            /* Simplified Header for Print */
+            .header-section { 
+                color: black; 
+                background: none !important; 
+                border-bottom: 2px solid #000; 
+                padding: 10px; 
+                border-radius: 0; 
+                box-shadow: none; 
+                animation: none;
+            }
+
             .school-logo { width: 60px; filter: none; }
-            .main-card { box-shadow: none; margin: 0; padding: 0; }
-            .btn-primary, .btn-secondary, #searchView, .extras-container { display: none !important; }
-            .summary-box { border: 1px solid #000; background: none !important; box-shadow: none; }
+
+            /* Flatten Cards */
+            .main-card { 
+                box-shadow: none; 
+                margin: 0; 
+                padding: 0; 
+                border: none;
+            }
+
+            /* High Contrast Summary Box for Print */
+            .summary-box { 
+                border: 1px solid #000; 
+                background: none !important; 
+                box-shadow: none; 
+                backdrop-filter: none;
+            }
+
+            /* --- HIDE THESE ITEMS IN PDF --- */
+            .btn-primary,           /* Buttons */
+            #searchView,            /* Search Box */
+            .extras-container,      /* Top Rank & Attendance Lists */
+            .leaderboard-divider,   /* Leaderboard Heading */
+            .footer {               /* Powered By Jouhar's Tech */
+                display: none !important; 
+            }
         }
+
     </style>
 </head>
 <body>
