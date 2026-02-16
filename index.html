@@ -86,25 +86,24 @@
         
         select, input { 
             width: 100%; 
-            padding: 16px 20px; /* Bigger padding */
-            border: none; /* Remove old gray border */
-            border-radius: 16px; /* Rounder corners */
+            padding: 16px 20px; 
+            border: none; 
+            border-radius: 16px; 
             font-size: 16px; 
             font-weight: 600;
             color: #1f2937;
-            background: #f0fdf4; /* Very light green tint */
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); /* Inner shadow for depth */
+            background: #f0fdf4; 
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.03); 
             transition: all 0.3s ease;
             outline: none;
             box-sizing: border-box; 
             font-family: inherit; 
         }
 
-        /* Input Focus State (When typing) */
         input:focus, select:focus { 
             background: #ffffff;
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); /* Soft Green Glow */
-            outline: 2px solid #34d399; /* Green ring */
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15); 
+            outline: 2px solid #34d399; 
         }
 
         .btn-primary {
@@ -115,16 +114,14 @@
         /* --- 3D GRADIENT SEARCH BUTTON --- */
         #searchBtn {
             background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
-            box-shadow: 0 8px 20px -5px rgba(13, 148, 136, 0.4); /* Colored Shadow */
+            box-shadow: 0 8px 20px -5px rgba(13, 148, 136, 0.4); 
             border-radius: 50px;
             font-size: 17px;
             letter-spacing: 0.5px;
             transition: transform 0.2s;
         }
 
-        #searchBtn:active {
-            transform: scale(0.96); /* Click press effect */
-        }
+        #searchBtn:active { transform: scale(0.96); }
 
         /* --- SUMMARY BOX (PREMIUM GLASS LOOK) --- */
         .summary-box {
@@ -133,19 +130,15 @@
             margin-bottom: 25px;
             position: relative;
             overflow: hidden;
-            
-            /* GLASS EFFECT: Gradient + Blur + White Border */
             background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
             border: 1px solid rgba(255, 255, 255, 0.8);
             box-shadow: 
                 0 4px 6px -1px rgba(16, 185, 129, 0.1), 
                 0 2px 4px -1px rgba(16, 185, 129, 0.06),
-                inset 0 0 20px rgba(255, 255, 255, 0.5); /* Inner Glow */
-            
+                inset 0 0 20px rgba(255, 255, 255, 0.5); 
             backdrop-filter: blur(10px); 
         }
 
-        /* GRID (Left | Middle | Right) */
         .sb-grid {
             display: grid;
             grid-template-columns: 1.8fr 0.6fr 1.0fr; 
@@ -154,104 +147,43 @@
             margin-bottom: 15px;
         }
 
-        /* LEFT: Status */
-        .sb-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .sb-left { display: flex; align-items: center; gap: 8px; }
         .sb-icon-box {
-            width: 51px; height: 51px;
-            flex-shrink: 0;
-            border-radius: 14px;
+            width: 51px; height: 51px; flex-shrink: 0; border-radius: 14px;
             display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 26px;
-            background: var(--pass-icon-bg);
+            color: white; font-size: 26px; background: var(--pass-icon-bg);
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
         .sb-status-text { font-size: 21px; font-weight: 800; color: var(--pass-text); text-transform: uppercase; line-height: 1; margin-bottom: 3px; letter-spacing: -0.5px; }
         .sb-percent-text { font-size:15px; font-weight: 800; color: var(--pass-text); opacity: 0.9; display: flex; align-items: center; gap: 4px; }
-        
-        /* Make the bolt icon smaller */
-        .sb-percent-text i {
-            font-size: 0.75em;
-            margin-right: 1px;
-            opacity: 0.9;
-        }
+        .sb-percent-text i { font-size: 0.75em; margin-right: 1px; opacity: 0.9; }
 
-        /* MIDDLE: Academic Rank (Etched Glass Dividers) */
         .sb-middle {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-left: 1px solid rgba(0,0,0,0.06);
-            border-right: 1px solid rgba(0,0,0,0.06);
-            padding: 0px;
-            min-height: 50px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            border-left: 1px solid rgba(0,0,0,0.06); border-right: 1px solid rgba(0,0,0,0.06);
+            padding: 0px; min-height: 50px;
         }
-
         .rank-icon-container { font-size: 20px; margin-top: 4px; margin-bottom: 0px; line-height: 1; min-height: 20px; display: flex; align-items: center; }
         .rank-text { font-size: 17px; font-weight: 800; color: #374151; margin-bottom: -1px;  }
         .rank-label { font-size: 8px; font-weight: 700; color: #9ca3af; text-transform: uppercase; }
 
-        /* RIGHT: Container */
-        .sb-right {
-            display: flex;
-            flex-direction: row; 
-            justify-content: flex-end; 
-            align-items: center;
-            gap: 14px; 
-            padding-right: 5px;
-            text-align: right;
-        }
-
-        /* RIGHT COLUMN STACK (Total & Attn) */
-        .sb-marks-stack {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-
-        /* Total Mark Styles */
+        .sb-right { display: flex; flex-direction: row; justify-content: flex-end; align-items: center; gap: 14px; padding-right: 5px; text-align: right; }
+        .sb-marks-stack { display: flex; flex-direction: column; align-items: flex-end; }
         .sb-total-label { font-size: 9px; font-weight: 700; color: #6b7280; text-transform: uppercase; margin-bottom: 0px;margin-top: 2px; }
         .sb-total-val { font-size: 19px; font-weight: 900; color: #1f2937; line-height: 1; letter-spacing: -0.5px; }
         
-        /* Attendance Styles (Stacked & Clean) */
-        .sb-attn-box { 
-            margin-top: 3px; 
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-        }
-        .sb-attn-label { 
-            font-size: 6px; 
-            font-weight: 700; 
-            color: #9ca3af; 
-            text-transform: uppercase; 
-            margin-bottom: 1px; 
-        }
-        .sb-attn-val { 
-            font-size: 11px; 
-            font-weight: 800; 
-            color: #4b5563; 
-            white-space: nowrap; 
-            line-height: 1;
-        }
+        .sb-attn-box { margin-top: 3px; display: flex; flex-direction: column; align-items: flex-end; }
+        .sb-attn-label { font-size: 6px; font-weight: 700; color: #9ca3af; text-transform: uppercase; margin-bottom: 1px; }
+        .sb-attn-val { font-size: 11px; font-weight: 800; color: #4b5563; white-space: nowrap; line-height: 1; }
 
-        /* Common Elements */
         .small-denom { font-size: 0.75em; font-weight: 500; color: #9ca3af; margin-left: 1px; }
         .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--pass-icon-bg); width: 0%; transition: width 1s ease-out; border-radius: 10px; }
 
-        /* Fail Mode Overrides (Red Glass) */
         .summary-box.fail-mode { 
             background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
             border-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 
-                0 4px 6px -1px rgba(239, 68, 68, 0.1), 
-                0 2px 4px -1px rgba(239, 68, 68, 0.06),
-                inset 0 0 20px rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.5);
         }
         .summary-box.fail-mode .sb-icon-box { background: var(--fail-icon-bg); box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); }
         .summary-box.fail-mode .sb-status-text, .summary-box.fail-mode .sb-percent-text { color: var(--fail-text); }
@@ -263,6 +195,46 @@
         .marks-table td { padding: 12px 15px; font-size: 14px; font-weight: 600; color: #1f2937; border-bottom: 1px solid #f3f4f6; }
         .marks-table td.right { text-align: right; }
         .marks-table tr:nth-child(even) { background-color: #fcfcfc; }
+
+        /* NEW EXTRAS (Toppers & Attendance) */
+        .extras-container {
+            margin-top: 15px;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #f3f4f6;
+        }
+
+        .section-title {
+            font-size: 12px; font-weight: 800; color: #0f766e; text-transform: uppercase; letter-spacing: 0.5px;
+            margin-bottom: 15px; display: flex; align-items: center; gap: 8px;
+        }
+
+        .topper-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #e5e7eb; }
+        .topper-item:last-child { border-bottom: none; }
+
+        .rank-circle {
+            width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 700; margin-right: 12px; flex-shrink: 0;
+        }
+        .r-gold { background: #fcd34d; color: #78350f; }
+        .r-silver { background: #e5e7eb; color: #374151; }
+        .r-bronze { background: #fdba74; color: #78350f; }
+
+        .t-info { display: flex; flex-direction: column; }
+        .t-name { font-size: 14px; font-weight: 700; color: #1f2937; }
+        .t-perc { font-size: 11px; color: #6b7280; font-weight: 500; }
+        .t-total { font-size: 14px; font-weight: 800; color: #0f766e; }
+
+        .attn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
+        .attn-pill {
+            background: white; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 8px;
+            font-size: 13px; font-weight: 600; color: #374151; display: flex; align-items: center; gap: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+        .attn-pill i { color: #f59e0b; }
 
         /* Student Info Header */
         .student-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 5px; }
@@ -279,80 +251,9 @@
             .logo-icon { display: none; }
             .school-logo { width: 60px; filter: none; }
             .main-card { box-shadow: none; margin: 0; padding: 0; }
-            .btn-primary, .btn-secondary, #searchView { display: none !important; }
+            .btn-primary, .btn-secondary, #searchView, .extras-container { display: none !important; }
             .summary-box { border: 1px solid #000; background: none !important; box-shadow: none; }
         }
-                /* --- EXTRAS SECTION (Toppers & Attendance) --- */
-        .extras-section {
-            margin-top: 25px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .extra-card {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 16px;
-            padding: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            backdrop-filter: blur(5px);
-        }
-
-        .extra-header {
-            font-size: 12px;
-            font-weight: 800;
-            color: #0f766e;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* TOPPER ROWS */
-        .topper-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dashed rgba(0,0,0,0.05);
-        }
-        .topper-row:last-child { border-bottom: none; }
-
-        .t-rank {
-            width: 24px; height: 24px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-            margin-right: 10px;
-        }
-        .t-gold   { background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%); color: #78350f; box-shadow: 0 2px 5px rgba(245, 158, 11, 0.3); }
-        .t-silver { background: linear-gradient(135deg, #e5e7eb 0%, #9ca3af 100%); color: #374151; box-shadow: 0 2px 5px rgba(156, 163, 175, 0.3); }
-        .t-bronze { background: linear-gradient(135deg, #fdba74 0%, #ca8a04 100%); color: #78350f; box-shadow: 0 2px 5px rgba(202, 138, 4, 0.3); }
-
-        .t-info { flex-grow: 1; }
-        .t-name { font-size: 13px; font-weight: 700; color: #1f2937; display: block; line-height: 1.2; }
-        .t-details { font-size: 10px; color: #6b7280; font-weight: 500; }
-
-        .t-mark { font-size: 13px; font-weight: 800; color: #0f766e; }
-
-        /* ATTENDANCE PILLS */
-        .attn-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-        .attn-pill {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            color: #374151;
-            display: flex; align-items: center; gap: 5px;
-        }
-        .attn-pill i { color: #f59e0b; font-size: 10px; }
-
     </style>
 </head>
 <body>
@@ -443,6 +344,51 @@
             <tbody id="marksBody"></tbody>
         </table>
 
+        <div class="extras-container">
+            <div class="section-title"><i class="fas fa-trophy"></i> Top Rank Holders</div>
+
+            <div class="topper-item">
+                <div style="display:flex; align-items:center;">
+                    <div class="rank-circle r-gold">1</div>
+                    <div class="t-info">
+                        <span class="t-name">Fathima Riza</span>
+                        <span class="t-perc">98.5%</span>
+                    </div>
+                </div>
+                <div class="t-total">295</div>
+            </div>
+
+            <div class="topper-item">
+                <div style="display:flex; align-items:center;">
+                    <div class="rank-circle r-silver">2</div>
+                    <div class="t-info">
+                        <span class="t-name">Muhammed Sinan</span>
+                        <span class="t-perc">96.0%</span>
+                    </div>
+                </div>
+                <div class="t-total">288</div>
+            </div>
+
+            <div class="topper-item">
+                <div style="display:flex; align-items:center;">
+                    <div class="rank-circle r-bronze">3</div>
+                    <div class="t-info">
+                        <span class="t-name">Aysha Nida</span>
+                        <span class="t-perc">94.5%</span>
+                    </div>
+                </div>
+                <div class="t-total">282</div>
+            </div>
+        </div>
+
+        <div class="extras-container" style="margin-top: 15px;">
+            <div class="section-title"><i class="fas fa-calendar-check"></i> Best Attendance</div>
+            <div class="attn-row">
+                <div class="attn-pill"><i class="fas fa-star"></i> Shifa (100%)</div>
+                <div class="attn-pill"><i class="fas fa-star"></i> Adil (99%)</div>
+                <div class="attn-pill"><i class="fas fa-star"></i> Riya (98%)</div>
+            </div>
+        </div>
         <button class="btn-primary" onclick="window.print()">Download Result PDF</button>
         
         <button class="btn-primary" style="background: white; color: #6b7280; border: 2px solid #e5e7eb;" onclick="location.reload()">
@@ -450,53 +396,6 @@
         </button>
 
     </div>
-                <div class="extras-section">
-            
-            <div class="extra-card">
-                <div class="extra-header"><i class="fas fa-trophy"></i> Top Rank Holders</div>
-                
-                <div class="topper-row">
-                    <div style="display:flex; align-items:center;">
-                        <div class="t-rank t-gold">1</div>
-                        <div class="t-info">
-                            <span class="t-name">Fathima Riza</span> <span class="t-details">98.5%</span>   </div>
-                    </div>
-                    <div class="t-mark">295</div> </div>
-
-                <div class="topper-row">
-                    <div style="display:flex; align-items:center;">
-                        <div class="t-rank t-silver">2</div>
-                        <div class="t-info">
-                            <span class="t-name">Muhammed Sinan</span>
-                            <span class="t-details">96.0%</span>
-                        </div>
-                    </div>
-                    <div class="t-mark">288</div>
-                </div>
-
-                <div class="topper-row">
-                    <div style="display:flex; align-items:center;">
-                        <div class="t-rank t-bronze">3</div>
-                        <div class="t-info">
-                            <span class="t-name">Aysha Nida</span>
-                            <span class="t-details">94.5%</span>
-                        </div>
-                    </div>
-                    <div class="t-mark">282</div>
-                </div>
-
-            </div>
-
-            <div class="extra-card">
-                <div class="extra-header"><i class="fas fa-calendar-check"></i> Best Attendance</div>
-                <div class="attn-grid">
-                    <div class="attn-pill"><i class="fas fa-star"></i> Shifa (100%)</div>
-                    <div class="attn-pill"><i class="fas fa-star"></i> Adil (99%)</div>
-                    <div class="attn-pill"><i class="fas fa-star"></i> Riya (98%)</div>
-                </div>
-            </div>
-
-        </div>
 
     <div class="footer">Powered by <strong>Jouhar's Tech</strong></div>
 </div>
@@ -517,9 +416,7 @@
         btn.style.opacity = "0.7";
 
         try {
-            /* ADDED encodeURIComponent() to fix the "+" symbol issue */
             const response = await fetch(`${SCRIPT_URL}?roll=${roll}&cls=${encodeURIComponent(cls)}`);
-
             const data = await response.json();
 
             if (data.status === "success") {
@@ -534,26 +431,18 @@
                 const percentVal = parseFloat(data.percentage);
                 const rank = data.rank;
 
-                // --- 1. GET VALID SUBJECTS (Removes empty rows) ---
-                // This creates a list of ONLY the subjects that have names/marks
+                // --- 1. VALID SUBJECTS ---
                 const validSubjects = data.subjectData.filter(sub => sub.name && sub.mark && sub.name !== "NaN");
                 
-                // --- 2. CALCULATE DYNAMIC TOTAL (e.g., 4 * 50 = 200) ---
+                // --- 2. DYNAMIC TOTAL ---
                 const marksPerSubject = 50; 
                 const totalPossible = validSubjects.length * marksPerSubject;
 
-                // --- 3. UPDATE PERCENTAGE & TOTAL ---
+                // --- 3. PERCENTAGE FIX ---
                 let rawVal = parseFloat(String(data.percentage).replace('%', ''));
+                if (!isNaN(rawVal) && rawVal <= 1) { rawVal = rawVal * 100; }
 
-                // FIX: If value is decimal (like 0.745), convert to 74.5
-                if (!isNaN(rawVal) && rawVal <= 1) { 
-                    rawVal = rawVal * 100;
-                }
-
-                // Update Text (e.g. "74.5%")
                 document.getElementById('sbPercentVal').innerText = rawVal.toFixed(1) + "%";
-                
-                // Update Total Display
                 document.getElementById('sbTotalVal').innerHTML = data.total + `<span class="small-denom">/${totalPossible}</span>`;
                 
                 // --- ATTENDANCE ---
@@ -574,11 +463,9 @@
                 document.getElementById('rankText').innerText = rankDisplay;
                 document.getElementById('rankIconContainer').innerHTML = rankIconHTML;
 
-                // FIX: Use 'rawVal' for width so it fills 74.5% instead of 0.7%
                 setTimeout(() => { document.getElementById('sbProgress').style.width = rawVal + "%"; }, 300);
 
-
-                // --- PASS/FAIL STATUS ---
+                // --- PASS/FAIL ---
                 if(data.finalStatus === "FAIL") {
                     box.classList.add("fail-mode");
                     document.getElementById('sbStatusText').innerText = "FAILED";
@@ -590,24 +477,16 @@
                     fireConfetti();
                 }
 
-                // --- GENERATE TABLE ROWS (Using validSubjects) ---
+                // --- TABLE ---
                 let rows = "";
                 const PASS_MARK = 18; 
-
-                // We loop through 'validSubjects' (not data.subjectData) to hide empty rows
                 validSubjects.forEach(sub => {
                     let cellStyle = "";
                     let val = parseFloat(sub.mark);
-
-                    // Red Color Logic for Fail
                     if ((!isNaN(val) && val < PASS_MARK) || String(sub.mark).toUpperCase() === "AB") {
                         cellStyle = 'style="color: #dc2626;"'; 
                     }
-
-                    rows += `<tr>
-                        <td ${cellStyle}>${sub.name}</td>
-                        <td class="right" ${cellStyle}>${sub.mark}</td>
-                    </tr>`;
+                    rows += `<tr><td ${cellStyle}>${sub.name}</td><td class="right" ${cellStyle}>${sub.mark}</td></tr>`;
                 });
                 document.getElementById('marksBody').innerHTML = rows;
 
