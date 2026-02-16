@@ -284,109 +284,87 @@
         }
 
 
-        
-                        /* --- PROFESSIONAL MARKSHEET PRINT STYLES --- */
+                /* --- MODERN DIGITAL MARKSHEET (PDF) --- */
         @media print {
+            /* 1. ENABLE BACKGROUND COLORS */
             body { 
-                background: white; 
-                margin: 0; 
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important;
+                background: white;
+                margin: 0;
                 padding: 20px;
-                color: black;
-                -webkit-print-color-adjust: exact; 
             }
 
-            /* 1. HIDE App UI Elements */
-            .app-container { max-width: 100%; background: white; }
-            #searchView, .btn-primary, .leaderboard-divider, 
+            /* 2. CLEAN HEADER (Teal, No Animation) */
+            .header-section {
+                background: #0f766e !important; /* Solid Brand Color */
+                color: white !important;
+                padding: 20px !important;
+                border-radius: 15px !important;
+                margin-bottom: 30px;
+                box-shadow: none !important;
+                animation: none !important; /* Stop moving gradient */
+            }
+            
+            .school-logo { width: 70px; filter: none !important; } /* Keep Color Logo */
+            .exam-name { border-top: 1px dashed rgba(255,255,255,0.4) !important; }
+
+            /* 3. STUDENT INFO (Clean Box) */
+            .main-card {
+                box-shadow: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: 1px solid #e5e7eb; /* Subtle gray border */
+                border-radius: 15px;
+                overflow: hidden; /* Clips corners */
+            }
+
+            .student-header {
+                background: #f0fdf4 !important; /* Very light mint bg */
+                padding: 20px;
+                margin-bottom: 20px;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            /* 4. SUMMARY BOX (Crystal Look Preserved) */
+            .summary-box {
+                background: #f0fdf4 !important; /* Light Mint */
+                border: 1px solid #0f766e !important; /* Teal Border */
+                box-shadow: none !important;
+                backdrop-filter: none;
+                margin: 0 20px 20px 20px; /* Add spacing inside card */
+            }
+            
+            .sb-icon-box {
+                background: #0f766e !important;
+                color: white !important;
+            }
+
+            /* 5. MARKS TABLE (Modern Clean Grid) */
+            .marks-table {
+                width: 90% !important; /* Slightly smaller width */
+                margin: 0 auto 30px auto; /* Center it */
+                border: 1px solid #e5e7eb;
+            }
+            
+            .marks-table th {
+                background: #f3f4f6 !important;
+                color: #374151 !important;
+                font-weight: 700;
+                border-bottom: 2px solid #0f766e; /* Teal accent line */
+            }
+            
+            .marks-table td {
+                border-bottom: 1px solid #f3f4f6;
+                padding: 10px 15px;
+            }
+
+            /* 6. HIDE APP ELEMENTS */
+            .btn-primary, #searchView, .leaderboard-divider, 
             .extras-container, .footer, .progress-track { 
                 display: none !important; 
             }
 
-            /* 2. FORMAL HEADER (Black Text, Bottom Line) */
-            .header-section { 
-                background: none !important;
-                color: black !important; 
-                padding: 0 0 15px 0 !important; 
-                border-bottom: 2px solid #000; /* Signature line look */
-                box-shadow: none !important; 
-                animation: none !important;
-                border-radius: 0 !important;
-                margin-bottom: 20px;
-                text-align: center;
-            }
-
-            .school-logo { 
-                width: 70px; 
-                filter: grayscale(100%); /* Make logo professional black/white */
-            }
-            .school-name { color: black !important; font-size: 24px !important; }
-            .exam-name { color: #000 !important; border-top: 1px dashed #000 !important; }
-
-            /* 3. STUDENT DETAILS (Boxed Layout) */
-            .main-card { 
-                box-shadow: none !important; 
-                margin: 0 !important; 
-                padding: 0 !important; 
-                background: white !important;
-            }
-
-            .student-header {
-                border: 1px solid #000; /* Box around name */
-                padding: 15px;
-                border-radius: 4px;
-                background: #fdfdfd !important;
-                margin-bottom: 20px;
-            }
-            
-            .stu-roll-pill {
-                background: none !important;
-                border: 1px solid #000;
-                color: black !important;
-                font-weight: bold;
-            }
-
-            /* 4. SUMMARY BOX (Simple Bordered Box) */
-            .summary-box { 
-                background: none !important; /* No glass effect */
-                border: 2px solid #000 !important; /* Thick border */
-                box-shadow: none !important; 
-                backdrop-filter: none !important;
-                border-radius: 4px !important;
-                color: black !important;
-                margin-bottom: 20px;
-            }
-            
-            /* Force all text in summary to be black */
-            .sb-status-text, .sb-total-val, .sb-attn-val, .sb-percent-text { 
-                color: black !important; 
-            }
-            .sb-icon-box {
-                background: none !important;
-                color: black !important;
-                border: 1px solid #000;
-                box-shadow: none !important;
-            }
-
-            /* 5. MARKS TABLE (Traditional Grid) */
-            .marks-table { 
-                width: 100%; 
-                border-collapse: collapse; /* Clean lines */
-                border: 2px solid #000; 
-                border-radius: 0;
-                box-shadow: none;
-            }
-
-            .marks-table th { 
-                background: #eee !important; /* Light grey header */
-                color: black !important; 
-                border: 1px solid #000; 
-                font-weight: bold;
-            }
-
-            .marks-table td { 
-                border: 1px solid #000; 
-                color: black !important; 
-            }
         }
 
     </style>
