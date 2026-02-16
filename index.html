@@ -116,13 +116,26 @@
         }
         #searchBtn:active { transform: scale(0.96); }
 
-        /* --- SUMMARY BOX --- */
+        /* --- SUMMARY BOX - NEW FROSTED GLASS LOOK --- */
         .summary-box {
-            border-radius: 24px; padding: 15px 12px; margin-bottom: 25px; position: relative; overflow: hidden;
-            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.1), inset 0 0 20px rgba(255, 255, 255, 0.5); 
-            backdrop-filter: blur(10px); 
+            border-radius: 24px; 
+            padding: 15px 12px; 
+            margin-bottom: 25px; 
+            position: relative; 
+            overflow: hidden;
+            
+            /* 1. Lighter, semi-transparent gradient (Pass Green hint) */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(209, 250, 229, 0.4));
+            
+            /* 2. Strong Blur for the frosted effect */
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); /* For Safari on iPhone */
+            
+            /* 3. Thin, subtle border to define edges */
+            border: 1px solid rgba(15, 118, 110, 0.1);
+            
+            /* 4. Soft shadow to lift it off the white card */
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
         }
 
         .sb-grid { display: grid; grid-template-columns: 1.8fr 0.6fr 1.0fr; gap: 5px; align-items: center; margin-bottom: 15px; }
