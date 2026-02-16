@@ -175,10 +175,8 @@
         .topper-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px dashed #e5e7eb; }
         .topper-item:last-child { border-bottom: none; }
 
-        .rank-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; margin-right: 12px; flex-shrink: 0; }
-        .r-gold { background: #fcd34d; color: #78350f; }
-        .r-silver { background: #e5e7eb; color: #374151; }
-        .r-bronze { background: #fdba74; color: #78350f; }
+        /* Updated Rank Circle for Emojis */
+        .rank-circle { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 24px; margin-right: 12px; flex-shrink: 0; background: transparent; }
 
         .t-info { display: flex; flex-direction: column; }
         .t-name { font-size: 14px; font-weight: 700; color: #1f2937; }
@@ -187,7 +185,6 @@
 
         .attn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
         .attn-pill { background: white; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #374151; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
-        .attn-pill i { color: #f59e0b; }
 
         .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
 
@@ -297,7 +294,7 @@
             
             <div class="topper-item">
                 <div style="display:flex; align-items:center;">
-                    <div class="rank-circle r-gold">1</div>
+                    <div class="rank-circle">🥇</div>
                     <div class="t-info"><span class="t-name">Fathima Riza</span><span class="t-perc">98.5%</span></div>
                 </div>
                 <div class="t-total">295</div>
@@ -305,7 +302,7 @@
 
             <div class="topper-item">
                 <div style="display:flex; align-items:center;">
-                    <div class="rank-circle r-silver">2</div>
+                    <div class="rank-circle">🥈</div>
                     <div class="t-info"><span class="t-name">Muhammed Sinan</span><span class="t-perc">96.0%</span></div>
                 </div>
                 <div class="t-total">288</div>
@@ -313,7 +310,7 @@
 
             <div class="topper-item">
                 <div style="display:flex; align-items:center;">
-                    <div class="rank-circle r-bronze">3</div>
+                    <div class="rank-circle">🥉</div>
                     <div class="t-info"><span class="t-name">Aysha Nida</span><span class="t-perc">94.5%</span></div>
                 </div>
                 <div class="t-total">282</div>
@@ -323,9 +320,9 @@
         <div class="extras-container">
             <div class="section-title"><i class="fas fa-calendar-check"></i> Best Attendance</div>
             <div class="attn-row">
-                <div class="attn-pill"><i class="fas fa-star"></i> Shifa (100%)</div>
-                <div class="attn-pill"><i class="fas fa-star"></i> Adil (99%)</div>
-                <div class="attn-pill"><i class="fas fa-star"></i> Riya (98%)</div>
+                <div class="attn-pill"><b>1.</b> Shifa (100%)</div>
+                <div class="attn-pill"><b>2.</b> Adil (99%)</div>
+                <div class="attn-pill"><b>3.</b> Riya (98%)</div>
             </div>
         </div>
 
