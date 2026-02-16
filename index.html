@@ -388,29 +388,31 @@
                 document.getElementById('marksBody').innerHTML = rows;
 
 
-                                // ▼▼▼ 7. DYNAMIC TOPPER LIST (With Tie Handling) ▼▼▼
+                                                // ▼▼▼ 7. DYNAMIC TOPPER LIST (Dense Ranking: 1, 1, 2, 2, 3) ▼▼▼
                 const medalEmojis = ["🥇", "🥈", "🥉"];
                 let topperHTML = '<div class="section-title"><i class="fas fa-trophy"></i> Top Rank Holders</div>';
                 
                 if (data.topRankers && data.topRankers.length > 0) {
                     
-                    let trueRank = 0; // Tracks the actual rank (1st, 2nd, 3rd)
-                    
-                    data.topRankers.forEach((student, index) => {
+                    let currentRank = 1; 
+
+                    for (let i = 0; i < data.topRankers.length; i++) {
+                        let student = data.topRankers[i];
+                        
+                        // Check if mark is lower than previous student
+                        if (i > 0 && student.total < data.topRankers[i-1].total) {
+                            currentRank++; // Move to next rank (e.g., Gold -> Silver)
+                        }
+
+                        // STOP if we have passed Rank 3
+                        if (currentRank > 3) break;
+
+                        // Fix Percentage formatting
                         let tPerc = parseFloat(String(student.percent).replace('%', ''));
                         if (!isNaN(tPerc) && tPerc <= 1) tPerc = tPerc * 100;
 
-                        // TIE CHECK LOGIC:
-                        // If it's the first student, Rank is 1 (index 0).
-                        // If this student has the SAME total as the previous one, keep the same rank.
-                        // If different, increase the rank.
-                        if (index === 0 || student.total < data.topRankers[index - 1].total) {
-                            trueRank = trueRank + 1;
-                        }
-                        // Note: If marks are equal, 'trueRank' does not increase, so they get the same medal.
-
-                        // Only show if rank is 1, 2, or 3 (Safety check)
-                        let displayMedal = (trueRank <= 3) ? medalEmojis[trueRank - 1] : ("#" + trueRank);
+                        // Get Medal (Index is Rank - 1)
+                        let displayMedal = medalEmojis[currentRank - 1];
 
                         topperHTML += `
                         <div class="topper-item">
@@ -423,7 +425,8 @@
                             </div>
                             <div class="t-total">${student.total}</div>
                         </div>`;
-                    });
+                    }
+
                 } else {
                     topperHTML += '<div style="padding:10px; text-align:center; color:#999; font-size:12px;">No data available</div>';
                 }
@@ -431,25 +434,49 @@
 
 
 
-                // ▼▼▼ 8. DYNAMIC ATTENDANCE LIST (Percentage from Sheet) ▼▼▼
+
+                                // ▼▼▼ 8. DYNAMIC ATTENDANCE LIST (With Tie Handling) ▼▼▼
                 let attnListHTML = '<div class="section-title"><i class="fas fa-calendar-check"></i> Best Attendance</div><div class="attn-row">';
                 
                 if (data.topAttendance && data.topAttendance.length > 0) {
-                    data.topAttendance.forEach((student, index) => {
-                        let aPerc = parseFloat(String(student.percent).replace('%', ''));
-                        if (!isNaN(aPerc) && aPerc <= 1) aPerc = aPerc * 100;
-                        
-                        attnListHTML += `
-                        <div class="attn-pill">
-                            <b>${index + 1}.</b> ${student.name} (${aPerc.toFixed(0)}%)
-                        </div>`;
-                    });
+                    let currentAttnRank = 1;
+
+                    for (let i = 0; i < data.topAttendance.length; i++) {
+                         let student = data.topAttendance[i];
+                         
+                         // 1. Clean up percentage
+                         let aPerc = parseFloat(String(student.percent).replace('%', ''));
+                         if (!isNaN(aPerc) && aPerc <= 1) aPerc = aPerc * 100;
+
+                         // 2. Tie Check Logic
+                         if (i > 0) {
+                             let prevStudent = data.topAttendance[i-1];
+                             let prevPerc = parseFloat(String(prevStudent.percent).replace('%', ''));
+                             if (!isNaN(prevPerc) && prevPerc <= 1) prevPerc = prevPerc * 100;
+                             
+                             // If current % is lower than previous, increase rank
+                             // If equal, rank stays the same (e.g., 1 -> 1)
+                             if (aPerc < prevPerc) {
+                                 currentAttnRank++;
+                             }
+                         }
+
+                         // 3. Stop if we go past Rank 3
+                         if (currentAttnRank > 3) break;
+
+                         attnListHTML += `
+                         <div class="attn-pill">
+                             <b>${currentAttnRank}.</b> ${student.name} (${aPerc.toFixed(0)}%)
+                         </div>`;
+                    }
                 } else {
                     attnListHTML += '<span style="color:#999; font-size:12px;">No data available</span>';
                 }
                 attnListHTML += '</div>';
                 
                 document.getElementById('attnListContainer').innerHTML = attnListHTML;
+                // ▲▲▲ END DYNAMIC LISTS ▲▲▲
+
 
             } else {
                 alert("Result not found!");
