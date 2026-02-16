@@ -487,7 +487,7 @@
 
 
 
-                                // ▼▼▼ 8. DYNAMIC ATTENDANCE LIST (With Tie Handling) ▼▼▼
+                                                // ▼▼▼ 8. DYNAMIC ATTENDANCE LIST (With Days & Percentage) ▼▼▼
                 let attnListHTML = '<div class="section-title"><i class="fas fa-calendar-check"></i> Best Attendance</div><div class="attn-row">';
                 
                 if (data.topAttendance && data.topAttendance.length > 0) {
@@ -506,19 +506,17 @@
                              let prevPerc = parseFloat(String(prevStudent.percent).replace('%', ''));
                              if (!isNaN(prevPerc) && prevPerc <= 1) prevPerc = prevPerc * 100;
                              
-                             // If current % is lower than previous, increase rank
-                             // If equal, rank stays the same (e.g., 1 -> 1)
                              if (aPerc < prevPerc) {
                                  currentAttnRank++;
                              }
                          }
 
-                         // 3. Stop if we go past Rank 3
                          if (currentAttnRank > 3) break;
 
+                         // --- UPDATED DISPLAY LINE ---
                          attnListHTML += `
                          <div class="attn-pill">
-                             <b>${currentAttnRank}.</b> ${student.name} (${aPerc.toFixed(0)}%)
+                             <b>${currentAttnRank}.</b> ${student.name} ${student.attendance} (${aPerc.toFixed(0)}%)
                          </div>`;
                     }
                 } else {
@@ -528,6 +526,7 @@
                 
                 document.getElementById('attnListContainer').innerHTML = attnListHTML;
                 // ▲▲▲ END DYNAMIC LISTS ▲▲▲
+
 
 
             } else {
