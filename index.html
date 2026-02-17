@@ -210,7 +210,27 @@
         .attn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 5px; }
         .attn-pill { background: white; border: 1px solid #e5e7eb; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #374151; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
 
-        .footer { text-align: center; padding: 20px; font-size: 12px; color: #9ca3af; }
+                .footer { 
+            text-align: center; 
+            padding: 40px 20px 30px; 
+            font-size: 10px; 
+            color: #9ca3af; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        
+        /* The Brand Name Style */
+        .footer-brand {
+            color: #0f766e; 
+            font-weight: 900; 
+            font-size: 11px;
+        }
+
                 /* --- FIX 1: MOVE DROPDOWN ARROW --- */
         select {
             /* 1. Remove the default ugly browser arrow */
@@ -471,7 +491,10 @@
             </div>
 
     </div> 
-    <div class="footer">Powered by <strong>Jouhar's Tech</strong></div>
+    <div class="footer">
+    POWERED BY <span class="footer-brand">EDUFLOW</span> &copy; 2026
+</div>
+
 </div>
 
 <script>
